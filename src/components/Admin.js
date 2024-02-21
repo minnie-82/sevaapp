@@ -5,16 +5,13 @@ import Login from "./Login";
 
 const Admin =()=>{
     return(
-        <View style={styles.container}>
+        <View className="p-0  flex-[1] items-center justify-center bg-red-200" >
             <Text>Admin Page</Text>
+            <Text>Welcome to Admin Page</Text>
+            <Text>Page made using NativeWind ~Tailwind </Text>
+            <Text className="bg-white w-full text-center m-2">Demo Page</Text>
         </View>
        );
 };
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-     justifyContent: 'center', // Vertically center the content
-     // Horizontally center the content
-    },
-  });
+
 export default Admin;

@@ -4,12 +4,12 @@ import Seva from './src/components/Seva';
 import Home from './src/components/Home';
 import Login from './src/components/Login';
 import UserHome from './src/components/user/UserHome';
-
+import Admin from './src/components/Admin';
 export default function App() {
   return (
     
     
-      <UserHome/>
+      <Admin/>
      
   );
 }
