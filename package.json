@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start -c",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -17,8 +17,8 @@
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.73.4",
-    "react-native-gesture-handler": "^2.15.0",
-    "react-native-reanimated": "^3.7.1",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-reanimated": "~3.6.2",
     "react-native-svg": "^14.1.0",
     "react-native-vector-icons": "^10.0.3"
   },
