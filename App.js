@@ -4,13 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import Seva from './src/components/Seva';
 import Home from './src/components/Home';
 import Login from './src/components/Login';
-import UserHome from './src/components/user/UserHome';
-import Admin from './src/components/Admin';
+import AdminHome from './src/components/Admin/AdminHome';
 export default function App() {
   return (
     
     
-      <Admin/>
+      <AdminHome/>
      
   );
 }

@@ -14,7 +14,6 @@ const Dashboard=()=>{
     return(
     <View style={styles.container}>
         <Text style={styles.text}>Dashboard</Text>
-      
     </View>
     );
 }
