@@ -5,7 +5,6 @@ import {createNativeStackNavigator}  from '@react-navigation/native-stack';
 
 import Medical from "./Medical";
 import Cleanliness from "./Cleanliness";
-import Admin from "./Admin";
 import Seva from "./Seva";
 
 function Home ({navigation}){
