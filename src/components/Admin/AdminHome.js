@@ -3,6 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Dashboard from './Dashboard';
+
 import Addadmin from './Addadmin';
 import Addseva from './Addseva';
 import Adddepartment from './Adddepartment';
@@ -18,8 +19,7 @@ const AdminHome = () => {
         <Drawer.Screen
           name="Dashboard"
           component={Dashboard}
-          options={{ title: "My dashboard"}}
-        />
+
         <Drawer.Screen name="Admin" component={Addadmin} />
         <Drawer.Screen name="Seva" component={Addseva} />  
         <Drawer.Screen name="Department" component={Adddepartment} />
