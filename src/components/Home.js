@@ -6,7 +6,6 @@ import {createNativeStackNavigator}  from '@react-navigation/native-stack';
 import Medical from "./Medical";
 import Cleanliness from "./Cleanliness";
 import Seva from "./Seva";
-
 function Home ({navigation}){
     const medical =()=>{
       navigation.navigate('Medical');
@@ -69,12 +68,14 @@ const App1 =()=>
 {
    return(
      <NavigationContainer>
-      <Stack.Navigator >
+      <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Seva" component={Home}/>
       <Stack.Screen name="Medical"  component={Medical}/>
       <Stack.Screen name="Cleanliness"  component={Cleanliness}/>
       <Stack.Screen name="Admin"  component={Admin}/>
       <Stack.Screen name="Nilkanth"  component={Seva}/>
+      <Stack.Screen name="Home"  component={Home}/>
+
             </Stack.Navigator>
      </NavigationContainer>
    );
