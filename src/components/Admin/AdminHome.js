@@ -18,7 +18,7 @@ const AdminHome = () => {
       <Drawer.Navigator>
         <Drawer.Screen
           name="Dashboard"
-          component={Dashboard}
+          component={Dashboard}/>
         <Drawer.Screen name="Admin" component={Addadmin} />
         <Drawer.Screen name="Seva" component={Addseva} />  
         <Drawer.Screen name="Department" component={Adddepartment} />
