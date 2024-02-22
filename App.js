@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import  AdminHome from "./src/components/Admin/AdminHome.js"
+import  AdminHome from "./src/components/Admin/AdminHome";
 
-import AdminHome from './src/components/Admin/AdminHome';
 export default function App() {
   return (
     
