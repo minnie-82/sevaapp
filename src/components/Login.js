@@ -13,34 +13,71 @@ import {
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error,SetError] = useState(false)
+  var saveData = ()=>{
+    if(!email){
+      alert("Kindle enter Email")
+      return false
+    }
+    else{
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+      if (reg.test(email) === false) {
+        SetError(true)
+        return false;
+      }
+      else {
+        SetError(false)
+      }
+    }
+    if(!password){
+      alert("Kindle enter Password")
+      return false
+    }
+
+    alert("API CALL HERE")
+    //add api logic here
+    
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>LOGIN</Text>
+      <Text style={styles.title}>Sign In</Text>
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
           placeholder="Email"
-          placeholderTextColor="#FF9800"
-          onChangeText={(email) => setEmail(email)}
-        />
+          placeholderTextColor="#000000"
+          onChangeText={(text) => 
+            { 
+             setEmail(text)
+            }
+          }
+          />
       </View>
+      {
+        error?<View><Text style={{color:"red",marginTop:0,marginBottom:10}}>Email is invalid!</Text></View>:<View><Text></Text></View>
+      }
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
           placeholder="Password"
-          placeholderTextColor="#FF9800"
+          placeholderTextColor="#000000"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.loginBtn} onPress={saveData}>
+        <Text style={styles.loginText}>Sign In</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={{width:"80%"}}>
         <Text style={styles.forgotButton}>Forgot Password?</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
+      <View style={{width:"100%",height:"20%",marginTop:0}}>
+      <Image source={require("../../assets/splash.png")} 
+          style={styles.image}>
+      </Image>
+      </View>
     </View>
   );
 };
@@ -48,19 +85,22 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3498db", // Blue color
+    backgroundColor: "#fff", 
     alignItems: "center",
     justifyContent: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FF9800", // Orange color
+    color: "#000000", 
     marginTop: 20,
     marginBottom: 20,
+    textAlign:"left",
+    width:"80%"
+    
   },
   inputView: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#ECF0F1",
     borderRadius: 30,
     width: "80%",
     height: 45,
@@ -73,12 +113,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
-    color: "#FF9800", // Orange color
+    color: "#000000", 
   },
   forgotButton: {
-    color: "#FF9800", // Orange color
-    marginTop: 10,
+    color: "#34495E", 
+    marginTop: 20,
     marginBottom: 30,
+    textAlign:"right",
+
   },
   loginBtn: {
     width: "80%",
@@ -86,13 +128,20 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#FF9800", // Orange color
+    marginTop: 20,
+    backgroundColor: "#B4CAF5", // Orange color
   },
   loginText: {
     color: "#ffffff",
     fontSize: 18,
   },
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode:"contain"
+}
+
 });
 
 export default Login;
