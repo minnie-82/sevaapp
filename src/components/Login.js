@@ -8,12 +8,15 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error,SetError] = useState(false)
+  const [loading,setLoading] = useState(false)
+  const [type,setType] = useState("user")
   var saveData = ()=>{
     if(!email){
       alert("Kindle enter Email")
@@ -34,14 +37,43 @@ const Login = () => {
       return false
     }
 
-    alert("API CALL HERE")
+    // alert("API CALL HERE")
     //add api logic here
-    
-  }
+    setLoading(true)
+    fetch(`https://10a2-42-106-206-123.ngrok-free.app/authenticate/${type}`, {method: "POST",body: JSON.stringify({email:email,password:password}),
+     headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    }).then((reponse)=>{
+      if(reponse.status===200)
+      {
+        return reponse.json()
+      }
+      throw new Error('Authentication error')
+    })
+    .then(json => {
+      setLoading(false)
+      alert(`${type}`+" logged in successfully") //intead add a logic to navigate to different page based on user type
+    }).catch((err)=>{
+      setLoading(false)
+      alert(err)
+    });
+}
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
+      <View style={{width:"80%",flex:0,flexDirection:"row",alignItems:"center",justifyContent:"start",gap:5,padding:20}}>
+        <Text>
+          Sign In as ?
+        </Text>
+      <TouchableOpacity style={[styles.RadioBtn,type==="admin"?{backgroundColor:"#ff8e01"}:{backgroundColor:"#003e6d"}]} onPress={()=>{setType("admin")}}>
+        <Text style={styles.loginText}>Admin</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.RadioBtn,type==="user"?{backgroundColor:"#ff8e01"}:{backgroundColor:"#003e6d"}]} onPress={()=>{setType("user")}}>
+        <Text style={styles.loginText}>User</Text>
+      </TouchableOpacity>
+      </View>
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -68,7 +100,7 @@ const Login = () => {
         />
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={saveData}>
-        <Text style={styles.loginText}>Sign In</Text>
+        <Text style={styles.loginText}>{loading?"Signing In ... ":"Sign In"}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{width:"80%"}}>
         <Text style={styles.forgotButton}>Forgot Password?</Text>
@@ -92,7 +124,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#000000", 
+    color: "#003e6d", 
     marginTop: 20,
     marginBottom: 20,
     textAlign:"left",
@@ -116,7 +148,7 @@ const styles = StyleSheet.create({
     color: "#000000", 
   },
   forgotButton: {
-    color: "#34495E", 
+    color: "#003e6d", 
     marginTop: 20,
     marginBottom: 30,
     textAlign:"right",
@@ -129,7 +161,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    backgroundColor: "#B4CAF5", // Orange color
+    backgroundColor: "#003e6d", // Orange color
   },
   loginText: {
     color: "#ffffff",
@@ -140,6 +172,15 @@ const styles = StyleSheet.create({
     width: null,
     height: null,
     resizeMode:"contain"
+},
+RadioBtn: {
+  width: "30%",
+  borderRadius: 10,
+  height: 35,
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "#003e6d",
+  marginLeft:10 
 }
 
 });
