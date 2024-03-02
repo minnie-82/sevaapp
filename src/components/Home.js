@@ -26,9 +26,6 @@ function Home ({navigation}){
      return(
     
          <View style={{padding:20,width:'100%'}}>
-                  
-                  
-                 
                   <View style={{marginTop:20,marginBottom:20}}>
                     <Button  title="MEDICAL" onPress={medical} />  
                        </View>
@@ -75,8 +72,7 @@ const App1 =()=>
       <Stack.Screen name="Admin"  component={Admin}/>
       <Stack.Screen name="Nilkanth"  component={Seva}/>
       <Stack.Screen name="Home"  component={Home}/>
-
-            </Stack.Navigator>
+        </Stack.Navigator>
      </NavigationContainer>
    );
 }
