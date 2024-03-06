@@ -1,15 +1,25 @@
 import React from 'react';
 import { Text, View,SafeAreaView,Image,TouchableOpacity,StyleSheet } from 'react-native';
 import { FontAwesome } from "@expo/vector-icons";
-
+import { useNavigation } from '@react-navigation/native';
 const UserProfile =()=>{
+   const navigation=useNavigation();
+
+  const goToHomePage = () => {
+    // Navigate to the profile page here
+    // You need to have a "Profile" screen defined in your navigation stack
+    navigation.navigate('Home');
+  };
+
    return(
       <SafeAreaView>
       <View style={{width:'100%',height:'100%',marginTop:30}}>
       <View style={{width:'100%',height:'8%',flex:0,alignItems:'flex-end',justifyContent:'center'}}>
+      <TouchableOpacity onPress={goToHomePage}>
          <View style={{marginRight:20,width:45,height:45,backgroundColor:"transparent",flex:0,alignItems:"center",justifyContent:"center",borderRadius:100,backgroundColor:"transparent",borderColor:"#000000",borderWidth:0.7}}>
             <FontAwesome name='remove' size={25} color={"#000000"}/>
         </View>
+        </TouchableOpacity>
       </View>
 
       <View style={{width:'100%',height:'25%',flex:0,alignItems:'center',justifyContent:'center',flexDirection:'column'}}>

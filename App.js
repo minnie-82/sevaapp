@@ -6,10 +6,11 @@ import UserHome from './src/components/User/UserHome';
 import Login from './src/components/Login';
 import UserProfile from './src/components/User/UserProfile';
 import SevaDetails from './src/components/User/SevaDetails';
+
 export default function App() {
   return (
 
-        <SevaDetails/>
+        <UserHome/>
      
   );
 }

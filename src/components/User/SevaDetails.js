@@ -1,13 +1,23 @@
 import { View, Text ,Image,SafeAreaView,TouchableOpacity,LayoutAnimation,StyleSheet} from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const SevaDetails = () => {
   const [on,setOn]=useState(false)  
   const offColor ="#C1C1C1"
   const onColor = "#92B0FF"
+  const navigation=useNavigation();
+
+  const goToHomePage = () => {
+    // Navigate to the profile page here
+    // You need to have a "Profile" screen defined in your navigation stack
+    navigation.navigate('Home');
+  };
+
   return (
     <SafeAreaView>
+    
     <View style={{marginTop:30,width:"100%",height:"100%",backgroundColor:"#F8E9C8",flex:0,flexDirection:"column",}}>
       <View style={{width:"100%",height:"18%",backgroundColor:"transparent",flex:0,flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
         <View>
@@ -15,13 +25,17 @@ const SevaDetails = () => {
                 style={{height:100,width:100,borderRadius:100,marginLeft:20}}>
         </Image>
         </View>
+        
         <View style={{backgroundColor:"transparent",height:"100%",padding:10,flex:0,alignItems:"flex-start",justifyContent:"flex-start"}}>
+        <TouchableOpacity onPress={goToHomePage}>
         <View style={{width:45,height:45,backgroundColor:"transparent",flex:0,alignItems:"center",justifyContent:"center",borderRadius:100,backgroundColor:"transparent",borderColor:"#070606",borderWidth:0.7,transform: [{ rotateZ: '-90deg' }],marginRight:30,marginTop:10}}>
-            <FontAwesome name='long-arrow-up' size={25} color={"#070606"}/>
+            <FontAwesome name='long-arrow-up' size={25} color={"#070606"} />
         </View>
+        </TouchableOpacity>
         </View>
+       
       </View>
-
+   
       <View style={{widht:"100%",height:"45%",backgroundColor:"transparent" ,padding:20}}>
         <Text style={{fontSize:35,fontWeight:"bold"}}>Nilkanth Varni</Text>
         <View style={{flex:0,flexDirection:"row",gap:10,alignItems:"center",justifyContent:"start",marginTop:15}}>
