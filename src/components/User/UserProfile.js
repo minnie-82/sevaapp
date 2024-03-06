@@ -10,6 +10,9 @@ const UserProfile =()=>{
     // You need to have a "Profile" screen defined in your navigation stack
     navigation.navigate('Home');
   };
+  const goToLoginPage = ()=>{
+   navigation.navigate("Login")
+  }
 
    return(
       <SafeAreaView>
@@ -105,7 +108,7 @@ const UserProfile =()=>{
 
       </View>
       <View style={{width:'100%',height:'17%',flex:0,alignItems:'center',justifyContent:'center'}}>
-      <TouchableOpacity style={styles.signOutBtn}>
+      <TouchableOpacity onPress={goToLoginPage} style={styles.signOutBtn}>
         <Text style={styles.signOutText}>Sign Out</Text>
       </TouchableOpacity>
       </View>
