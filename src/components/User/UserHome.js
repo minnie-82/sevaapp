@@ -66,12 +66,20 @@ const UserHome = () => {
               headerShown:false
             }
           }/>
+          <Drawer.Screen name="Seva Notification" component={UserProfile}   options={
+            {
+              drawerIcon:({color})=>(<FontAwesome name='bell' size={22} color={color}/>),
+              headerShown:false,
+            }
+          }/> 
+          {/* change the component name in above notification */}
         <Drawer.Screen name="UserProfile" component={UserProfile}   options={
             {
               headerShown:false,
               drawerLabel:()=>null
             }
           }/>
+          
           <Drawer.Screen name="Login" component={Login}   options={
             {
               headerShown:false,
