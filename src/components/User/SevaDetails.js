@@ -10,9 +10,7 @@ const SevaDetails = () => {
   const navigation=useNavigation();
 
   const goToHomePage = () => {
-    // Navigate to the profile page here
-    // You need to have a "Profile" screen defined in your navigation stack
-    navigation.navigate('Home');
+      navigation.navigate('Home');
   };
 
   return (

@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import SevaDetails from './SevaDetails';
 import UserProfile from './UserProfile';
 import Login from '../Login'
+import SevaNotification from './SevaNotifications';
 
 const Drawer = createDrawerNavigator();
 
@@ -60,13 +61,13 @@ const UserHome = () => {
               headerShown:false
             }
           }/>
-        <Drawer.Screen name="My Seva" component={YourSeva} options={
+        <Drawer.Screen name="My Seva" component={SevaDetails} options={
             {
               drawerIcon:({color})=>(<FontAwesome name='gear' size={22} color={color}/>),
               headerShown:false
             }
           }/>
-          <Drawer.Screen name="Seva Notification" component={UserProfile}   options={
+          <Drawer.Screen name="Seva Notification" component={SevaNotification}   options={
             {
               drawerIcon:({color})=>(<FontAwesome name='bell' size={22} color={color}/>),
               headerShown:false,
@@ -97,8 +98,7 @@ const UserHome = () => {
 const HomeScreen = ({ navigation }) => {
   
   const goToProfilePage = () => {
-    // Navigate to the profile page here
-    // You need to have a "Profile" screen defined in your navigation stack
+    
     navigation.navigate('UserProfile');
   };
   return (
