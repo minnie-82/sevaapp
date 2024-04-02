@@ -2,7 +2,7 @@ import { View, Text ,Image,SafeAreaView,TouchableOpacity,LayoutAnimation,StyleSh
 import { FontAwesome } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-
+import Myseva from './MySeva';
 const SevaDetails = () => {
   const [on,setOn]=useState(false)  
   const offColor ="#C1C1C1"
@@ -10,12 +10,12 @@ const SevaDetails = () => {
   const navigation=useNavigation();
 
   const goToHomePage = () => {
-      navigation.navigate('Home');
+      navigation.navigate('My Seva');
   };
 
   return (
     <SafeAreaView>
-    
+
     <View style={{marginTop:30,width:"100%",height:"100%",backgroundColor:"#F8E9C8",flex:0,flexDirection:"column",}}>
       <View style={{width:"100%",height:"18%",backgroundColor:"transparent",flex:0,flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
         <View>
@@ -75,6 +75,7 @@ const SevaDetails = () => {
       </TouchableOpacity>
       </View>
     </View>
+    
     </SafeAreaView>
 
   )
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   signOutText: {
     color: "#ffffff",
     fontSize: 18,
-  }
+  },
  
 
 });

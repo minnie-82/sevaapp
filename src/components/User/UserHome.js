@@ -11,6 +11,7 @@ import SevaDetails from './SevaDetails';
 import UserProfile from './UserProfile';
 import Login from '../Login'
 import SevaNotification from './SevaNotifications';
+import Myseva from './MySeva';
 
 const Drawer = createDrawerNavigator();
 
@@ -61,7 +62,7 @@ const UserHome = () => {
               headerShown:false
             }
           }/>
-        <Drawer.Screen name="My Seva" component={SevaDetails} options={
+        <Drawer.Screen name="My Seva" component={Myseva} options={
             {
               drawerIcon:({color})=>(<FontAwesome name='gear' size={22} color={color}/>),
               headerShown:false
@@ -87,7 +88,12 @@ const UserHome = () => {
               drawerLabel:()=>null
             }
           }/>
-        
+ <Drawer.Screen name="SevaDetails" component={SevaDetails}   options={
+            {
+              headerShown:false,
+              drawerLabel:()=>null
+            }
+          }/>
 
       </Drawer.Navigator>
     </NavigationContainer>
