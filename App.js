@@ -6,11 +6,20 @@ import UserHome from './src/components/User/UserHome';
 import Login from './src/components/Login';
 import UserProfile from './src/components/User/UserProfile';
 import SevaDetails from './src/components/User/SevaDetails';
+import Addseva from './src/components/Admin/Addseva';
+import SevaNotificationCard from './src/components/User/SevaNotificationCard';
 
 export default function App() {
   return (
+    
 
-        <UserHome/>
+        // <UserHome/>
+        // <Addseva></Addseva>
+        // <SevaNotificationCard></SevaNotificationCard>
+        // <SevaNotifications></SevaNotifications>
+        // <Login>
+        // </Login>
+        <AdminHome></AdminHome>
      
   );
 }

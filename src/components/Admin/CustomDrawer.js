@@ -22,11 +22,11 @@ const CustomDrawer = (props)=>{
             </View>
  
         </DrawerContentScrollView>
-        <View style={{padding:20,borderTopWidth:0.5,borderTopColor:"#3399ff"}}>
+        <View style={{padding:20,borderTopWidth:0.5,borderTopColor:"#   "}}>
             <TouchableOpacity onPress={()=>{}}>
                 <View style={{flex:0,flexDirection:"row",gap:6}}>
-                <FontAwesome name="sign-out" size={22} color={"#3399ff"}/>
-                <Text style={{color:"#3399ff"}}>
+                <FontAwesome name="sign-out" size={22} color={"#F8E9C8"}/>
+                <Text style={{color:"#181414"}}>
                 Logout
             </Text>
                 </View>
