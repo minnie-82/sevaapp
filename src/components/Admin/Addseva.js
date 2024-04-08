@@ -12,9 +12,13 @@ import {
   Animated,
   TouchableWithoutFeedback,
   Modal,
+  Pressable,
+  Platform,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { Dropdown } from "react-native-element-dropdown";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import AllSevaCard from "./AllSevaCard";
 import { AntDesign, Entypo } from "@expo/vector-icons";
@@ -31,6 +35,51 @@ const Addseva = () => {
     time: "",
     instruction: "",
   });
+
+  const [dateData, setDateData] = useState("");
+
+  const data = [
+    { label: "Nilkanth Mandapam", value: "1" },
+    { label: "Cleanliness", value: "2" },
+    { label: "Medical Department", value: "3" },
+    { label: "Prasad Vitran", value: "4" },
+    { label: "Sabha Vaivastha", value: "5" },
+  ];
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return (
+        <Text style={[styles.label, isFocus && { color: "blue" }]}>
+          Dropdown label
+        </Text>
+      );
+    }
+    return null;
+  };
+
+  //datetimepiker
+
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
+  const toggleDatePicker = () => {
+    setShowPicker(!showPicker);
+  };
+
+  const onChange = ({ type }, selectedDate) => {
+    if (type == "set") {
+      const currentDate = selectedDate;
+      setDate(currentDate);
+      if (Platform.OS === "android") {
+        toggleDatePicker();
+        setDateData(currentDate.toDateString());
+      }
+    } else {
+      toggleDatePicker();
+    }
+  };
+
   const handleOpenModal = () => {
     setIsModalVisible(true);
   };
@@ -95,11 +144,6 @@ const Addseva = () => {
     ],
   };
 
-  // const opacity = this.animation.interpolate({
-  //   inputRange: [0, 0.5, 1],
-  //   outputRange: [0, 0, 1],
-  // });
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
@@ -149,7 +193,7 @@ const Addseva = () => {
               <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
                   {/* Form fields */}
-                  <TextInput
+                  {/* <TextInput
                     style={styles.textInput}
                     placeholder="Department"
                     placeholderTextColor="#000000"
@@ -157,23 +201,72 @@ const Addseva = () => {
                     onChangeText={(text) =>
                       handleInputChange("department", text)
                     }
+                  /> */}
+                  <Dropdown
+                    style={[
+                      styles.dropdown,
+                      isFocus && { borderColor: "blue" },
+                    ]}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    data={data}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder={!isFocus ? "Select item" : "..."}
+                    searchPlaceholder="Search..."
+                    value={value}
+                    onFocus={() => setIsFocus(true)}
+                    onBlur={() => setIsFocus(false)}
+                    onChange={(item) => {
+                      setValue(item.value);
+                      setIsFocus(false);
+                    }}
+                    renderLeftIcon={() => (
+                      <AntDesign
+                        style={styles.icon}
+                        color={isFocus ? "blue" : "black"}
+                        name="Safety"
+                        size={20}
+                      />
+                    )}
                   />
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder="Date"
-                    placeholderTextColor="#000000"
-                    value={formData.date}
-                    onChangeText={(text) => handleInputChange("date", text)}
-                  />
+                  <View>
+                    {showPicker && (
+                      <DateTimePicker
+                        mode="date"
+                        display="spinner"
+                        value={date}
+                        onChange={onChange}
+                      ></DateTimePicker>
+                    )}
+                    {!showPicker && (
+                      <Pressable onPress={toggleDatePicker}>
+                        <TextInput
+                          style={styles.textInput}
+                          placeholder="12 Aug 2024"
+                          placeholderTextColor="#000000"
+                          value={dateData}
+                          onChangeText={setDateData}
+                          editable={false}
+                        />
+                      </Pressable>
+                    )}
+                  </View>
+
                   <TextInput
                     style={styles.textInput}
                     placeholder="Time"
                     placeholderTextColor="#000000"
                     value={formData.time}
                     onChangeText={(text) => handleInputChange("time", text)}
+                    
                   />
                   <TextInput
-                    style={styles.textInput}
+                    style={styles.textInstruction}
                     placeholder="Instruction"
                     placeholderTextColor="#000000"
                     value={formData.instruction}
@@ -183,7 +276,7 @@ const Addseva = () => {
                   />
 
                   {/* Add and close buttons */}
-                  <TouchableOpacity style={styles.addButton}>
+                  {/* <TouchableOpacity style={styles.addButton}>
                     <Text style={styles.buttonText}>Add</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -191,7 +284,18 @@ const Addseva = () => {
                     onPress={handleCloseModal}
                   >
                     <Text style={styles.buttonText}>Close</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.addButton}>
+                      <Text style={styles.buttonText}>Add</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.closeButton}
+                      onPress={handleCloseModal}
+                    >
+                      <Text style={styles.buttonText}>Close</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -296,24 +400,24 @@ const Addseva = () => {
           </View>
         </View>
       </ScrollView>
-      <TouchableWithoutFeedback>
+      {/* <TouchableWithoutFeedback>
         <Animated.View
           style={[styles.floatingButton, styles.secondary, Add2Style]}
         >
           <Entypo name="plus" size={20} color="#003e6d"></Entypo>
         </Animated.View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
 
-      <TouchableWithoutFeedback onPress={handleOpenModal}>
+      {/* <TouchableWithoutFeedback onPress={handleOpenModal}>
         <Animated.View
           style={[styles.floatingButton, styles.secondary, AddStyle]}
         >
           <Entypo name="plus" size={20} color="#003e6d"></Entypo>
         </Animated.View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
 
-      <TouchableWithoutFeedback onPress={this.toggleMenu}>
-        <Animated.View style={[styles.floatingButton, styles.menu, rotation]}>
+      <TouchableWithoutFeedback onPress={handleOpenModal}>
+        <Animated.View style={[styles.floatingButton, styles.menu]}>
           <AntDesign name="plus" size={24} color="#FFF"></AntDesign>
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -405,23 +509,83 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
+    // alignContent:"flex-start"
+  },
+  textInstruction: {
+    height: 200,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    textAlignVertical: "top",
+    paddingVertical: 10,
   },
   addButton: {
     backgroundColor: "#003e6d",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 5,
     borderRadius: 5,
-    alignItems: "center",
-    marginTop: 10,
   },
   closeButton: {
     backgroundColor: "red",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 5,
     borderRadius: 5,
-    alignItems: "center",
-    marginTop: 10,
   },
   buttonText: {
     color: "white",
+  },
+  buttonContainer: {
+    flexDirection: "row", // Align buttons horizontally
+  },
+  button: {
+    backgroundColor: "#003e6d",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 5,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  dropdown: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    marginBottom: 10,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: "absolute",
+    backgroundColor: "white",
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 1,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    borderRadius: 10,
+    fontSize: 16,
   },
 });
 
