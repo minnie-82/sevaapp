@@ -8,32 +8,35 @@ import {
   SafeAreaView,
   ScrollView,
   TextInput,
-  Alert,
   Animated,
-  TouchableWithoutFeedback,
-  Modal,
   Pressable,
   Platform,
+  Button,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
-import AllSevaCard from "./AllSevaCard";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import SavaInfoAdd from "./SevaInfoAdd";
-const Addseva = () => {
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import SelectUserScreen from "./SelectUserScreen";
+// import AddButton from "./AddButton";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const SevaInfoAdd = () => {
   const navigation = useNavigation();
 
-  // const goToHomePage = () => {
-  //   navigation.navigate("Home");
-  // };
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [formData, setFormData] = useState({
     department: "",
     instruction: "",
   });
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleAddUser = (user) => {
+    setSelectedUser(user);
+  };
 
   const data = [
     { label: "Nilkanth Mandapam", value: "1" },
@@ -44,17 +47,6 @@ const Addseva = () => {
   ];
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
-  //this is for label of department
-  const renderLabel = () => {
-    if (value || isFocus) {
-      return (
-        <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Select Department
-        </Text>
-      );
-    }
-    return null;
-  };
 
   //datetimepiker
   const [dateData, setDateData] = useState("");
@@ -99,12 +91,8 @@ const Addseva = () => {
     }
   };
 
-  const handleOpenModal = () => {
-    navigation.navigate("SaveInfoAdd");
-  };
-
   const handleCloseModal = () => {
-    setIsModalVisible(false);
+    navigation.navigate("Addseva");
   };
 
   const handleInputChange = (fieldName, value) => {
@@ -122,48 +110,11 @@ const Addseva = () => {
 
     this.open = !this.open;
   };
-  const AddStyle = {
-    transform: [
-      {
-        scale: this.animation,
-      },
-      {
-        translateY: this.animation.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -80],
-        }),
-      },
-    ],
-  };
-  const Add2Style = {
-    transform: [
-      {
-        scale: this.animation,
-      },
-      {
-        translateY: this.animation.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -140],
-        }),
-      },
-    ],
-  };
-
-  const rotation = {
-    transform: [
-      {
-        rotate: this.animation.interpolate({
-          inputRange: [0, 1],
-          outputRange: ["0deg", "45deg"],
-        }),
-      },
-    ],
-  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
-        <View style={styles.container}>
+        <View style={styles.container} onRequestClose={handleCloseModal}>
           <View
             style={{
               marginTop: 0,
@@ -200,145 +151,172 @@ const Addseva = () => {
                 />
               </View>
             </View>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={isModalVisible}
-              onRequestClose={handleCloseModal}
-            >
-              <View style={styles.modalContainer}>
-                <View style={styles.modalContent}>
-                  {/* Form fields */}
-                  {/* <TextInput
-                    style={styles.textInput}
-                    placeholder="Department"
-                    placeholderTextColor="#000000"
-                    value={formData.department}
-                    onChangeText={(text) =>
-                      handleInputChange("department", text)
-                    }
-                  /> */}
-                  {renderLabel()}
-                  <Dropdown
-                    style={[
-                      styles.dropdown,
-                      isFocus && { borderColor: "blue" },
-                    ]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    data={data}
-                    search
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={!isFocus ? "Select item" : "..."}
-                    searchPlaceholder="Search..."
-                    value={value}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={(item) => {
-                      setValue(item.value);
-                      setIsFocus(false);
-                    }}
-                    renderLeftIcon={() => (
-                      <AntDesign
-                        style={styles.icon}
-                        color={isFocus ? "blue" : "black"}
-                        name="Safety"
-                        size={20}
-                      />
-                    )}
-                  />
-                  <View>
-                    {showPicker && (
-                      <DateTimePicker
-                        mode="date"
-                        display="spinner"
-                        value={date}
-                        onChange={onChange}
-                      ></DateTimePicker>
-                    )}
-                    {!showPicker && (
-                      <Pressable onPress={toggleDatePicker}>
-                        <TextInput
-                          style={styles.textInput}
-                          placeholder="12 Aug 2024"
-                          placeholderTextColor="#000000"
-                          value={dateData}
-                          onChangeText={setDateData}
-                          editable={false}
-                        />
-                      </Pressable>
-                    )}
-                  </View>
-
-                  <View>
-                    {showTimePicker && (
-                      <DateTimePicker
-                        mode="time"
-                        display="spinner"
-                        value={time}
-                        onChange={onChangeTime}
-                      ></DateTimePicker>
-                    )}
-
-                    {!showTimePicker && (
-                      <Pressable onPress={toggleTimePicker}>
-                        <TextInput
-                          style={styles.textInput}
-                          placeholder="Time"
-                          placeholderTextColor="#000000"
-                          value={timeData}
-                          onChangeText={setTimeData}
-                          editable={false}
-                        />
-                      </Pressable>
-                    )}
-                  </View>
-
-                  {/* <TextInput
-                    style={styles.textInput}
-                    placeholder="Time"
-                    placeholderTextColor="#000000"
-                    value={formData.time}
-                    onChangeText={(text) => handleInputChange("time", text)}
-                  /> */}
-                  <TextInput
-                    style={styles.textInstruction}
-                    placeholder="Instruction"
-                    placeholderTextColor="#000000"
-                    value={formData.instruction}
-                    onChangeText={(text) =>
-                      handleInputChange("instruction", text)
-                    }
-                  />
-
-                  {/* Add and close buttons */}
-                  {/* <TouchableOpacity style={styles.addButton}>
-                    <Text style={styles.buttonText}>Add</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.closeButton}
-                    onPress={handleCloseModal}
-                  >
-                    <Text style={styles.buttonText}>Close</Text>
-                  </TouchableOpacity> */}
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.addButton}>
-                      <Text style={styles.buttonText}>Add</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.closeButton}
-                      onPress={handleCloseModal}
-                    >
-                      <Text style={styles.buttonText}>Close</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
+            <View></View>
+            <View style={styles.modalContent}>
+              <View>
+                <Dropdown
+                  style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  iconStyle={styles.iconStyle}
+                  data={data}
+                  search
+                  maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={!isFocus ? "Select item" : "..."}
+                  searchPlaceholder="Search..."
+                  value={value}
+                  onFocus={() => setIsFocus(true)}
+                  onBlur={() => setIsFocus(false)}
+                  onChange={(item) => {
+                    setValue(item.value);
+                    setIsFocus(false);
+                  }}
+                  renderLeftIcon={() => (
+                    <AntDesign
+                      style={styles.icon}
+                      color={isFocus ? "blue" : "black"}
+                      name="Safety"
+                      size={20}
+                    />
+                  )}
+                />
               </View>
-            </Modal>
+
+              <View>
+                {showPicker && (
+                  <DateTimePicker
+                    mode="date"
+                    display="spinner"
+                    value={date}
+                    onChange={onChange}
+                  ></DateTimePicker>
+                )}
+                {!showPicker && (
+                  <Pressable
+                    onPress={toggleDatePicker}
+                    style={styles.pressableContainer}
+                  >
+                    <TextInput
+                      style={styles.textInput}
+                      placeholder="12 Aug 2024"
+                      placeholderTextColor="#000000"
+                      value={dateData}
+                      onChangeText={setDateData}
+                      editable={false}
+                    />
+                    <FontAwesome
+                      name="calendar"
+                      size={24}
+                      color="black"
+                      style={styles.calendarIcon}
+                    />
+                  </Pressable>
+                )}
+              </View>
+
+              <View>
+                {showTimePicker && (
+                  <DateTimePicker
+                    mode="time"
+                    display="spinner"
+                    value={date}
+                    onChange={onChangeTime}
+                  ></DateTimePicker>
+                )}
+                {!showTimePicker && (
+                  <Pressable
+                    onPress={toggleTimePicker}
+                    style={styles.pressableContainer}
+                  >
+                    <TextInput
+                      style={styles.textInput}
+                      placeholder="Time"
+                      placeholderTextColor="#000000"
+                      value={timeData}
+                      onChangeText={setTimeData}
+                      editable={false}
+                    />
+                    <FontAwesome
+                      name="clock-o"
+                      size={24}
+                      color="black"
+                      style={styles.calendarIcon}
+                    />
+                  </Pressable>
+                )}
+              </View>
+
+              <View>
+                <TextInput
+                  style={styles.textDetails}
+                  placeholder="Details"
+                  placeholderTextColor="#000000"
+                  value={formData.details}
+                  onChangeText={(text) =>
+                    handleInputChange("detail", text)
+                  }
+                />
+              </View>
+              <View>
+                <TextInput
+                  style={styles.textInstruction}
+                  placeholder="Instruction"
+                  placeholderTextColor="#000000"
+                  value={formData.instruction}
+                  onChangeText={(text) =>
+                    handleInputChange("instruction", text)
+                  }
+                />
+              </View>
+
+              <View style={styles.leaderContainer}>
+               
+                <Text style={styles.leadertextInput}>
+                  Selected Leader : {selectedUser ? selectedUser.name : "None"}
+                </Text>
+                <TouchableOpacity
+                  style={styles.leaderaddButton}
+                  onPress={() =>
+                    navigation.navigate("SelectUserScreen", { handleAddUser })
+                  }
+                >
+                  <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text>
+                  Selected User: {selectedUser ? selectedUser.name : "None"}
+                </Text>
+                <Button
+                  title="Add User"
+                  onPress={() =>
+                    navigation.navigate("SelectUserScreen", { handleAddUser })
+                  }
+                />
+              </View> */}
+
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={handleCloseModal}
+                >
+                  <Text style={styles.buttonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
 
             {/* <View
               style={{
@@ -427,40 +405,10 @@ const Addseva = () => {
                 alignItems: "center",
                 justifyContent: "start",
               }}
-            >
-              <AllSevaCard />
-              <AllSevaCard />
-            </View>
-            {/* <TouchableOpacity
-              style={styles.floatingButton}
-              onPress={onButtonPress}
-            >
-              <Ionicons name="add-circle" size={50} color="#003e6d" />
-            </TouchableOpacity> */}
+            ></View>
           </View>
         </View>
       </ScrollView>
-      {/* <TouchableWithoutFeedback>
-        <Animated.View
-          style={[styles.floatingButton, styles.secondary, Add2Style]}
-        >
-          <Entypo name="plus" size={20} color="#003e6d"></Entypo>
-        </Animated.View>
-      </TouchableWithoutFeedback> */}
-
-      {/* <TouchableWithoutFeedback onPress={handleOpenModal}>
-        <Animated.View
-          style={[styles.floatingButton, styles.secondary, AddStyle]}
-        >
-          <Entypo name="plus" size={20} color="#003e6d"></Entypo>
-        </Animated.View>
-      </TouchableWithoutFeedback> */}
-
-      <TouchableWithoutFeedback onPress={handleOpenModal}>
-        <Animated.View style={[styles.floatingButton, styles.menu]}>
-          <AntDesign name="plus" size={24} color="#FFF"></AntDesign>
-        </Animated.View>
-      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
@@ -537,21 +485,34 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   modalContent: {
-    backgroundColor: "white",
-    padding: 20,
+    // backgroundColor: "white",
+    padding: 0.5,
+    paddingStart: 0,
     borderRadius: 10,
-    width: "80%",
+    width: "85%",
   },
   textInput: {
-    height: 40,
+    height: 35,
+    // borderColor: "gray",
+    // borderWidth: 1,
+    // marginBottom: 10,
+    // paddingHorizontal: 10,
+    // borderRadius: 5,
+    // alignContent:"flex-start"
+    flex: 1, // Take remaining space
+    marginRight: 10, // Add margin between TextInput and icon
+  },
+  textInstruction: {
+    height: 100,
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-    // alignContent:"flex-start"
+    textAlignVertical: "top",
+    paddingVertical: 10,
   },
-  textInstruction: {
+  textDetails: {
     height: 200,
     borderColor: "gray",
     borderWidth: 1,
@@ -581,6 +542,34 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row", // Align buttons horizontally
   },
+  leaderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  leaderaddButton: {
+    backgroundColor: "#003e6d",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 5,
+    borderRadius: 5,
+    height: 36,
+  },
+  leadertextInput: {
+    height: 35,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    justifyContent:"center",
+    textAlign:"center",
+    // alignContent: "flex-start",
+    // alignItems:"center",
+    paddingVertical: 6,
+    flex: 1, // Take remaining space
+    marginRight: 10, // Add margin between TextInput and icon
+  },
+
   button: {
     backgroundColor: "#003e6d",
     paddingVertical: 10,
@@ -593,7 +582,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   dropdown: {
-    height: 40,
+    height: 45,
     borderColor: "gray",
     borderWidth: 1,
     borderRadius: 8,
@@ -607,7 +596,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "white",
     left: 22,
-    top: 8,
+    top: 5,
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
@@ -627,6 +616,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 16,
   },
+  calendarIcon: {
+    marginLeft: "auto", // Move icon to the right edge
+  },
+  pressableContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1, // Add border for visualization
+    borderRadius: 5, // Add border radius for visualization
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginBottom: 10,
+    borderColor: "gray",
+  },
 });
+const Stack = createStackNavigator();
 
-export default Addseva;
+export default SevaInfoAdd;
