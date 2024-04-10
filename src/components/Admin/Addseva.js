@@ -148,6 +148,7 @@ const Addseva = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         <View style={styles.container}>
+        
           <View
             style={{
               marginTop: 0,
@@ -183,6 +184,7 @@ const Addseva = () => {
                   style={{ height: 90, width: 150 }}
                 />
               </View>
+              
             </View>
             <Modal
               animationType="slide"
