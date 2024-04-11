@@ -10,15 +10,18 @@ import Addseva from "./src/components/Admin/Addseva";
 import SevaNotificationCard from "./src/components/User/SevaNotificationCard";
 import SevaInfoAdd from "./src/components/Admin/SevaInfoAdd";
 import AddButton from "./src/components/Admin/AddButton";
+import { UserProvider } from "./src/components/global";
 export default function App() {
   return (
     // <UserHome/>
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
-    // <Login>
-    // </Login>
-    <AdminHome></AdminHome>
+
+    <UserProvider>
+      <Login />
+    </UserProvider>
+    // <AdminHome></AdminHome>
     // <SevaInfoAdd></SevaInfoAdd>
     // <AddButton></AddButton>
   );
