@@ -11,9 +11,12 @@ import {
   Button,
 } from "react-native";
 import { API_ENDPOINT } from "./global";
-import { useUser } from "./global";
+import { useUser, updateSevaData } from "./global";
 import { useNavigation } from "@react-navigation/native";
 import UserHome from "./User/UserHome";
+import { addUser, updateUser } from "./User/user_api";
+import { addAdmin } from "./Admin/admin_api";
+import { getAllSeva } from "./seva_api";
 
 const Login = () => {
   // const navigation = useNavigation();
@@ -24,6 +27,28 @@ const Login = () => {
   const [type, setType] = useState("user");
   const [userId, setUserId] = useState("");
   const { userData, setUserData } = useUser();
+  // const newuserdta = {
+  //   fname: "dummy",
+  //   lname: "data",
+  //   age: "10",
+  //   address: "borivali",
+  //   keshatra: "2A",
+  //   dob: "2014-01-01",
+  //   is_student: "yes",
+  //   is_working: "no",
+  //   occupation: "no",
+  //   role: "User",
+  //   email: "dummmy@gmail.com",
+  //   phone_no: "7898789868",
+  // };
+
+  // const adminData = {
+  //   fname: 'Arshyogi',
+  //   lname: 'Swaki',
+  //   email: 'arshyogidas@example.com',
+  //   phone_no: '7867569080'
+  // };
+
   var saveData = () => {
     if (!email) {
       alert("Kindle enter Email");
@@ -45,6 +70,7 @@ const Login = () => {
     // alert("API CALL HERE")
     //add api logic here
     setLoading(true);
+    console.log(`${API_ENDPOINT}authenticate/${type}`);
     fetch(`${API_ENDPOINT}authenticate/${type}`, {
       method: "POST",
       body: JSON.stringify({ email: email, password: password }),
@@ -65,8 +91,17 @@ const Login = () => {
           setUserId(json.user_id); // Store user_id in state variable
           console.log("User authenticated successfully:", json);
           alert(`${type} logged in successfully`);
+          // navigation.navigate(`${UserHome}`);
+
           // Call the next API to fetch user data using the user_id
           fetchUserData(json.user_id);
+
+          //Just for checking purpose
+          //addUser(newuserdta);
+          // updateUser("2", newuserdta);
+          // addAdmin(adminData);
+          // getAllSeva();
+
           // navigation.navigate('UserHome');
         } else {
           throw new Error("User_id not found in response");
@@ -94,7 +129,7 @@ const Login = () => {
         if (type === "user") {
           fetchUserSeva(userId);
         } else if (type === "admin") {
-          fetchAdminSeva(userId);
+          // fetchAdminSeva(userId);
         } else {
           throw new Error("Invalid user type");
         }
@@ -107,32 +142,37 @@ const Login = () => {
 
   const fetchUserSeva = (userId) => {
     // API call to fetch user service data
-    fetch(`${API_ENDPOINT}user_specific_data/${userId}`).then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      }
-      throw new Error("Failed to fetch seva data");
-    })  .then((data) => {
-      console.log("User seva data:", data);
-    })
-    .catch((error) => {
-      console.error("Error fetching admin service data:", error);
-    });;
+    fetch(`${API_ENDPOINT}user_specific_data/${userId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error("Failed to fetch seva data");
+      })
+      .then((data) => {
+        console.log("User seva data:", data);
+        updateSevaData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching admin service data:", error);
+      });
   };
 
   const fetchAdminSeva = (userId) => {
     // API call to fetch admin service data
-    fetch(`${API_ENDPOINT}getallseva`).then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      }
-      throw new Error("Failed to fetch seva data");
-    }).then((data) => {
-      console.log("Admin seva data:", data);
-    })
-    .catch((error) => {
-      console.error("Error fetching admin service data:", error);
-    });;
+    fetch(`${API_ENDPOINT}getallseva`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error("Failed to fetch seva data");
+      })
+      .then((data) => {
+        console.log("Admin seva data:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching admin service data:", error);
+      });
   };
 
   return (
