@@ -19,7 +19,7 @@ import { addAdmin } from "./Admin/admin_api";
 import { getAllSeva } from "./seva_api";
 
 const Login = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, SetError] = useState(false);
@@ -128,11 +128,14 @@ const Login = () => {
         setUserData(userData);
         if (type === "user") {
           fetchUserSeva(userId);
+          navigation.navigate("UserHome");
         } else if (type === "admin") {
           // fetchAdminSeva(userId);
         } else {
           throw new Error("Invalid user type");
         }
+
+        
         // Now you can do something with the user data, e.g., store it in state
       })
       .catch((err) => {

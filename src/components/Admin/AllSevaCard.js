@@ -3,6 +3,7 @@ import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 
 const AllSevaCard = () => {
+  
   return (
     <View>
       <View style={styles.cardContainerN}>
@@ -42,7 +43,7 @@ const AllSevaCard = () => {
                   justifyContent: "space-evenly",
                 }}
               >
-                Edit
+                Edit 
               </Text>
             </TouchableOpacity>
           </View>

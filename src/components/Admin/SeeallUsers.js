@@ -4,11 +4,16 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 
-const ContactDiaryPage = () => {
+const ContactDiaryPage = ({route}) => {
   const navigation = useNavigation();
 
   const goToHomePage = () => {
     navigation.navigate('Dashboard');
+  };
+  const handleUserSelection = (user) => {
+    // Pass the selected user back to the parent screen
+    route.params.handleAddUser(user);
+    navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
   };
 
   // Sample data for users
@@ -57,9 +62,9 @@ const ContactDiaryPage = () => {
 
             {/* Display users */}
             {users.map(user => (
-              <TouchableOpacity key={user.id} onPress={() => handleCallUser(user.phoneNumber)}>
+              <TouchableOpacity key={user.id} onPress={() => handleUserSelection(user)}>
                 <View style={styles.userCard}>
-                  <Text style={styles.userName}>{user.name}</Text>
+                  <Text style={styles.userName}>{user.name} </Text>
                   <TouchableOpacity onPress={() => handleCallUser(user.phoneNumber)}>
                     <FontAwesome name='phone' size={25} color={"#070606"} />
                   </TouchableOpacity>

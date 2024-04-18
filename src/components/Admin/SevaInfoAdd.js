@@ -255,9 +255,7 @@ const SevaInfoAdd = () => {
                   placeholder="Details"
                   placeholderTextColor="#000000"
                   value={formData.details}
-                  onChangeText={(text) =>
-                    handleInputChange("detail", text)
-                  }
+                  onChangeText={(text) => handleInputChange("detail", text)}
                 />
               </View>
               <View>
@@ -273,14 +271,13 @@ const SevaInfoAdd = () => {
               </View>
 
               <View style={styles.leaderContainer}>
-               
                 <Text style={styles.leadertextInput}>
                   Selected Leader : {selectedUser ? selectedUser.name : "None"}
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("SelectUserScreen", { handleAddUser })
+                    navigation.navigate("View Users", { handleAddUser })
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
@@ -561,8 +558,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-    justifyContent:"center",
-    textAlign:"center",
+    justifyContent: "center",
+    textAlign: "center",
     // alignContent: "flex-start",
     // alignItems:"center",
     paddingVertical: 6,

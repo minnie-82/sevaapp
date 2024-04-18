@@ -11,6 +11,7 @@ import SevaNotificationCard from "./src/components/User/SevaNotificationCard";
 import SevaInfoAdd from "./src/components/Admin/SevaInfoAdd";
 import AddButton from "./src/components/Admin/AddButton";
 import { UserProvider } from "./src/components/global";
+import { NavigationContainer } from "@react-navigation/native";
 export default function App() {
   return (
     // <UserHome/>
@@ -18,10 +19,15 @@ export default function App() {
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
 
-    <UserProvider>
-      <Login />
-    </UserProvider>
-    // <AdminHome></AdminHome>
+   
+
+    // <NavigationContainer>
+    //  <UserProvider>
+    //   <Login />
+    // </UserProvider>
+    // </NavigationContainer>
+    
+    <AdminHome></AdminHome>
     // <SevaInfoAdd></SevaInfoAdd>
     // <AddButton></AddButton>
   );
