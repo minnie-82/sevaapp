@@ -1,9 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const AllSevaCard = () => {
-  
+  const navigation = useNavigation();
+
+  const EditSelection = (department, date, time, details, instruction) => {
+    // Pass the selected data back to the parent screen
+    route.params.handleEdit(department, date, time, details, instruction);
+    navigation.navigate("EditSevaDetails");
+  };
   return (
     <View>
       <View style={styles.cardContainerN}>
@@ -42,8 +49,17 @@ const AllSevaCard = () => {
                   color: "#808080",
                   justifyContent: "space-evenly",
                 }}
+                onPress={() =>
+                  EditSelection(
+                    "Nilkanth Mandapam",
+                    "25 Febuary, 2024",
+                    "12.00PM",
+                    "XYZ",
+                    "ABC"
+                  )
+                }
               >
-                Edit 
+                Edit
               </Text>
             </TouchableOpacity>
           </View>
