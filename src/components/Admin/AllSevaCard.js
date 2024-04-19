@@ -6,14 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 const AllSevaCard = () => {
   const navigation = useNavigation();
 
-  const EditSelection = (
-    department,
-    datecome,
-    timecome,
-    details,
-    instruction
-  ) => {
-    // Navigate to EditSevaDetails screen and pass data as route parameters
+  const handleEdit = (department, datecome, timecome, details, instruction) => {
     navigation.navigate("EditSevaDetails", {
       department,
       datecome,
@@ -21,6 +14,49 @@ const AllSevaCard = () => {
       details,
       instruction,
     });
+  };
+
+  const EditSelection = (
+    department,
+    datecome,
+    timecome,
+    details,
+    instruction
+  ) => {
+    handleEdit(department, datecome, timecome, details, instruction);
+  };
+
+  // Function to handle "Edit" button press for the first card
+  const handleEditFirstCard = () => {
+    EditSelection(
+      "Nilkanth Mandapam",
+      "25 Febuary, 2024",
+      "12.00PM",
+      "Come on time",
+      "Come before 4pm"
+    );
+  };
+
+  // Function to handle "Edit" button press for the second card
+  const handleEditSecondCard = () => {
+    EditSelection(
+      "Cleanliness",
+      "20 April, 2024",
+      "11.00PM",
+      "Near Sabha hall",
+      "Come on time"
+    );
+  };
+
+  // Function to handle "Edit" button press for the third card
+  const handleEditThirdCard = () => {
+    EditSelection(
+      "Medical Department",
+      "12 March, 2024",
+      "2.00PM",
+      "Medical Kit",
+      "Doctor and nurse"
+    );
   };
   return (
     <View>
@@ -45,6 +81,7 @@ const AllSevaCard = () => {
                 flexDirection: "row",
                 borderRadius: 30,
               }}
+              onPress={handleEditFirstCard}
             >
               <FontAwesome
                 name="edit"
@@ -60,15 +97,6 @@ const AllSevaCard = () => {
                   color: "#808080",
                   justifyContent: "space-evenly",
                 }}
-                onPress={() =>
-                  EditSelection(
-                    "Nilkanth Mandapam",
-                    "25 Febuary, 2024",
-                    "12.00PM",
-                    "XYZassd",
-                    "ABCsfsdgsd"
-                  )
-                }
               >
                 Edit
               </Text>
@@ -97,6 +125,7 @@ const AllSevaCard = () => {
                 flexDirection: "row",
                 borderRadius: 30,
               }}
+              onPress={handleEditSecondCard}
             >
               <FontAwesome
                 name="edit"
@@ -112,15 +141,6 @@ const AllSevaCard = () => {
                   color: "#808080",
                   justifyContent: "space-evenly",
                 }}
-                onPress={() =>
-                  EditSelection(
-                    "Cleanliness",
-                    "25 Febuary, 2024",
-                    "12.00PM",
-                    "XYZassd",
-                    "ABCsfsdgsd"
-                  )
-                }
               >
                 Edit
               </Text>
@@ -128,6 +148,8 @@ const AllSevaCard = () => {
           </View>
         </View>
       </View>
+
+      {/* Medical */}
       <View style={styles.cardContainerM}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Medical Department</Text>
@@ -138,6 +160,7 @@ const AllSevaCard = () => {
             <FontAwesome name="calendar" size={15} color={"#808080"} />
             <Text style={styles.dateText}>25 Febuary, 2024</Text>
             <TouchableOpacity
+              onPress={handleEditThirdCard}
               style={{
                 height: 30,
                 // backgroundColor: "#003e6d",
@@ -164,15 +187,6 @@ const AllSevaCard = () => {
                   color: "#808080",
                   justifyContent: "space-evenly",
                 }}
-                onPress={() =>
-                  EditSelection(
-                    "Medical Department",
-                    "25 Febuary, 2024",
-                    "12.00PM",
-                    "XYZassd",
-                    "ABCsfsdgsd"
-                  )
-                }
               >
                 Edit
               </Text>

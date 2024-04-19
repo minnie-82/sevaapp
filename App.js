@@ -12,22 +12,23 @@ import SevaInfoAdd from "./src/components/Admin/SevaInfoAdd";
 import AddButton from "./src/components/Admin/AddButton";
 import { UserProvider } from "./src/components/global";
 import { NavigationContainer } from "@react-navigation/native";
+import SevaCardOngoing from "./src/components/User/SevaCardOngoing";
+import SevaCardCompleted from "./src/components/User/SevaCardCompleted";
+// import SevaDetails from "./src/components/User/SevaDetails";
+import Dashboard from "./src/components/Admin/Dashboard";
 export default function App() {
   return (
     // <UserHome/>
+    
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
-
-   
-
     // <NavigationContainer>
-    //  <UserProvider>
-    //   <Login />
-    // </UserProvider>
+    //  <SevaDetails></SevaDetails>
     // </NavigationContainer>
-    
+
     <AdminHome></AdminHome>
+    // <Dashboard></Dashboard>
     // <SevaInfoAdd></SevaInfoAdd>
     // <AddButton></AddButton>
   );

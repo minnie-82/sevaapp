@@ -4,167 +4,29 @@ import {
   View,
   Image,
   StyleSheet,
-  TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  TextInput,
-  Alert,
   Animated,
   TouchableWithoutFeedback,
-  Modal,
-  Pressable,
-  Platform,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { Dropdown } from "react-native-element-dropdown";
-import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { useNavigation } from "@react-navigation/native";
 import AllSevaCard from "./AllSevaCard";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import SavaInfoAdd from "./SevaInfoAdd";
+
+import SearchAndFilter from "./SearchAndFilter";
 const Addseva = () => {
   const navigation = useNavigation();
-
-  // const goToHomePage = () => {
-  //   navigation.navigate("Home");
-  // };
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [formData, setFormData] = useState({
-    department: "",
-    instruction: "",
-  });
-
-  const data = [
-    { label: "Nilkanth Mandapam", value: "1" },
-    { label: "Cleanliness", value: "2" },
-    { label: "Medical Department", value: "3" },
-    { label: "Prasad Vitran", value: "4" },
-    { label: "Sabha Vaivastha", value: "5" },
-  ];
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  //this is for label of department
-  const renderLabel = () => {
-    if (value || isFocus) {
-      return (
-        <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Select Department
-        </Text>
-      );
-    }
-    return null;
-  };
-
-  //datetimepiker
-  const [dateData, setDateData] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
-  const toggleDatePicker = () => {
-    setShowPicker(!showPicker);
-  };
-
-  const onChange = ({ type }, selectedDate) => {
-    if (type == "set") {
-      const currentDate = selectedDate;
-      setDate(currentDate);
-      if (Platform.OS === "android") {
-        toggleDatePicker();
-        setDateData(currentDate.toDateString());
-      }
-    } else {
-      toggleDatePicker();
-    }
-  };
-
-  //timepicker
-  const [timeData, setTimeData] = useState("");
-  const [time, setTime] = useState(new Date().toLocaleTimeString());
-  const [showTimePicker, setTimeShowPicker] = useState(false);
-  const toggleTimePicker = () => {
-    setTimeShowPicker(!showTimePicker);
-  };
-  const onChangeTime = ({ type }, selectedTime) => {
-    if (type == "set") {
-      const currentTime = selectedTime;
-      console.log(currentTime);
-      setTime(currentTime);
-      if (Platform.OS === "android") {
-        toggleTimePicker();
-        setTimeData(currentTime.toLocaleTimeString());
-        console.log(setTimeData);
-      }
-    } else {
-      toggleTimePicker();
-    }
-  };
 
   const handleOpenModal = () => {
     navigation.navigate("SaveInfoAdd");
   };
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleInputChange = (fieldName, value) => {
-    setFormData({ ...formData, [fieldName]: value });
-  };
-
-  animation = new Animated.Value(0);
-  toggleMenu = () => {
-    const toValue = this.open ? 0 : 1;
-    Animated.spring(this.animation, {
-      toValue,
-      friction: 5,
-      useNativeDriver: true,
-    }).start();
-
-    this.open = !this.open;
-  };
-  const AddStyle = {
-    transform: [
-      {
-        scale: this.animation,
-      },
-      {
-        translateY: this.animation.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -80],
-        }),
-      },
-    ],
-  };
-  const Add2Style = {
-    transform: [
-      {
-        scale: this.animation,
-      },
-      {
-        translateY: this.animation.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -140],
-        }),
-      },
-    ],
-  };
-
-  const rotation = {
-    transform: [
-      {
-        rotate: this.animation.interpolate({
-          inputRange: [0, 1],
-          outputRange: ["0deg", "45deg"],
-        }),
-      },
-    ],
-  };
-
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8" }}>
       <ScrollView>
         <View style={styles.container}>
-        
+          
           <View
             style={{
               marginTop: 0,
@@ -200,227 +62,8 @@ const Addseva = () => {
                   style={{ height: 100, width: 150 }}
                 />
               </View>
-              
             </View>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={isModalVisible}
-              onRequestClose={handleCloseModal}
-            >
-              <View style={styles.modalContainer}>
-                <View style={styles.modalContent}>
-                  {/* Form fields */}
-                  {/* <TextInput
-                    style={styles.textInput}
-                    placeholder="Department"
-                    placeholderTextColor="#000000"
-                    value={formData.department}
-                    onChangeText={(text) =>
-                      handleInputChange("department", text)
-                    }
-                  /> */}
-                  {renderLabel()}
-                  <Dropdown
-                    style={[
-                      styles.dropdown,
-                      isFocus && { borderColor: "blue" },
-                    ]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    data={data}
-                    search
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={!isFocus ? "Select item" : "..."}
-                    searchPlaceholder="Search..."
-                    value={value}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={(item) => {
-                      setValue(item.value);
-                      setIsFocus(false);
-                    }}
-                    renderLeftIcon={() => (
-                      <AntDesign
-                        style={styles.icon}
-                        color={isFocus ? "blue" : "black"}
-                        name="Safety"
-                        size={20}
-                      />
-                    )}
-                  />
-                  <View>
-                    {showPicker && (
-                      <DateTimePicker
-                        mode="date"
-                        display="spinner"
-                        value={date}
-                        onChange={onChange}
-                      ></DateTimePicker>
-                    )}
-                    {!showPicker && (
-                      <Pressable onPress={toggleDatePicker}>
-                        <TextInput
-                          style={styles.textInput}
-                          placeholder="12 Aug 2024"
-                          placeholderTextColor="#000000"
-                          value={dateData}
-                          onChangeText={setDateData}
-                          editable={false}
-                        />
-                      </Pressable>
-                    )}
-                  </View>
-
-                  <View>
-                    {showTimePicker && (
-                      <DateTimePicker
-                        mode="time"
-                        display="spinner"
-                        value={time}
-                        onChange={onChangeTime}
-                      ></DateTimePicker>
-                    )}
-
-                    {!showTimePicker && (
-                      <Pressable onPress={toggleTimePicker}>
-                        <TextInput
-                          style={styles.textInput}
-                          placeholder="Time"
-                          placeholderTextColor="#000000"
-                          value={timeData}
-                          onChangeText={setTimeData}
-                          editable={false}
-                        />
-                      </Pressable>
-                    )}
-                  </View>
-
-                  {/* <TextInput
-                    style={styles.textInput}
-                    placeholder="Time"
-                    placeholderTextColor="#000000"
-                    value={formData.time}
-                    onChangeText={(text) => handleInputChange("time", text)}
-                  /> */}
-                  <TextInput
-                    style={styles.textInstruction}
-                    placeholder="Instruction"
-                    placeholderTextColor="#000000"
-                    value={formData.instruction}
-                    onChangeText={(text) =>
-                      handleInputChange("instruction", text)
-                    }
-                  />
-
-                  {/* Add and close buttons */}
-                  {/* <TouchableOpacity style={styles.addButton}>
-                    <Text style={styles.buttonText}>Add</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.closeButton}
-                    onPress={handleCloseModal}
-                  >
-                    <Text style={styles.buttonText}>Close</Text>
-                  </TouchableOpacity> */}
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.addButton}>
-                      <Text style={styles.buttonText}>Add</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.closeButton}
-                      onPress={handleCloseModal}
-                    >
-                      <Text style={styles.buttonText}>Close</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </Modal>
-
-            {/* <View
-              style={{
-                flex: 0,
-                alignItems: "start",
-                justifyContent: "center",
-                width: "95%",
-                height: 50,
-                backgroundColor: "white",
-                borderRadius: 10,
-                margin: 10,
-              }}
-            >
-              <TextInput
-                style={styles.textInput}
-                placeholder="Department"
-                placeholderTextColor="#000000"
-              />
-            </View>
-            <View
-              style={{
-                flex: 0,
-                alignItems: "start",
-                justifyContent: "center",
-                width: "95%",
-                height: 50,
-                backgroundColor: "white",
-                borderRadius: 10,
-                margin: 10,
-              }}
-            >
-              <TextInput
-                style={styles.textInput}
-                placeholder="Date"
-                placeholderTextColor="#000000"
-              />
-            </View>
-
-            <View
-              style={{
-                flex: 0,
-                alignItems: "start",
-                justifyContent: "center",
-                width: "95%",
-                height: 50,
-                backgroundColor: "white",
-                borderRadius: 10,
-                margin: 10,
-              }}
-            >
-              <TextInput
-                style={styles.textInput}
-                placeholder="Time"
-                placeholderTextColor="#000000"
-              />
-            </View>
-            <View
-              style={{
-                flex: 0,
-                alignItems: "start",
-                justifyContent: "center",
-                width: "95%",
-                height: 50,
-                backgroundColor: "white",
-                borderRadius: 10,
-                margin: 10,
-              }}
-            >
-              <TextInput
-                style={styles.textInput}
-                placeholder="Instruction"
-                placeholderTextColor="#000000"
-              />
-            </View>
-            <TouchableOpacity style={styles.loginBtn}>
-              <Text style={styles.loginText}>
-                Add
-              </Text>
-            </TouchableOpacity> */}
-
+            <SearchAndFilter></SearchAndFilter>
             <View
               style={{
                 width: "100%",
@@ -433,30 +76,9 @@ const Addseva = () => {
               <AllSevaCard />
               <AllSevaCard />
             </View>
-            {/* <TouchableOpacity
-              style={styles.floatingButton}
-              onPress={onButtonPress}
-            >
-              <Ionicons name="add-circle" size={50} color="#003e6d" />
-            </TouchableOpacity> */}
           </View>
         </View>
       </ScrollView>
-      {/* <TouchableWithoutFeedback>
-        <Animated.View
-          style={[styles.floatingButton, styles.secondary, Add2Style]}
-        >
-          <Entypo name="plus" size={20} color="#003e6d"></Entypo>
-        </Animated.View>
-      </TouchableWithoutFeedback> */}
-
-      {/* <TouchableWithoutFeedback onPress={handleOpenModal}>
-        <Animated.View
-          style={[styles.floatingButton, styles.secondary, AddStyle]}
-        >
-          <Entypo name="plus" size={20} color="#003e6d"></Entypo>
-        </Animated.View>
-      </TouchableWithoutFeedback> */}
 
       <TouchableWithoutFeedback onPress={handleOpenModal}>
         <Animated.View style={[styles.floatingButton, styles.menu]}>
@@ -486,13 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
-  // textInput: {
-  //   height: 50,
-  //   flex: 1,
-  //   padding: 10,
-  //   marginLeft: 20,
-  //   color: "#000000",
-  // },
+
   loginBtn: {
     width: "25%",
     borderRadius: 25,
@@ -532,7 +148,6 @@ const styles = StyleSheet.create({
 
   modalContainer: {
     flex: 1,
-    // alignItems:"stretch",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -551,7 +166,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-    // alignContent:"flex-start"
   },
   textInstruction: {
     height: 200,

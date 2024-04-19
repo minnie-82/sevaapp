@@ -91,6 +91,7 @@ const AdminHome = () => {
             ),
           }}
         />
+        
         <Drawer.Screen
           name="Admin"
           component={Addadmin}

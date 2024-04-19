@@ -119,14 +119,14 @@ const EditSevaDetails = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView>
         <View style={styles.container} onRequestClose={handleCloseModal}>
           <View
             style={{
               marginTop: 0,
               width: "100%",
-              backgroundColor: "#F8E9C8",
+              backgroundColor: "white",
               flex: 1,
               flexDirection: "column",
               alignItems: "center",
@@ -172,12 +172,15 @@ const EditSevaDetails = () => {
                   maxHeight={300}
                   labelField="label"
                   valueField="value"
-                  placeholder={!isFocus ? "Select item" : "..."}
+                  placeholder={formData.department}
                   searchPlaceholder="Search..."
-                  value={formData.department}
+                  value={value}
                   onFocus={() => setIsFocus(true)}
                   onBlur={() => setIsFocus(false)}
-                  onChangeText={(text) => handleInputChange("date", text)}
+                  onChange={(item) => {
+                    setValue(item.value);
+                    setIsFocus(false);
+                  }}
                   renderLeftIcon={() => (
                     <AntDesign
                       style={styles.icon}
@@ -205,10 +208,10 @@ const EditSevaDetails = () => {
                   >
                     <TextInput
                       style={styles.textInput}
-                      placeholder="12 Aug 2024"
+                      placeholder={formData.datecome}
                       placeholderTextColor="#000000"
-                      value={formData.date}
-                      onChangeText={(text) => handleInputChange("date", text)}
+                      value={dateData}
+                      onChangeText={setDateData}
                       editable={false}
                     />
                     <FontAwesome
@@ -237,10 +240,10 @@ const EditSevaDetails = () => {
                   >
                     <TextInput
                       style={styles.textInput}
-                      placeholder="Time"
+                      placeholder={formData.timecome}
                       placeholderTextColor="#000000"
-                      value={formData.time}
-                      onChangeText={(text) => handleInputChange("date", text)}
+                      value={timeData}
+                      onChangeText={setTimeData}
                       editable={false}
                     />
                     <FontAwesome
@@ -282,19 +285,19 @@ const EditSevaDetails = () => {
                   style={styles.leaderaddButton}
                   onPress={() => navigation.navigate("View Users")}
                 >
-                  <Text style={styles.buttonText}>Add</Text>
+                  <Text style={styles.buttonText}>Edit</Text>
                 </TouchableOpacity>
               </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.addButton}>
-                  <Text style={styles.buttonText}>Add</Text>
+                  <Text style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={handleCloseModal}
                 >
-                  <Text style={styles.buttonText}>Close</Text>
+                  <Text style={styles.buttonText}>Remove</Text>
                 </TouchableOpacity>
               </View>
             </View>

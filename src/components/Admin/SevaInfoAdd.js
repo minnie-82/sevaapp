@@ -36,7 +36,6 @@ const SevaInfoAdd = () => {
 
   const handleAddUser = (user) => {
     setSelectedUser(user);
-    
   };
 
   const data = [
@@ -113,14 +112,14 @@ const SevaInfoAdd = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView>
         <View style={styles.container} onRequestClose={handleCloseModal}>
           <View
             style={{
               marginTop: 0,
               width: "100%",
-              backgroundColor: "#F8E9C8",
+              backgroundColor: "white",
               flex: 1,
               flexDirection: "column",
               alignItems: "center",

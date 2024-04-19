@@ -62,7 +62,7 @@ const ContactDiaryPage = ({route}) => {
 
             {/* Display users */}
             {users.map(user => (
-              <TouchableOpacity key={user.id} onPress={() => handleUserSelection(user)}>
+              <TouchableOpacity key={user.id} onPress={() => handleUserSelection(user)}> 
                 <View style={styles.userCard}>
                   <Text style={styles.userName}>{user.name} </Text>
                   <TouchableOpacity onPress={() => handleCallUser(user.phoneNumber)}>
