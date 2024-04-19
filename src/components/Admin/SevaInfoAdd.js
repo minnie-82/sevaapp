@@ -36,6 +36,7 @@ const SevaInfoAdd = () => {
 
   const handleAddUser = (user) => {
     setSelectedUser(user);
+    
   };
 
   const data = [

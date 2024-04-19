@@ -6,10 +6,21 @@ import { useNavigation } from "@react-navigation/native";
 const AllSevaCard = () => {
   const navigation = useNavigation();
 
-  const EditSelection = (department, date, time, details, instruction) => {
-    // Pass the selected data back to the parent screen
-    route.params.handleEdit(department, date, time, details, instruction);
-    navigation.navigate("EditSevaDetails");
+  const EditSelection = (
+    department,
+    datecome,
+    timecome,
+    details,
+    instruction
+  ) => {
+    // Navigate to EditSevaDetails screen and pass data as route parameters
+    navigation.navigate("EditSevaDetails", {
+      department,
+      datecome,
+      timecome,
+      details,
+      instruction,
+    });
   };
   return (
     <View>
@@ -54,8 +65,8 @@ const AllSevaCard = () => {
                     "Nilkanth Mandapam",
                     "25 Febuary, 2024",
                     "12.00PM",
-                    "XYZ",
-                    "ABC"
+                    "XYZassd",
+                    "ABCsfsdgsd"
                   )
                 }
               >
@@ -101,6 +112,15 @@ const AllSevaCard = () => {
                   color: "#808080",
                   justifyContent: "space-evenly",
                 }}
+                onPress={() =>
+                  EditSelection(
+                    "Cleanliness",
+                    "25 Febuary, 2024",
+                    "12.00PM",
+                    "XYZassd",
+                    "ABCsfsdgsd"
+                  )
+                }
               >
                 Edit
               </Text>
@@ -144,6 +164,15 @@ const AllSevaCard = () => {
                   color: "#808080",
                   justifyContent: "space-evenly",
                 }}
+                onPress={() =>
+                  EditSelection(
+                    "Medical Department",
+                    "25 Febuary, 2024",
+                    "12.00PM",
+                    "XYZassd",
+                    "ABCsfsdgsd"
+                  )
+                }
               >
                 Edit
               </Text>

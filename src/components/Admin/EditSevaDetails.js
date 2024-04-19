@@ -24,42 +24,31 @@ import SelectUserScreen from "./SelectUserScreen";
 // import AddButton from "./AddButton";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useRoute } from "@react-navigation/native";
 
 const EditSevaDetails = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const { department, datecome, timecome, details, instruction } = route.params;
 
   // const route = useRoute();
   const [formData, setFormData] = useState({
-    department: "",
-    date: "",
-    time: "",
-    details: "",
-    instruction: "",
+    department: department,
+    datecome: datecome,
+    timecome: timecome,
+    details: details,
+    instruction: instruction,
   });
-  // useEffect(() => {
-  //   // Get data from route params and set to state
-  //   const { department, date, time, details, instruction } = route.params;
-  //   setFormData({
-  //     department,
-  //     date,
-  //     time,
-  //     details,
-  //     instruction,
-  //   });
-  // }, [route.params]);
+  const handleInputChange = (fieldName, value) => {
+    setFormData({ ...formData, [fieldName]: value });
+  };
 
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const handleEdit = (department, date, time, details, instruction) => {
-    setFormData({
-      department,
-      date,
-      time,
-      details,
-      instruction,
-    });
+  const handleAddUser = (user) => {
+    setSelectedUser(user);
   };
-
   const data = [
     { label: "Nilkanth Mandapam", value: "1" },
     { label: "Cleanliness", value: "2" },
@@ -115,10 +104,6 @@ const EditSevaDetails = () => {
 
   const handleCloseModal = () => {
     navigation.navigate("Addseva");
-  };
-
-  const handleInputChange = (fieldName, value) => {
-    setFormData({ ...formData, [fieldName]: value });
   };
 
   animation = new Animated.Value(0);
@@ -189,13 +174,10 @@ const EditSevaDetails = () => {
                   valueField="value"
                   placeholder={!isFocus ? "Select item" : "..."}
                   searchPlaceholder="Search..."
-                  value={value}
+                  value={formData.department}
                   onFocus={() => setIsFocus(true)}
                   onBlur={() => setIsFocus(false)}
-                  onChange={(item) => {
-                    setValue(item.value);
-                    setIsFocus(false);
-                  }}
+                  onChangeText={(text) => handleInputChange("date", text)}
                   renderLeftIcon={() => (
                     <AntDesign
                       style={styles.icon}
@@ -225,8 +207,8 @@ const EditSevaDetails = () => {
                       style={styles.textInput}
                       placeholder="12 Aug 2024"
                       placeholderTextColor="#000000"
-                      value={dateData}
-                      onChangeText={setDateData}
+                      value={formData.date}
+                      onChangeText={(text) => handleInputChange("date", text)}
                       editable={false}
                     />
                     <FontAwesome
@@ -257,8 +239,8 @@ const EditSevaDetails = () => {
                       style={styles.textInput}
                       placeholder="Time"
                       placeholderTextColor="#000000"
-                      value={timeData}
-                      onChangeText={setTimeData}
+                      value={formData.time}
+                      onChangeText={(text) => handleInputChange("date", text)}
                       editable={false}
                     />
                     <FontAwesome
@@ -298,9 +280,7 @@ const EditSevaDetails = () => {
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
-                  onPress={() =>
-                    navigation.navigate("View Users", { handleEdit })
-                  }
+                  onPress={() => navigation.navigate("View Users")}
                 >
                   <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
