@@ -30,6 +30,7 @@ import SevaReport from "./SevaReport";
 import SaveInfoAdd from "./SevaInfoAdd";
 import SelectUserScreen from "./SelectUserScreen";
 import EditSevaDetails from "./EditSevaDetails";
+import AdminSevaDetails from "./AdminSevaDetails";
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
@@ -185,6 +186,15 @@ const AdminHome = () => {
             drawerLabel: () => null,
           }}
         />
+        <Drawer.Screen
+          name="AdminSevaDetails"
+          component={AdminSevaDetails}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
+       
       </Drawer.Navigator>
     </NavigationContainer>
   );

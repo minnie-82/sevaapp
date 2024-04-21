@@ -160,7 +160,7 @@ const EditSevaDetails = () => {
             </View>
             <View></View>
             <View style={styles.modalContent}>
-              <View>
+              {/* <View>
                 <Dropdown
                   style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
                   placeholderStyle={styles.placeholderStyle}
@@ -189,6 +189,15 @@ const EditSevaDetails = () => {
                       size={20}
                     />
                   )}
+                />
+              </View> */}
+              <View>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Department"
+                  placeholderTextColor="#000000"
+                  value={formData.department}
+                  onChangeText={(text) => handleInputChange("detail", text)}
                 />
               </View>
 

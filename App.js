@@ -16,18 +16,23 @@ import SevaCardOngoing from "./src/components/User/SevaCardOngoing";
 import SevaCardCompleted from "./src/components/User/SevaCardCompleted";
 // import SevaDetails from "./src/components/User/SevaDetails";
 import Dashboard from "./src/components/Admin/Dashboard";
+import AdminSevaDetails from "./src/components/Admin/AdminSevaDetails";
 export default function App() {
   return (
     // <UserHome/>
-    
+    // <AdminSevaDetails></AdminSevaDetails>
+
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
     // <NavigationContainer>
-    //  <SevaDetails></SevaDetails>
+    //   <AdminSevaDetails></AdminSevaDetails>
     // </NavigationContainer>
 
     <AdminHome></AdminHome>
+    // <DisplayMultiple></DisplayMultiple>
+
+    // <SelectMultipleUsers></SelectMultipleUsers>
     // <Dashboard></Dashboard>
     // <SevaInfoAdd></SevaInfoAdd>
     // <AddButton></AddButton>

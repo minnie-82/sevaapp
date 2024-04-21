@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import AdminSevaDetails from "./AdminSevaDetails";
 const AllSevaCard = () => {
   const navigation = useNavigation();
 
@@ -15,6 +15,10 @@ const AllSevaCard = () => {
       instruction,
     });
   };
+  const sevaDetailsPage=()=>{
+    navigation.navigate("AdminSevaDetails");
+    
+  }
 
   const EditSelection = (
     department,
@@ -62,7 +66,7 @@ const AllSevaCard = () => {
     <View>
       <View style={styles.cardContainerN}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Nilkanth Mandapam</Text>
+          <Text style={styles.title} onPress={sevaDetailsPage}>Nilkanth Mandapam</Text>
         </View>
 
         <View style={styles.contentContainer}>
