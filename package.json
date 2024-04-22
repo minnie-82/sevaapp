@@ -30,7 +30,11 @@
     "react-native-element-dropdown": "^2.10.4",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-modal-dropdown": "^1.0.2",
+<<<<<<< HEAD
     "react-native-pie-chart": "^3.0.2",
+=======
+    "react-native-paper": "^5.12.3",
+>>>>>>> b17c4d29696b242e113bf76d8fbe28a473a44ef2
     "react-native-reanimated": "^3.6.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",

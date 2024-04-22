@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback,SafeAreaView, ScrollView ,Animated} from 'react-native';
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 const ContactDiaryPage = ({route}) => {
   const navigation = useNavigation();
@@ -10,10 +11,8 @@ const ContactDiaryPage = ({route}) => {
   const goToHomePage = () => {
     navigation.navigate('Dashboard');
   };
-  const handleUserSelection = (user) => {
-    // Pass the selected user back to the parent screen
-    route.params.handleAddUser(user);
-    navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
+  const handleOpenModal = () => {
+    navigation.navigate("UserInfoAdd");
   };
 
   // Sample data for users
@@ -21,7 +20,6 @@ const ContactDiaryPage = ({route}) => {
     { id: '1', name: 'Manthan Jadhav', phoneNumber: '981-933-4535' },
     { id: '2', name: 'Akshar Parmar', phoneNumber: '996-739-0340' },
     { id: '3', name: 'Meet Vaghasiya', phoneNumber: '720-856-3542' },
-
     // Add more users as needed
   ]);
 
@@ -39,6 +37,14 @@ const ContactDiaryPage = ({route}) => {
       })
       .catch((error) => console.error("An error occurred", error));
   };
+ 
+  // Function to delete a user
+  const handleDeleteUser = (userId) => {
+    const updatedUsers = users.filter(user => user.id !== userId);
+    setUsers(updatedUsers);
+  };
+  
+  
 
   return(
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8" }}>
@@ -62,18 +68,26 @@ const ContactDiaryPage = ({route}) => {
 
             {/* Display users */}
             {users.map(user => (
-              <TouchableOpacity key={user.id} onPress={() => handleUserSelection(user)}> 
-                <View style={styles.userCard}>
-                  <Text style={styles.userName}>{user.name} </Text>
-                  <TouchableOpacity onPress={() => handleCallUser(user.phoneNumber)}>
-                    <FontAwesome name='phone' size={25} color={"#070606"} />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
+              <View key={user.id} style={styles.userCard}>
+                <Text style={styles.userName}>{user.name} </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => handleCallUser(user.phoneNumber)}>
+                  <FontAwesome name='phone' size={25} color={"blue"} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleDeleteUser(user.id)} style={{marginLeft:10}}>
+                  <FontAwesome name='trash' size={25} color={"red"} />
+                </TouchableOpacity>
+              </View>
+              </View>
             ))}
           </View>
         </View>
       </ScrollView>
+      <TouchableWithoutFeedback onPress={handleOpenModal}>
+        <Animated.View style={[styles.floatingButton, styles.menu]}>
+          <AntDesign name="plus" size={24} color="#FFF"></AntDesign>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
@@ -96,6 +110,23 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  floatingButton: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    borderRadius: 60 / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowRadius: 10,
+    shadowColor: "#003e6d",
+    shadowOpacity: 0.3,
+    shadowOffset: { height: 10 },
+    right: 20,
+    bottom: 50,
+  },
+  menu: {
+    backgroundColor: "#003e6d",
   },
 });
 

@@ -35,10 +35,6 @@ import SaveInfoAdd from "./SevaInfoAdd";
 import SelectUserScreen from "./SelectUserScreen";
 import EditSevaDetails from "./EditSevaDetails";
 import AdminSevaDetails from "./AdminSevaDetails";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import CircularProgress from "react-native-circular-progress-indicator";
-import AdminSevaDisplayCard from "./AdminSevaDisplayCard";
 const Drawer = createDrawerNavigator();
 
 const HomeScreen = ({ navigation }) => {
@@ -425,15 +421,7 @@ const AdminHome = () => {
             ),
           }}
         />
-        <Drawer.Screen
-          name="Seva Notification"
-          component={SevaNotification}
-          options={{
-            drawerIcon: ({ color }) => (
-              <FontAwesome name="bell" size={22} color={color} />
-            ),
-          }}
-        />
+       
         <Drawer.Screen
           name="View Users"
           component={SeeallUser}
@@ -462,6 +450,22 @@ const AdminHome = () => {
         <Drawer.Screen
           name="SaveInfoAdd"
           component={SaveInfoAdd}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
+         <Drawer.Screen
+          name="UserInfoAdd"
+          component={UserInfoAdd}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
+          <Drawer.Screen
+          name="AdminInfoAdd"
+          component={AdminInfoAdd}
           options={{
             headerShown: false,
             drawerLabel: () => null,
@@ -499,6 +503,7 @@ const AdminHome = () => {
             drawerLabel: () => null,
           }}
         />
+       
       </Drawer.Navigator>
     </NavigationContainer>
   );
