@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -9,8 +9,12 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
+  FlatList,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import PieChart from "react-native-pie-chart";
+
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -31,7 +35,308 @@ import SaveInfoAdd from "./SevaInfoAdd";
 import SelectUserScreen from "./SelectUserScreen";
 import EditSevaDetails from "./EditSevaDetails";
 import AdminSevaDetails from "./AdminSevaDetails";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import CircularProgress from "react-native-circular-progress-indicator";
+import AdminSevaDisplayCard from "./AdminSevaDisplayCard";
 const Drawer = createDrawerNavigator();
+
+const HomeScreen = ({ navigation }) => {
+  const goToProfilePage = () => {
+    navigation.navigate("AdminProfile");
+  };
+
+  const Stack = createNativeStackNavigator();
+
+  const garphTypes = ["Active users", "Active seva", "Active Departments"];
+  const [activeGarphTypes, setActivegarphTypes] = useState("Active users");
+  const sevaStatus = ["Ongoing", "Upcoming"];
+  const [activeSeva, setActiveSeva] = useState("Ongoing");
+  const displaySevaStatus = () => {
+    switch (activeSeva) {
+      case "Ongoing":
+        return <AdminSevaDisplayCard></AdminSevaDisplayCard>;
+      case "Upcoming":
+        return <AdminSevaDisplayCard></AdminSevaDisplayCard>;
+
+      default:
+        break;
+    }
+  };
+  const displayGraphContent = () => {
+    switch (activeGarphTypes) {
+      case "Active users":
+        return (
+          <View
+            style={{
+              marginTop: 20,
+              backgroundColor: "#F8E9C8",
+              padding: 20,
+              borderRadius: 20,
+              elevation: 1,
+              marginLeft: 20,
+              marginRight: 20,
+            }}
+          >
+            <Text style={{ fontSize: 20 }}>
+              Total Users: <Text style={{ fontWeight: "bold" }}>100</Text>{" "}
+            </Text>
+            <View
+              style={{
+                marginTop: 10,
+                display: "flex",
+                flexDirection: "row",
+                gap: 40,
+              }}
+            >
+              <CircularProgress
+                value={60}
+                radius={70}
+                progressValueColor={"#003e6d"}
+                activeStrokeColor={"#003e6d"}
+                inActiveStrokeColor={"gray"}
+                inActiveStrokeOpacity={0.5}
+                inActiveStrokeWidth={15}
+                activeStrokeWidth={20}
+              />
+
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 5,
+                  alignItems: "center",
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="checkbox-blank-circle"
+                  size={20}
+                  color="#003e6d"
+                />
+                <Text>NA</Text>
+              </View>
+            </View>
+          </View>
+        );
+      case "Active seva":
+        return (
+          <View
+            style={{
+              marginTop: 20,
+              backgroundColor: "#F8E9C8",
+              padding: 20,
+              borderRadius: 20,
+              elevation: 1,
+              marginLeft: 20,
+              marginRight: 20,
+            }}
+          >
+            <Text style={{ fontSize: 20 }}>
+              Total Seva: <Text style={{ fontWeight: "bold" }}>150</Text>{" "}
+            </Text>
+            <View
+              style={{
+                marginTop: 10,
+                display: "flex",
+                flexDirection: "row",
+                gap: 40,
+              }}
+            >
+              <CircularProgress
+                value={70}
+                radius={70}
+                progressValueColor={"#003e6d"}
+                activeStrokeColor={"#003e6d"}
+                inActiveStrokeColor={"gray"}
+                inActiveStrokeOpacity={0.5}
+                inActiveStrokeWidth={15}
+                activeStrokeWidth={20}
+              />
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 5,
+                  alignItems: "center",
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="checkbox-blank-circle"
+                  size={20}
+                  color="#003e6d"
+                />
+                <Text>NA</Text>
+              </View>
+            </View>
+          </View>
+        );
+      case "Active Departments":
+        return (
+          <View
+            style={{
+              marginTop: 20,
+              backgroundColor: "#F8E9C8",
+              padding: 20,
+              borderRadius: 20,
+              elevation: 1,
+              marginLeft: 20,
+              marginRight: 20,
+            }}
+          >
+            <Text style={{ fontSize: 20 }}>
+              Total Departments: <Text style={{ fontWeight: "bold" }}>50</Text>{" "}
+            </Text>
+            <View
+              style={{
+                marginTop: 10,
+                display: "flex",
+                flexDirection: "row",
+                gap: 40,
+              }}
+            >
+              <CircularProgress
+                value={30}
+                radius={70}
+                progressValueColor={"#003e6d"}
+                activeStrokeColor={"#003e6d"}
+                inActiveStrokeColor={"gray"}
+                inActiveStrokeOpacity={0.5}
+                inActiveStrokeWidth={15}
+                activeStrokeWidth={20}
+              />
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 5,
+                  alignItems: "center",
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="checkbox-blank-circle"
+                  size={20}
+                  color="#003e6d"
+                />
+                <Text>NA</Text>
+              </View>
+            </View>
+          </View>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <SafeAreaView>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <View>
+          <View
+            style={{
+              width: "100%",
+              height: 80,
+              flex: 0,
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "white",
+              flexDirection: "row",
+              marginTop: 25,
+              
+            }}
+          >
+            <View
+              style={{
+                flex: 0,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "transparent",
+                marginLeft: 15,
+                gap: 20,
+              }}
+            >
+              <View
+                style={{
+                  width: 45,
+                  height: 45,
+                  backgroundColor: "transparent",
+                  flex: 0,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 100,
+                  backgroundColor: "transparent",
+                  borderColor: "#D3D3D3",
+                  borderWidth: 0.7,
+                }}
+              >
+                <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+                  {/* Use the navigation.toggleDrawer() method to open/close the drawer */}
+                  <FontAwesome name="navicon" size={25} color={"#A9A9A9"} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <TouchableOpacity onPress={goToProfilePage}>
+              <View>
+                <Image
+                  source={require("../../../assets/profile-pic.jpeg")} // Replace with your profile image URL
+                  style={styles.profileImage}
+                />
+                <View style={styles.notificationBadge}></View>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ width: "100%" }}>
+            <Text style={styles.userName}>Jai Swaminarayan</Text>
+            <Text style={styles.welcomeMessage}>Manthanbhai</Text>
+          </View>
+          <View style={styles.tabsContainer}>
+            <FlatList
+              data={garphTypes}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={styles.tab(activeGarphTypes, item)}
+                  onPress={() => {
+                    setActivegarphTypes(item);
+                  }}
+                >
+                  <Text style={styles.tabText(activeGarphTypes, item)}>
+                    {item}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item}
+              contentContainerStyle={{ columnGap: 12 }}
+              horizontal
+              style={{ marginLeft: 20 }}
+            />
+          </View>
+          {displayGraphContent()}
+          <View style={styles.tabsContainer}>
+            <FlatList
+              data={sevaStatus}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={styles.tab(activeSeva, item)}
+                  onPress={() => {
+                    setActiveSeva(item);
+                  }}
+                >
+                  <Text style={styles.tabText(activeSeva, item)}>{item}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item}
+              contentContainerStyle={{ columnGap: 12 }}
+              horizontal
+              style={{ marginLeft: 20 }}
+            />
+          </View>
+          {displaySevaStatus()}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
 const CustomDrawerContent = (props) => {
   return (
@@ -92,7 +397,7 @@ const AdminHome = () => {
             ),
           }}
         />
-        
+
         <Drawer.Screen
           name="Admin"
           component={Addadmin}
@@ -194,92 +499,8 @@ const AdminHome = () => {
             drawerLabel: () => null,
           }}
         />
-       
       </Drawer.Navigator>
     </NavigationContainer>
-  );
-};
-
-const HomeScreen = ({ navigation }) => {
-  const goToProfilePage = () => {
-    navigation.navigate("AdminProfile");
-  };
-  return (
-    <SafeAreaView>
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <View>
-          <View
-            style={{
-              width: "100%",
-              height: 80,
-              flex: 0,
-              alignItems: "center",
-              justifyContent: "space-between",
-              backgroundColor: "white",
-              flexDirection: "row",
-              marginTop: 30,
-            }}
-          >
-            <View
-              style={{
-                flex: 0,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-                marginLeft: 15,
-                gap: 20,
-              }}
-            >
-              <View
-                style={{
-                  width: 45,
-                  height: 45,
-                  backgroundColor: "transparent",
-                  flex: 0,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 100,
-                  backgroundColor: "transparent",
-                  borderColor: "#D3D3D3",
-                  borderWidth: 0.7,
-                }}
-              >
-                <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-                  {/* Use the navigation.toggleDrawer() method to open/close the drawer */}
-                  <FontAwesome name="navicon" size={25} color={"#A9A9A9"} />
-                </TouchableOpacity>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    textAlign: "left",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Jai Swaminarayan,{"\n"} Manthanbhai
-                </Text>
-              </View>
-            </View>
-            <TouchableOpacity onPress={goToProfilePage}>
-              <View>
-                <Image
-                  source={require("../../../assets/profile-pic.jpeg")} // Replace with your profile image URL
-                  style={styles.profileImage}
-                />
-                <View style={styles.notificationBadge}></View>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{ width: "100%", height: "100%", backgroundColor: "red" }}
-          >
-            <SevaReport />
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
   );
 };
 
@@ -302,6 +523,32 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  userName: {
+    fontSize: 20,
+    color: "#444262",
+    marginLeft: 20,
+    marginTop: 5,
+  },
+  welcomeMessage: {
+    fontSize: 24,
+    color: "#312651",
+    marginTop: 2,
+    marginLeft: 20,
+  },
+  tabsContainer: {
+    width: "100%",
+    marginTop: 16,
+  },
+  tab: (activeGarphTypes, item) => ({
+    paddingVertical: 12 / 2,
+    paddingHorizontal: 12,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: activeGarphTypes === item ? "#444262" : "#C1C0C8",
+  }),
+  tabText: (activeGarphTypes, item) => ({
+    color: activeGarphTypes === item ? "#444262" : "#C1C0C8",
+  }),
 });
 
 export default AdminHome;
