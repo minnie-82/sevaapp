@@ -229,7 +229,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor:"white"}}>
       <ScrollView keyboardShouldPersistTaps="handled">
         <View>
           <View
@@ -544,6 +544,7 @@ const styles = StyleSheet.create({
     color: "#312651",
     marginTop: 2,
     marginLeft: 20,
+    fontWeight:"bold"
   },
   tabsContainer: {
     width: "100%",

@@ -20,35 +20,81 @@ import SearchAndFilter from "./SearchAndFilter";
 const Addseva = () => {
   const navigation = useNavigation();
   const goToHomePage = () => {
-    navigation.navigate('Dashboard');
+    navigation.navigate("Dashboard");
   };
   const handleOpenModal = () => {
     navigation.navigate("SaveInfoAdd");
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View
-            style={{ marginTop: 35, width: "100%", flex: 1, alignItems: "center" }}
+            style={{
+              marginTop: 35,
+              width: "100%",
+              flex: 1,
+              alignItems: "center",
+            }}
           >
-            <View style={{ width: "100%", backgroundColor: "transparent", flex: 0, flexDirection: "row", alignItems: "flex-start", justifyContent: "flex-start" }}>
-              <TouchableOpacity  onPress={goToHomePage}>
-                <View style={{ width: 45, height: 45, backgroundColor: "transparent", flex: 0, alignItems: "center", justifyContent: "center", borderRadius: 100, backgroundColor: "transparent", borderColor: "#070606", borderWidth: 0.7, transform: [{ rotateZ: '-90deg' }], marginLeft: 20, marginTop: 10 }}>
-                  <FontAwesome name='long-arrow-up' size={25} color={"#070606"} />
-                  
+            <View
+              style={{
+                width: "100%",
+                backgroundColor: "transparent",
+                flex: 0,
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
+              <TouchableOpacity onPress={goToHomePage}>
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    backgroundColor: "transparent",
+                    flex: 0,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 100,
+                    backgroundColor: "transparent",
+                    borderColor: "#070606",
+                    borderWidth: 0.7,
+                    transform: [{ rotateZ: "-90deg" }],
+                    marginLeft: 20,
+                    marginTop: 10,
+                  }}
+                >
+                  <FontAwesome
+                    name="long-arrow-up"
+                    size={20}
+                    color={"#070606"}
+                  />
                 </View>
               </TouchableOpacity>
 
-              <View style={{ backgroundColor: "transparent", marginLeft: 40, marginTop: 30,marginBottom: 30, justifyContent: "center", width: "100%" }}>
-                <Image
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                  marginLeft: 40,
+                  marginTop: 30,
+                  marginBottom: 30,
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                {/* <Image
                   source={require("../../../assets/splashwithoutbg.png")}
                   style={{ height: 90, width: 150 }}
-                />
+                /> */}
               </View>
             </View>
-            <SearchAndFilter></SearchAndFilter>
+            {/* <SearchAndFilter></SearchAndFilter> */}
+            <View style={{ width: "100%" }}>
+              <Text style={styles.userName}>Seva</Text>
+              <Text style={styles.welcomeMessage}>Total Seva:<Text style={{fontWeight:"bold"}}> 150</Text></Text>
+            </View>
             <View
               style={{
                 width: "100%",
@@ -78,6 +124,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+  },
+  userName: {
+    fontSize: 24,
+    color:"#003e6d",
+    marginLeft: 20,
+    marginTop: 5,
+    fontWeight:"bold"
+  },
+  welcomeMessage: {
+    fontSize: 20,
+    color: "#003e6d",
+    marginTop: 2,
+    marginLeft: 20,
+    
   },
   text: {
     fontSize: 24,
