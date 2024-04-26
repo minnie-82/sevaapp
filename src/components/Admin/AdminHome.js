@@ -40,6 +40,9 @@ import AdminInfoAdd from "./AdminInfoAdd";
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AdminSevaDisplayCard from "./AdminSevaDisplayCard";
+import DepartmentAddDetails from "./DepartmentAddDetails";
+import EditDepartment from "./EditDepartment";
+// import Adddepartment from "./Adddepartment";
 const Drawer = createDrawerNavigator();
 
 const HomeScreen = ({ navigation }) => {
@@ -503,6 +506,30 @@ const AdminHome = () => {
         <Drawer.Screen
           name="AdminSevaDetails"
           component={AdminSevaDetails}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
+        <Drawer.Screen
+          name="DepartmentAddDetails"
+          component={DepartmentAddDetails}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
+        <Drawer.Screen
+          name="Adddepartment"
+          component={Adddepartment}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
+        <Drawer.Screen
+          name="EditDepartment"
+          component={EditDepartment}
           options={{
             headerShown: false,
             drawerLabel: () => null,

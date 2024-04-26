@@ -24,20 +24,31 @@ import SelectUserScreen from "./SelectUserScreen";
 // import AddButton from "./AddButton";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useRoute } from "@react-navigation/native";
 
-const SevaInfoAdd = () => {
+const EditDepartment = () => {
   const navigation = useNavigation();
+  const route = useRoute();
 
+  const { department, datecome, timecome, details, instruction } = route.params;
+
+  // const route = useRoute();
   const [formData, setFormData] = useState({
-    department: "",
-    instruction: "",
+    department: department,
+    datecome: datecome,
+    timecome: timecome,
+    details: details,
+    instruction: instruction,
   });
+  const handleInputChange = (fieldName, value) => {
+    setFormData({ ...formData, [fieldName]: value });
+  };
+
   const [selectedUser, setSelectedUser] = useState(null);
 
   const handleAddUser = (user) => {
     setSelectedUser(user);
   };
-
   const data = [
     { label: "Nilkanth Mandapam", value: "1" },
     { label: "Cleanliness", value: "2" },
@@ -92,11 +103,7 @@ const SevaInfoAdd = () => {
   };
 
   const handleCloseModal = () => {
-    navigation.navigate("Addseva");
-  };
-
-  const handleInputChange = (fieldName, value) => {
-    setFormData({ ...formData, [fieldName]: value });
+    navigation.navigate("Adddepartment");
   };
 
   animation = new Animated.Value(0);
@@ -112,14 +119,14 @@ const SevaInfoAdd = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8"}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView>
         <View style={styles.container} onRequestClose={handleCloseModal}>
           <View
             style={{
               marginTop: 0,
               width: "100%",
-              backgroundColor:  "#F8E9C8",
+              backgroundColor: "white",
               flex: 1,
               flexDirection: "column",
               alignItems: "center",
@@ -153,7 +160,7 @@ const SevaInfoAdd = () => {
             </View>
             <View></View>
             <View style={styles.modalContent}>
-              <View>
+              {/* <View>
                 <Dropdown
                   style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
                   placeholderStyle={styles.placeholderStyle}
@@ -165,7 +172,7 @@ const SevaInfoAdd = () => {
                   maxHeight={300}
                   labelField="label"
                   valueField="value"
-                  placeholder={!isFocus ? "Select item" : "..."}
+                  placeholder={formData.department}
                   searchPlaceholder="Search..."
                   value={value}
                   onFocus={() => setIsFocus(true)}
@@ -183,9 +190,19 @@ const SevaInfoAdd = () => {
                     />
                   )}
                 />
-              </View>
-
+              </View> */}
               <View>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Department"
+                  placeholderTextColor="#000000"
+                  value={formData.department}
+                  onChangeText={(text) => handleInputChange("detail", text)}
+                />
+              </View>
+             
+
+              {/* <View>
                 {showPicker && (
                   <DateTimePicker
                     mode="date"
@@ -201,7 +218,7 @@ const SevaInfoAdd = () => {
                   >
                     <TextInput
                       style={styles.textInput}
-                      placeholder="12 Aug 2024"
+                      placeholder={formData.datecome}
                       placeholderTextColor="#000000"
                       value={dateData}
                       onChangeText={setDateData}
@@ -233,7 +250,7 @@ const SevaInfoAdd = () => {
                   >
                     <TextInput
                       style={styles.textInput}
-                      placeholder="Time"
+                      placeholder={formData.timecome}
                       placeholderTextColor="#000000"
                       value={timeData}
                       onChangeText={setTimeData}
@@ -247,7 +264,7 @@ const SevaInfoAdd = () => {
                     />
                   </Pressable>
                 )}
-              </View>
+              </View> */}
 
               <View>
                 <TextInput
@@ -276,30 +293,36 @@ const SevaInfoAdd = () => {
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
-                  onPress={() =>
-                    navigation.navigate("View Users", { handleAddUser })
-                  }
+                  onPress={() => navigation.navigate("View Users")}
                 >
-                  <Text style={styles.buttonText}>Add</Text>
+                  <Text style={styles.buttonText}>Edit</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.leaderContainer}>
+                <Text style={styles.leadertextInput}>
+                  Selected Karyakar : {selectedUser ? selectedUser.name : "None"}
+                </Text>
+                <TouchableOpacity
+                  style={styles.leaderaddButton}
+                  onPress={() => navigation.navigate("View Users")}
+                >
+                  <Text style={styles.buttonText}>Edit</Text>
                 </TouchableOpacity>
               </View>
 
-              
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.addButton}>
-                  <Text style={styles.buttonText}>Add</Text>
+                  <Text style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={handleCloseModal}
                 >
-                  <Text style={styles.buttonText}>Close</Text>
+                  <Text style={styles.buttonText}>Remove</Text>
                 </TouchableOpacity>
               </View>
             </View>
-
-
 
             <View
               style={{
@@ -336,13 +359,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
-  // textInput: {
-  //   height: 50,
-  //   flex: 1,
-  //   padding: 10,
-  //   marginLeft: 20,
-  //   color: "#000000",
-  // },
+  textInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+    color: "#000000",
+    
+  },
   loginBtn: {
     width: "25%",
     borderRadius: 25,
@@ -356,20 +380,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 18,
   },
-  floatingButton: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-    borderRadius: 60 / 2,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowRadius: 10,
-    shadowColor: "#003e6d",
-    shadowOpacity: 0.3,
-    shadowOffset: { height: 10 },
-    right: 20,
-    bottom: 50,
-  },
+  
   menu: {
     backgroundColor: "#003e6d",
   },
@@ -387,6 +398,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 15,
+    
   },
   modalContent: {
     // backgroundColor: "white",
@@ -397,14 +409,16 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 35,
-    // borderColor: "gray",
-    // borderWidth: 1,
-    // marginBottom: 10,
-    // paddingHorizontal: 10,
-    // borderRadius: 5,
-    // alignContent:"flex-start"
-    flex: 1, // Take remaining space
-    marginRight: 10, // Add margin between TextInput and icon
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    textAlignVertical: "top",
+    paddingVertical: 10,
+    backgroundColor: "#F8E9C8",
+    elevation:10
+    
   },
   textInstruction: {
     height: 100,
@@ -415,7 +429,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlignVertical: "top",
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
   textDetails: {
@@ -427,7 +441,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlignVertical: "top",
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
   addButton: {
@@ -436,7 +450,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
-    elevation:10
   },
   closeButton: {
     backgroundColor: "red",
@@ -444,18 +457,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
-    elevation:10
   },
   buttonText: {
     color: "white",
   },
   buttonContainer: {
-    flexDirection: "row",
-    elevation:10 // Align buttons horizontally
+    flexDirection: "row", // Align buttons horizontally
   },
   leaderContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    
   },
   leaderaddButton: {
     backgroundColor: "#003e6d",
@@ -464,7 +476,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderRadius: 5,
     height: 36,
-    elevation:10
   },
   leadertextInput: {
     height: 35,
@@ -480,7 +491,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     flex: 1, // Take remaining space
     marginRight: 10, // Add margin between TextInput and icon
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
 
@@ -490,6 +501,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
+    elevation:10
   },
   buttonText: {
     color: "white",
@@ -502,8 +514,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     marginBottom: 10,
-    backgroundColor: "white",
-    elevation:10
   },
   icon: {
     marginRight: 5,
@@ -544,9 +554,10 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginBottom: 10,
     borderColor: "gray",
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
 });
+const Stack = createStackNavigator();
 
-export default SevaInfoAdd;
+export default EditDepartment;

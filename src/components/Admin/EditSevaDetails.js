@@ -216,7 +216,7 @@ const EditSevaDetails = () => {
                     style={styles.pressableContainer}
                   >
                     <TextInput
-                      style={styles.textInput}
+                      // style={styles.textInput}
                       placeholder={formData.datecome}
                       placeholderTextColor="#000000"
                       value={dateData}
@@ -248,7 +248,7 @@ const EditSevaDetails = () => {
                     style={styles.pressableContainer}
                   >
                     <TextInput
-                      style={styles.textInput}
+                      // style={styles.textInput}
                       placeholder={formData.timecome}
                       placeholderTextColor="#000000"
                       value={timeData}
@@ -366,20 +366,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 18,
   },
-  floatingButton: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-    borderRadius: 60 / 2,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowRadius: 10,
-    shadowColor: "#003e6d",
-    shadowOpacity: 0.3,
-    shadowOffset: { height: 10 },
-    right: 20,
-    bottom: 50,
-  },
+  
   menu: {
     backgroundColor: "#003e6d",
   },
@@ -397,6 +384,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 15,
+    
   },
   modalContent: {
     // backgroundColor: "white",
@@ -407,14 +395,16 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 35,
-    // borderColor: "gray",
-    // borderWidth: 1,
-    // marginBottom: 10,
-    // paddingHorizontal: 10,
-    // borderRadius: 5,
-    // alignContent:"flex-start"
-    flex: 1, // Take remaining space
-    marginRight: 10, // Add margin between TextInput and icon
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    textAlignVertical: "top",
+    paddingVertical: 10,
+    backgroundColor: "#F8E9C8",
+    elevation:10
+    
   },
   textInstruction: {
     height: 100,
@@ -425,6 +415,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlignVertical: "top",
     paddingVertical: 10,
+    backgroundColor: "#F8E9C8",
+    elevation:10
   },
   textDetails: {
     height: 200,
@@ -435,6 +427,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlignVertical: "top",
     paddingVertical: 10,
+    backgroundColor: "#F8E9C8",
+    elevation:10
   },
   addButton: {
     backgroundColor: "#003e6d",
@@ -459,6 +453,7 @@ const styles = StyleSheet.create({
   leaderContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    
   },
   leaderaddButton: {
     backgroundColor: "#003e6d",
@@ -482,6 +477,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     flex: 1, // Take remaining space
     marginRight: 10, // Add margin between TextInput and icon
+    backgroundColor: "#F8E9C8",
+    elevation:10
   },
 
   button: {
@@ -490,6 +487,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
+    elevation:10
   },
   buttonText: {
     color: "white",
@@ -542,6 +540,8 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginBottom: 10,
     borderColor: "gray",
+    backgroundColor: "#F8E9C8",
+    elevation:10
   },
 });
 const Stack = createStackNavigator();

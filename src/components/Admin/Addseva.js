@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -9,12 +9,14 @@ import {
   Animated,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 import AllSevaCard from "./AllSevaCard";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/FontAwesome"; // Import the icon you want to use
 
 import SearchAndFilter from "./SearchAndFilter";
 const Addseva = () => {
@@ -24,6 +26,39 @@ const Addseva = () => {
   };
   const handleOpenModal = () => {
     navigation.navigate("SaveInfoAdd");
+  };
+  const [isLive, setIsLive] = useState(false);
+
+  useEffect(() => {
+    // Simulate starting and stopping the live status
+    const interval = setInterval(() => {
+      setIsLive((prevState) => !prevState);
+    }, 1000); // Toggle every second, change this interval as needed
+
+    return () => clearInterval(interval);
+  }, []);
+  const tabs = ["live", "completed"];
+  const [activeSevaTab, setActiveSevaTab] = useState(tabs[0]);
+  const TabButton = ({ name, activeSevaTab, onHandleSearchType }) => (
+    <TouchableOpacity
+      style={styles.btn(name, activeSevaTab)}
+      onPress={onHandleSearchType}
+    >
+      <Text style={styles.btnText(name, activeSevaTab)}>
+        {" "}
+        <View style={[styles.dot, isLive ? styles.liveDot : null]} />
+        {name}
+      </Text>
+    </TouchableOpacity>
+  );
+
+  const displaySevaTab = () => {
+    switch (activeSevaTab) {
+      case "live":
+        return <AllSevaCard></AllSevaCard>;
+      case "completed":
+        return <AllSevaCard></AllSevaCard>;
+    }
   };
 
   return (
@@ -93,7 +128,28 @@ const Addseva = () => {
             {/* <SearchAndFilter></SearchAndFilter> */}
             <View style={{ width: "100%" }}>
               <Text style={styles.userName}>Seva</Text>
-              <Text style={styles.welcomeMessage}>Total Seva:<Text style={{fontWeight:"bold"}}> 150</Text></Text>
+              <Text style={styles.welcomeMessage}>
+                Total Seva:<Text style={{ fontWeight: "bold" }}> 150</Text>
+              </Text>
+            </View>
+            <View>
+              <View style={styles.tabContainer}>
+                <FlatList
+                  data={tabs}
+                  renderItem={({ item }) => (
+                    <TabButton
+                      name={item}
+                      activeTab={activeSevaTab}
+                      onHandleSearchType={() => setActiveSevaTab(item)}
+                    ></TabButton>
+                  )}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={(item) => item}
+                  contentContainerStyle={{ columnGap: 12 / 2 }}
+                ></FlatList>
+              </View>
+              {displaySevaTab()}
             </View>
             <View
               style={{
@@ -103,10 +159,7 @@ const Addseva = () => {
                 alignItems: "center",
                 justifyContent: "start",
               }}
-            >
-              <AllSevaCard />
-              <AllSevaCard />
-            </View>
+            ></View>
           </View>
         </View>
       </ScrollView>
@@ -127,17 +180,16 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 24,
-    color:"#003e6d",
+    color: "#003e6d",
     marginLeft: 20,
     marginTop: 5,
-    fontWeight:"bold"
+    fontWeight: "bold",
   },
   welcomeMessage: {
     fontSize: 20,
     color: "#003e6d",
     marginTop: 2,
     marginLeft: 20,
-    
   },
   text: {
     fontSize: 24,
@@ -253,14 +305,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
-  dropdown: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    marginBottom: 10,
-  },
+
   icon: {
     marginRight: 5,
   },
@@ -287,6 +332,40 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 10,
     fontSize: 16,
+  },
+  tabContainer: {
+    marginTop: 12,
+    marginBottom: 12,
+    height: 50,
+  },
+  btn: (name, activeSevaTab) => ({
+    paddingVertical: 16,
+    paddingHorizontal: 23,
+    backgroundColor: name === activeSevaTab ? "#312651" : "#F3F4F8",
+    borderRadius: 16,
+    marginLeft: 2,
+    shadowColor: "gray",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5.84,
+    // elevation: 5,
+  }),
+  btnText: (name, activeSevaTab) => ({
+    fontSize: 12,
+    color: name === activeSevaTab ? "#C3BFCC" : "#AAA9B8",
+  }),
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#ccc',
+    marginRight: 5,
+  },
+  liveDot: {
+    backgroundColor: 'red', // Change to your preferred color for the live indicator
   },
 });
 

@@ -17,6 +17,7 @@ import SevaCardCompleted from "./src/components/User/SevaCardCompleted";
 // import SevaDetails from "./src/components/User/SevaDetails";
 import Dashboard from "./src/components/Admin/Dashboard";
 import AdminSevaDetails from "./src/components/Admin/AdminSevaDetails";
+import LiveButton from "./src/components/Admin/LiveButton";
 export default function App() {
   return (
     // <UserHome/>
@@ -26,8 +27,9 @@ export default function App() {
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
     // <NavigationContainer>
-            
-
+    //   <LiveButton
+    //     style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    //   ></LiveButton>
     // </NavigationContainer>
     // <AdminHomeScreenTest></AdminHomeScreenTest>
 

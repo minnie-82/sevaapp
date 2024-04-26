@@ -16,7 +16,7 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Dropdown } from "react-native-element-dropdown";
-import DateTimePicker from "@react-native-community/datetimepicker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -25,7 +25,7 @@ import SelectUserScreen from "./SelectUserScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-const SevaInfoAdd = () => {
+const DepartmentAddDetails = () => {
   const navigation = useNavigation();
 
   const [formData, setFormData] = useState({
@@ -92,7 +92,7 @@ const SevaInfoAdd = () => {
   };
 
   const handleCloseModal = () => {
-    navigation.navigate("Addseva");
+    navigation.navigate("Adddepartment");
   };
 
   const handleInputChange = (fieldName, value) => {
@@ -112,14 +112,14 @@ const SevaInfoAdd = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8"}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView>
         <View style={styles.container} onRequestClose={handleCloseModal}>
           <View
             style={{
               marginTop: 0,
               width: "100%",
-              backgroundColor:  "#F8E9C8",
+              backgroundColor: "white",
               flex: 1,
               flexDirection: "column",
               alignItems: "center",
@@ -185,7 +185,7 @@ const SevaInfoAdd = () => {
                 />
               </View>
 
-              <View>
+              {/* <View>
                 {showPicker && (
                   <DateTimePicker
                     mode="date"
@@ -247,7 +247,7 @@ const SevaInfoAdd = () => {
                     />
                   </Pressable>
                 )}
-              </View>
+              </View> */}
 
               <View>
                 <TextInput
@@ -283,6 +283,20 @@ const SevaInfoAdd = () => {
                   <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
               </View>
+              <View style={styles.leaderContainer}>
+                <Text style={styles.leadertextInput}>
+                  Selected Karyakar : {selectedUser ? selectedUser.name : "None"}
+                </Text>
+                <TouchableOpacity
+                  style={styles.leaderaddButton}
+                  onPress={() =>
+                    navigation.navigate("View Users", { handleAddUser })
+                  }
+                >
+                  <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
+              </View>
+
 
               
 
@@ -415,7 +429,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlignVertical: "top",
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
   textDetails: {
@@ -427,7 +441,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlignVertical: "top",
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
   addButton: {
@@ -480,7 +494,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     flex: 1, // Take remaining space
     marginRight: 10, // Add margin between TextInput and icon
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
 
@@ -502,7 +516,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     marginBottom: 10,
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
   icon: {
@@ -544,9 +558,9 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginBottom: 10,
     borderColor: "gray",
-    backgroundColor: "white",
+    backgroundColor: "#F8E9C8",
     elevation:10
   },
 });
 
-export default SevaInfoAdd;
+export default DepartmentAddDetails;
