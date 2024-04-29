@@ -1,35 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import CheckBox from "@react-native-community/checkbox";
 
-const LiveButton = () => {
-  const [isLive, setIsLive] = useState(false);
+const MultipleUserSelect = ({}) => {
+  const [users, setUsers] = useState([
+    { id: "1", name: "User 1", isSelected: false },
+    { id: "2", name: "User 2", isSelected: false },
+    { id: "3", name: "User 3", isSelected: false },
+    // Add more users as needed
+  ]);
 
-  useEffect(() => {
-    // Simulate starting and stopping the live status
-    const interval = setInterval(() => {
-      setIsLive((prevState) => !prevState);
-    }, 1000); // Toggle every second, change this interval as needed
-
-    return () => clearInterval(interval);
-  }, []);
+  const toggleUserSelection = (userId) => {
+    const updatedUsers = users.map((user) =>
+      user.id === userId ? { ...user, isSelected: !user.isSelected } : user
+    );
+    setUsers(updatedUsers);
+  };
 
   return (
-    <View style={[styles.dot, isLive ? styles.liveDot : null]} />
+    <View style={styles.container}>
+      <ScrollView>
+        {users.map((user) => (
+          <View key={user.id} style={styles.userItem}>
+            <CheckBox
+              value={user.isSelected}
+              onValueChange={() => toggleUserSelection(user.id)}
+            />
+            <Text style={styles.userName}>{user.name}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#ccc',
-    marginRight: 5,
-    marginTop:100
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
   },
-  liveDot: {
-    backgroundColor: 'red', // Change to your preferred color for the live indicator
+  userItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  userName: {
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
 
-export default LiveButton;
+export default MultipleUserSelect;

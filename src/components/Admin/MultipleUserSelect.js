@@ -14,8 +14,9 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Linking } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import CheckBox from "react-native-check-box";
 
-const ContactDiaryPage = ({ route }) => {
+const MultipleUserSelect = ({ route }) => {
   const navigation = useNavigation();
 
   const goToHomePage = () => {
@@ -24,19 +25,45 @@ const ContactDiaryPage = ({ route }) => {
   const handleOpenModal = () => {
     navigation.navigate("UserInfoAdd");
   };
-  const handleUserSelection = (user) => {
-    // Pass the selected user back to the parent screen
-    route.params.handleAddUser(user);
-    navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
-  };
 
   // Sample data for users
   const [users, setUsers] = useState([
-    { id: "1", name: "Manthan Jadhav", phoneNumber: "981-933-4535" },
-    { id: "2", name: "Akshar Parmar", phoneNumber: "996-739-0340" },
-    { id: "3", name: "Meet Vaghasiya", phoneNumber: "720-856-3542" },
+    {
+      id: "1",
+      name: "Manthan Jadhav",
+      phoneNumber: "981-933-4535",
+      isChecked: false,
+    },
+    {
+      id: "2",
+      name: "Akshar Parmar",
+      phoneNumber: "996-739-0340",
+      isChecked: false,
+    },
+    {
+      id: "3",
+      name: "Meet Vaghasiya",
+      phoneNumber: "720-856-3542",
+      isChecked: false,
+    },
     // Add more users as needed
   ]);
+  const [isChecked, setIsChecked] = useState([]);
+
+  //   const handleUserSelection = (user) => {
+  //     // Pass the selected user back to the parent screen
+  //     route.params.handleAddUser(user);
+  //     navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
+  //   };
+  
+  const pickUser = (selecteduser) => {
+    // const index = users.findIndex((user) => user === selecteduser);
+    if (users.includes(selecteduser)) {
+      setUsers(users.filter((user) => user === selecteduser));
+      return;
+    }
+    setUsers((user) => user.concat(selecteduser));
+  };
 
   // Function to handle calling a user
   const handleCallUser = (phoneNumber) => {
@@ -127,12 +154,13 @@ const ContactDiaryPage = ({ route }) => {
             {/* Display users */}
             {users.map((user) => (
               <View key={user.id} style={styles.userCard}>
-                <Text
-                  style={styles.userName}
-                  onPress={() => handleUserSelection(user)}
+                <TouchableOpacity
+                  style={styles.checkbox}
                 >
-                  {user.name}{" "}
-                </Text>
+                  {users.includes(user) && <Text style={styles.check}></Text>}
+                </TouchableOpacity>
+                <Text style={styles.userName}>{user.name}</Text>
+
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <TouchableOpacity
                     onPress={() => handleCallUser(user.phoneNumber)}
@@ -165,6 +193,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  checkbox: {
+    width: 25,
+    height: 25,
+    borderWidth: 2,
+    borderColor: "green",
+  },
+  check: {
+    alignSelf: "center",
+  },
   userCard: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -176,7 +213,7 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   userName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
   floatingButton: {
@@ -198,4 +235,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContactDiaryPage;
+export default MultipleUserSelect;

@@ -562,13 +562,13 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 20,
-    color: "#444262",
+    color: "#003e6d",
     marginLeft: 20,
     marginTop: 5,
   },
   welcomeMessage: {
     fontSize: 24,
-    color: "#312651",
+    color: "#003e6d",
     marginTop: 2,
     marginLeft: 20,
     fontWeight:"bold"
@@ -582,10 +582,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: activeGarphTypes === item ? "#444262" : "#C1C0C8",
+    borderColor: activeGarphTypes === item ? "#003e6d" : "#C1C0C8",
   }),
   tabText: (activeGarphTypes, item) => ({
-    color: activeGarphTypes === item ? "#444262" : "#C1C0C8",
+    color: activeGarphTypes === item ? "#003e6d" : "#C1C0C8",
   }),
 });
 
