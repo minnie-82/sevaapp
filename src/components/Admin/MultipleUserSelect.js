@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -14,7 +14,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Linking } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import CheckBox from "react-native-check-box";
 
 const MultipleUserSelect = ({ route }) => {
   const navigation = useNavigation();
@@ -48,21 +47,21 @@ const MultipleUserSelect = ({ route }) => {
     },
     // Add more users as needed
   ]);
-  const [isChecked, setIsChecked] = useState([]);
 
-  //   const handleUserSelection = (user) => {
-  //     // Pass the selected user back to the parent screen
-  //     route.params.handleAddUser(user);
-  //     navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
-  //   };
-  
-  const pickUser = (selecteduser) => {
-    // const index = users.findIndex((user) => user === selecteduser);
-    if (users.includes(selecteduser)) {
-      setUsers(users.filter((user) => user === selecteduser));
-      return;
-    }
-    setUsers((user) => user.concat(selecteduser));
+  // New state to store updated users
+  const [updatedUsers, setUpdatedUsers] = useState([]);
+
+  // Function to handle user selection
+  const toggleSelection = (userId) => {
+    const updatedUsersList = users.map(user => {
+      if (user.id === userId) {
+        const updatedUser = { ...user, isChecked: !user.isChecked };
+        return updatedUser;
+      }
+      return user;
+    });
+    setUsers(updatedUsersList);
+    setUpdatedUsers(updatedUsersList.filter(user => user.isChecked));
   };
 
   // Function to handle calling a user
@@ -82,9 +81,16 @@ const MultipleUserSelect = ({ route }) => {
 
   // Function to delete a user
   const handleDeleteUser = (userId) => {
-    const updatedUsers = users.filter((user) => user.id !== userId);
-    setUsers(updatedUsers);
+    const updatedUsersList = users.filter((user) => user.id !== userId);
+    setUsers(updatedUsersList);
+    setUpdatedUsers(updatedUsersList.filter(user => user.isChecked));
   };
+
+  // Log updated users whenever 'users' state changes
+  useEffect(() => {
+    console.log("Updated Users:", updatedUsers);
+    // You can do further processing here if needed
+  }, [updatedUsers]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8" }}>
@@ -155,9 +161,12 @@ const MultipleUserSelect = ({ route }) => {
             {users.map((user) => (
               <View key={user.id} style={styles.userCard}>
                 <TouchableOpacity
-                  style={styles.checkbox}
+                  style={[styles.checkbox, user.isChecked && styles.checked]}
+                  onPress={() => toggleSelection(user.id)}
                 >
-                  {users.includes(user) && <Text style={styles.check}></Text>}
+                  {user.isChecked && (
+                    <FontAwesome name="check" size={15} color="white" />
+                  )}
                 </TouchableOpacity>
                 <Text style={styles.userName}>{user.name}</Text>
 
@@ -198,9 +207,12 @@ const styles = StyleSheet.create({
     height: 25,
     borderWidth: 2,
     borderColor: "green",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
   },
-  check: {
-    alignSelf: "center",
+  checked: {
+    backgroundColor: "green",
   },
   userCard: {
     flexDirection: "row",

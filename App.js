@@ -28,13 +28,13 @@ export default function App() {
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
-    // <NavigationContainer>
-    //   <MultipleUserSelect></MultipleUserSelect>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <MultipleUserSelect></MultipleUserSelect>
+    </NavigationContainer>
     // <AdminHomeScreenTest></AdminHomeScreenTest>
 
-    <AdminHome></AdminHome>
-
+   // <AdminHome></AdminHome>
+   
     // <DisplayMultiple></DisplayMultiple>
 
     // <SelectMultipleUsers></SelectMultipleUsers>
