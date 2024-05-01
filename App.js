@@ -20,6 +20,7 @@ import AdminSevaDetails from "./src/components/Admin/AdminSevaDetails";
 import LiveButton from "./src/components/Admin/LiveButton";
 import MultipleUserSelect from "./src/components/Admin/MultipleUserSelect";
 
+
 export default function App() {
   return (
     // <UserHome/>
@@ -28,12 +29,13 @@ export default function App() {
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
-    <NavigationContainer>
-      <MultipleUserSelect></MultipleUserSelect>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <MultipleUserSelect></MultipleUserSelect>
+    // </NavigationContainer>
     // <AdminHomeScreenTest></AdminHomeScreenTest>
 
-   // <AdminHome></AdminHome>
+   <AdminHome></AdminHome>
+  //  <Page1></Page1>  
    
     // <DisplayMultiple></DisplayMultiple>
 

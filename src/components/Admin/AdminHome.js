@@ -37,12 +37,14 @@ import EditSevaDetails from "./EditSevaDetails";
 import AdminSevaDetails from "./AdminSevaDetails";
 import UserInfoAdd from "./UserInfoAdd";
 import AdminInfoAdd from "./AdminInfoAdd";
-import CircularProgress from 'react-native-circular-progress-indicator';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import CircularProgress from "react-native-circular-progress-indicator";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AdminSevaDisplayCard from "./AdminSevaDisplayCard";
 import DepartmentAddDetails from "./DepartmentAddDetails";
 import EditDepartment from "./EditDepartment";
 // import Adddepartment from "./Adddepartment";
+// import UserMultipleOption from "./UserMultipleOption";
+import MultipleUserSelect from "./MultipleUserSelect";
 const Drawer = createDrawerNavigator();
 
 const HomeScreen = ({ navigation }) => {
@@ -232,7 +234,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{backgroundColor:"white"}}>
+    <SafeAreaView style={{ backgroundColor: "white" }}>
       <ScrollView keyboardShouldPersistTaps="handled">
         <View>
           <View
@@ -245,7 +247,6 @@ const HomeScreen = ({ navigation }) => {
               backgroundColor: "white",
               flexDirection: "row",
               marginTop: 25,
-              
             }}
           >
             <View
@@ -429,7 +430,7 @@ const AdminHome = () => {
             ),
           }}
         />
-       
+
         <Drawer.Screen
           name="View Users"
           component={SeeallUser}
@@ -463,7 +464,7 @@ const AdminHome = () => {
             drawerLabel: () => null,
           }}
         />
-         <Drawer.Screen
+        <Drawer.Screen
           name="UserInfoAdd"
           component={UserInfoAdd}
           options={{
@@ -471,7 +472,7 @@ const AdminHome = () => {
             drawerLabel: () => null,
           }}
         />
-          <Drawer.Screen
+        <Drawer.Screen
           name="AdminInfoAdd"
           component={AdminInfoAdd}
           options={{
@@ -535,7 +536,14 @@ const AdminHome = () => {
             drawerLabel: () => null,
           }}
         />
-       
+        <Drawer.Screen
+          name="MultipleUserSelect"
+          component={MultipleUserSelect}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
@@ -571,7 +579,7 @@ const styles = StyleSheet.create({
     color: "#003e6d",
     marginTop: 2,
     marginLeft: 20,
-    fontWeight:"bold"
+    fontWeight: "bold",
   },
   tabsContainer: {
     width: "100%",

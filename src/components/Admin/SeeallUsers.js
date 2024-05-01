@@ -131,7 +131,7 @@ const ContactDiaryPage = ({ route }) => {
                   style={styles.userName}
                   onPress={() => handleUserSelection(user)}
                 >
-                  {user.name}{" "}
+                  {user.name}
                 </Text>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <TouchableOpacity

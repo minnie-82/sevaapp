@@ -24,7 +24,7 @@ import SelectUserScreen from "./SelectUserScreen";
 // import AddButton from "./AddButton";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import MultipleUserSelect from "./MultipleUserSelect";
 const SevaInfoAdd = () => {
   const navigation = useNavigation();
 
@@ -112,14 +112,14 @@ const SevaInfoAdd = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8"}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8" }}>
       <ScrollView>
         <View style={styles.container} onRequestClose={handleCloseModal}>
           <View
             style={{
               marginTop: 0,
               width: "100%",
-              backgroundColor:  "#F8E9C8",
+              backgroundColor: "#F8E9C8",
               flex: 1,
               flexDirection: "column",
               alignItems: "center",
@@ -283,8 +283,20 @@ const SevaInfoAdd = () => {
                   <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
               </View>
-
-              
+{/* multiple */}
+              <View style={styles.multipleUserContainer}>
+                <Text style={styles.multipletextInput}>
+                  Selected SwayamSevak : {selectedUser ? selectedUser.name : "None"}
+                </Text>
+                <TouchableOpacity
+                  style={styles.multipleaddButton}
+                  onPress={() =>
+                    navigation.navigate("MultipleUserSelect", { handleAddUser })
+                  }
+                >
+                  <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
+              </View>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.addButton}>
@@ -298,8 +310,6 @@ const SevaInfoAdd = () => {
                 </TouchableOpacity>
               </View>
             </View>
-
-
 
             <View
               style={{
@@ -416,7 +426,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     paddingVertical: 10,
     backgroundColor: "white",
-    elevation:10
+    elevation: 10,
   },
   textDetails: {
     height: 200,
@@ -428,7 +438,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     paddingVertical: 10,
     backgroundColor: "white",
-    elevation:10
+    elevation: 10,
   },
   addButton: {
     backgroundColor: "#003e6d",
@@ -436,7 +446,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
-    elevation:10
+    elevation: 10,
   },
   closeButton: {
     backgroundColor: "red",
@@ -444,18 +454,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
-    elevation:10
+    elevation: 10,
   },
   buttonText: {
     color: "white",
   },
   buttonContainer: {
     flexDirection: "row",
-    elevation:10 // Align buttons horizontally
+    elevation: 10, // Align buttons horizontally
   },
   leaderContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  multipleUserContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  multipleaddButton: {
+    backgroundColor: "#003e6d",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 5,
+    borderRadius: 5,
+    height: 36,
+    elevation: 10,
   },
   leaderaddButton: {
     backgroundColor: "#003e6d",
@@ -464,7 +487,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderRadius: 5,
     height: 36,
-    elevation:10
+    elevation: 10,
   },
   leadertextInput: {
     height: 35,
@@ -481,7 +504,24 @@ const styles = StyleSheet.create({
     flex: 1, // Take remaining space
     marginRight: 10, // Add margin between TextInput and icon
     backgroundColor: "white",
-    elevation:10
+    elevation: 10,
+  },
+  multipletextInput: {
+    height: 100,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    justifyContent: "center",
+    textAlign: "center",
+    // alignContent: "flex-start",
+    // alignItems:"center",
+    paddingVertical: 6,
+    flex: 1, // Take remaining space
+    marginRight: 10, // Add margin between TextInput and icon
+    backgroundColor: "white",
+    elevation: 10,
   },
 
   button: {
@@ -503,7 +543,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginBottom: 10,
     backgroundColor: "white",
-    elevation:10
+    elevation: 10,
   },
   icon: {
     marginRight: 5,
@@ -545,7 +585,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderColor: "gray",
     backgroundColor: "white",
-    elevation:10
+    elevation: 10,
   },
 });
 

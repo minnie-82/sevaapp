@@ -37,20 +37,9 @@ const Addseva = () => {
 
     return () => clearInterval(interval);
   }, []);
-  const tabs = ["live", "completed"];
-  const [activeSevaTab, setActiveSevaTab] = useState(tabs[0]);
-  const TabButton = ({ name, activeSevaTab, onHandleSearchType }) => (
-    <TouchableOpacity
-      style={styles.btn(name, activeSevaTab)}
-      onPress={onHandleSearchType}
-    >
-      <Text style={styles.btnText(name, activeSevaTab)}>
-        {" "}
-        <View style={[styles.dot, isLive ? styles.liveDot : null]} />
-        {name}
-      </Text>
-    </TouchableOpacity>
-  );
+
+  const sevaTabs = ["live", "completed"];
+  const [activeSevaTab, setActiveSevaTab] = useState(sevaTabs[0]);
 
   const displaySevaTab = () => {
     switch (activeSevaTab) {
@@ -132,25 +121,28 @@ const Addseva = () => {
                 Total Seva:<Text style={{ fontWeight: "bold" }}> 150</Text>
               </Text>
             </View>
-            <View>
-              <View style={styles.tabContainer}>
-                <FlatList
-                  data={tabs}
-                  renderItem={({ item }) => (
-                    <TabButton
-                      name={item}
-                      activeTab={activeSevaTab}
-                      onHandleSearchType={() => setActiveSevaTab(item)}
-                    ></TabButton>
-                  )}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={(item) => item}
-                  contentContainerStyle={{ columnGap: 12 / 2 }}
-                ></FlatList>
-              </View>
-              {displaySevaTab()}
+            <View style={styles.tabsContainer}>
+              <FlatList
+                data={sevaTabs}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.tab(activeSevaTab, item)}
+                    onPress={() => {
+                      setActiveSevaTab(item);
+                    }}
+                  >
+                    <Text style={styles.tabText(activeSevaTab, item)}>
+                      {item}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item}
+                contentContainerStyle={{ columnGap: 12 }}
+                horizontal
+                style={{ marginLeft: 20 }}
+              />
             </View>
+            {displaySevaTab()}
             <View
               style={{
                 width: "100%",
@@ -333,40 +325,32 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 16,
   },
-  tabContainer: {
-    marginTop: 12,
-    marginBottom: 12,
-    height: 50,
+
+   tabsContainer: {
+    width: "100%",
+    marginTop: 16,
   },
-  btn: (name, activeSevaTab) => ({
-    paddingVertical: 16,
-    paddingHorizontal: 23,
-    backgroundColor: name === activeSevaTab ? "#312651" : "#F3F4F8",
+  tab: (activeGarphTypes, item) => ({
+    paddingVertical: 12 / 2,
+    paddingHorizontal: 12,
     borderRadius: 16,
-    marginLeft: 2,
-    shadowColor: "gray",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 5.84,
-    // elevation: 5,
+    borderWidth: 1,
+    borderColor: activeGarphTypes === item ? "#003e6d" : "#C1C0C8",
   }),
-  btnText: (name, activeSevaTab) => ({
-    fontSize: 12,
-    color: name === activeSevaTab ? "#C3BFCC" : "#AAA9B8",
+  tabText: (activeGarphTypes, item) => ({
+    color: activeGarphTypes === item ? "#003e6d" : "#C1C0C8",
   }),
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#ccc',
-    marginRight: 5,
-  },
-  liveDot: {
-    backgroundColor: 'red', // Change to your preferred color for the live indicator
-  },
+
+  // dot: {
+  //   width: 10,
+  //   height: 10,
+  //   borderRadius: 5,
+  //   backgroundColor: "#ccc",
+  //   marginRight: 5,
+  // },
+  // liveDot: {
+  //   backgroundColor: "red", // Change to your preferred color for the live indicator
+  // },
 });
 
 export default Addseva;
