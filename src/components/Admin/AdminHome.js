@@ -45,7 +45,7 @@ import EditDepartment from "./EditDepartment";
 // import Adddepartment from "./Adddepartment";
 const Drawer = createDrawerNavigator();
 
-const HomeScreen = ({ navigation }) => {
+const  HomeScreen = ({ navigation }) => {
   const goToProfilePage = () => {
     navigation.navigate("AdminProfile");
   };

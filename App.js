@@ -22,15 +22,16 @@ import MultipleUserSelect from "./src/components/Admin/MultipleUserSelect";
 
 export default function App() {
   return (
-    // <UserHome/>
+    <UserHome/>
     // <AdminSevaDetails></AdminSevaDetails>
 
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
     // <SevaNotifications></SevaNotifications>
-    <NavigationContainer>
-      <MultipleUserSelect></MultipleUserSelect>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <MultipleUserSelect></MultipleUserSelect>
+    // </NavigationContainer>
+    // <Login/>
     // <AdminHomeScreenTest></AdminHomeScreenTest>
 
    // <AdminHome></AdminHome>
