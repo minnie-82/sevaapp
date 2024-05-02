@@ -24,6 +24,7 @@ import { Stack } from "expo-router";
 
 
 
+
 export default function App() {
   return (
     <UserHome/>    // <AdminSevaDetails></AdminSevaDetails>
@@ -34,10 +35,12 @@ export default function App() {
     // <NavigationContainer>
     //   <MultipleUserSelect></MultipleUserSelect>
     // </NavigationContainer>
+
     // <Login/>
     // <AdminHomeScreenTest></AdminHomeScreenTest>
 
-   // <AdminHome></AdminHome>
+  //  <AdminHome></AdminHome>
+  //  <Page1></Page1>  
    
     // <DisplayMultiple></DisplayMultiple>
 

@@ -19,10 +19,16 @@ const MultipleUserSelect = ({ route }) => {
   const navigation = useNavigation();
 
   const goToHomePage = () => {
-    navigation.navigate("Dashboard");
+    navigation.navigate("SaveInfoAdd");
   };
   const handleOpenModal = () => {
     navigation.navigate("UserInfoAdd");
+  };
+  const handleMultipleSelection = (user) => {
+    // route.params.handleMultipleSelection(user);
+    navigation.navigate("SaveInfoAdd", { selectedUsers: updatedUsers });
+
+    // navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
   };
 
   // Sample data for users
@@ -53,7 +59,7 @@ const MultipleUserSelect = ({ route }) => {
 
   // Function to handle user selection
   const toggleSelection = (userId) => {
-    const updatedUsersList = users.map(user => {
+    const updatedUsersList = users.map((user) => {
       if (user.id === userId) {
         const updatedUser = { ...user, isChecked: !user.isChecked };
         return updatedUser;
@@ -61,7 +67,7 @@ const MultipleUserSelect = ({ route }) => {
       return user;
     });
     setUsers(updatedUsersList);
-    setUpdatedUsers(updatedUsersList.filter(user => user.isChecked));
+    setUpdatedUsers(updatedUsersList.filter((user) => user.isChecked));
   };
 
   // Function to handle calling a user
@@ -83,12 +89,13 @@ const MultipleUserSelect = ({ route }) => {
   const handleDeleteUser = (userId) => {
     const updatedUsersList = users.filter((user) => user.id !== userId);
     setUsers(updatedUsersList);
-    setUpdatedUsers(updatedUsersList.filter(user => user.isChecked));
+    setUpdatedUsers(updatedUsersList.filter((user) => user.isChecked));
   };
 
   // Log updated users whenever 'users' state changes
   useEffect(() => {
     console.log("Updated Users:", updatedUsers);
+
     // You can do further processing here if needed
   }, [updatedUsers]);
 
@@ -165,7 +172,12 @@ const MultipleUserSelect = ({ route }) => {
                   onPress={() => toggleSelection(user.id)}
                 >
                   {user.isChecked && (
-                    <FontAwesome name="check" size={15} color="white" />
+                    <FontAwesome
+                      name="check"
+                      size={15}
+                      color="white"
+                      onPress={handleMultipleSelection}
+                    />
                   )}
                 </TouchableOpacity>
                 <Text style={styles.userName}>{user.name}</Text>
