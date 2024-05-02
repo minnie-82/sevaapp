@@ -84,7 +84,7 @@ const Login = () => {
         if (reponse.status === 200) {
           return reponse.json();
         }
-        throw new Error("Authentication error");
+        throw new Error(response);
       })
       .then((json) => {
         setLoading(false);
@@ -100,12 +100,10 @@ const Login = () => {
               //add navigation of userHome
               navigation.navigate("Home");
               fetchUserData(json.user_id);
-
-
           }
           else{
             // navigate to admin screen here
-            // navigation.navigate("Dashboard");
+            navigation.navigate("Dashboard");
           }
 
           // Call the next API to fetch user data using the user_id

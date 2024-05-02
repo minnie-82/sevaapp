@@ -2,7 +2,7 @@ import { View, Text ,Image,SafeAreaView,TouchableOpacity,LayoutAnimation,StyleSh
 import { FontAwesome } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import Myseva from './MySeva';
+// import Myseva from './MySeva';
 const SevaDetails = () => {
   const [on,setOn]=useState(false)  
   const offColor ="#C1C1C1"

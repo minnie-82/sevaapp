@@ -54,7 +54,7 @@ const UserHome = () => {
         drawerContent={props => <CustomDrawerContent {...props} />}
         drawerStyle={{ width: 200}}
         screenOptions={{headerShown:false,drawerActiveBackgroundColor:"#003e6d",drawerActiveTintColor:"#fff",drawerInactiveBackgroundColor:"#fff",drawerInactiveTintColor:"#003e6d"}}
-        
+        initialRouteName="Login"
          >
         <Drawer.Screen name="Home" component={HomeScreen} options={
             {
@@ -94,6 +94,7 @@ const UserHome = () => {
               drawerLabel:()=>null
             }
           }/>
+          
 
       </Drawer.Navigator>
     </NavigationContainer>
