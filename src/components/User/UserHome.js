@@ -4,7 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import {Dimensions} from 'react-native';
-
+import { createStackNavigator } from '@react-navigation/stack';
 import YourSeva from './YourSeva';
 import { useNavigation } from '@react-navigation/native';
 import SevaDetails from './SevaDetails';
@@ -12,10 +12,13 @@ import UserProfile from './UserProfile';
 import Login from '../Login'
 import SevaNotification from './SevaNotifications';
 import Myseva from './MySeva';
-
+import AdminHome from '../Admin/AdminHome';
 const Drawer = createDrawerNavigator();
+const RootStack = createStackNavigator();
+
 
 const CustomDrawerContent = (props) => {
+  const navigation = useNavigation()
   return (
     <View style={{flex:1}}>
         <DrawerContentScrollView contentContainerStyle={{backgroundColor:'#fff',marginTop:0}}>
@@ -33,7 +36,7 @@ const CustomDrawerContent = (props) => {
  
         </DrawerContentScrollView>
         <View style={{padding:20,borderTopWidth:0.5,borderTopColor:"#003e6d"}}>
-            <TouchableOpacity onPress={()=>{}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate('Login')}}>
                 <View style={{flex:0,flexDirection:"row",gap:6}}>
                 <FontAwesome name="sign-out" size={22} color={"#003e6d"}/>
                 <Text style={{color:"#003e6d"}}>
@@ -49,7 +52,7 @@ const CustomDrawerContent = (props) => {
 
 const UserHome = () => {
   return (
-    <NavigationContainer>
+    // <NavigationContainer>
       <Drawer.Navigator
         drawerContent={props => <CustomDrawerContent {...props} />}
         drawerStyle={{ width: 200}}
@@ -94,10 +97,14 @@ const UserHome = () => {
               drawerLabel:()=>null
             }
           }/>
-          
-
+          <Drawer.Screen name="Admin" component={AdminHome}   options={
+            {
+              headerShown:false,
+              drawerLabel:()=>null
+            }
+          }/>
       </Drawer.Navigator>
-    </NavigationContainer>
+    //</NavigationContainer> 
     
   );
 };

@@ -45,6 +45,7 @@ import EditDepartment from "./EditDepartment";
 // import Adddepartment from "./Adddepartment";
 // import UserMultipleOption from "./UserMultipleOption";
 import MultipleUserSelect from "./MultipleUserSelect";
+import { useNavigation } from '@react-navigation/native';
 const Drawer = createDrawerNavigator();
 
 const  HomeScreen = ({ navigation }) => {
@@ -344,6 +345,7 @@ const  HomeScreen = ({ navigation }) => {
 };
 
 const CustomDrawerContent = (props) => {
+  const navigation = useNavigation()
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -368,7 +370,7 @@ const CustomDrawerContent = (props) => {
       <View
         style={{ padding: 20, borderTopWidth: 0.5, borderTopColor: "#003e6d" }}
       >
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => {navigation.navigate("Login")}}>
           <View style={{ flex: 0, flexDirection: "row", gap: 6 }}>
             <FontAwesome name="sign-out" size={22} color={"#003e6d"} />
             <Text style={{ color: "#003e6d" }}>Logout</Text>
@@ -381,7 +383,7 @@ const CustomDrawerContent = (props) => {
 
 const AdminHome = () => {
   return (
-    <NavigationContainer>
+    // <NavigationContainer>
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         drawerStyle={{ width: 200 }}
@@ -391,7 +393,9 @@ const AdminHome = () => {
           drawerActiveTintColor: "#fff",
           drawerInactiveBackgroundColor: "#fff",
           drawerInactiveTintColor: "#003e6d",
+          
         }}
+        initialRouteName="Dashboard"
       >
         <Drawer.Screen
           name="Dashboard"
@@ -404,7 +408,7 @@ const AdminHome = () => {
         />
 
         <Drawer.Screen
-          name="Admin"
+          name="AddAdmin"
           component={Addadmin}
           options={{
             drawerIcon: ({ color }) => (
@@ -440,14 +444,14 @@ const AdminHome = () => {
             ),
           }}
         />
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="Login"
           component={Login}
           options={{
             headerShown: false,
             drawerLabel: () => null,
           }}
-        />
+        /> */}
         <Drawer.Screen
           name="AdminProfile"
           component={AdminProfile}
@@ -545,8 +549,8 @@ const AdminHome = () => {
           }}
         />
       </Drawer.Navigator>
-    </NavigationContainer>
-  );
+    //  {/* </NavigationContainer> */}
+       );
 };
 
 const styles = StyleSheet.create({

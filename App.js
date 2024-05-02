@@ -27,7 +27,11 @@ import { Stack } from "expo-router";
 
 export default function App() {
   return (
-    <UserHome/>    // <AdminSevaDetails></AdminSevaDetails>
+    <NavigationContainer>
+    <UserHome/>    
+    {/* // <AdminSevaDetails></AdminSevaDetails> */}
+
+    </NavigationContainer>
 
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
