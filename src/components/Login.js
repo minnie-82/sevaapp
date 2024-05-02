@@ -13,10 +13,12 @@ import {
 import { API_ENDPOINT } from "./global";
 import { useUser, updateSevaData } from "./global";
 import { useNavigation } from "@react-navigation/native";
-import UserHome from "./User/UserHome";
+// import UserHome from "./User/UserHome";
+// import HomeScreen from './User/UserHome'
 import { addUser, updateUser } from "./User/user_api";
 import { addAdmin } from "./Admin/admin_api";
 import { getAllSeva } from "./seva_api";
+import AdminHome from "./Admin/AdminHome";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -26,7 +28,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState("user");
   const [userId, setUserId] = useState("");
-  const { userData, setUserData } = useUser();
+  // const { userData, setUserData } = useUser();
   // const newuserdta = {
   //   fname: "dummy",
   //   lname: "data",
@@ -86,15 +88,27 @@ const Login = () => {
       })
       .then((json) => {
         setLoading(false);
+        console.log(json)
         // Check if user_id is available in the response
-        if (json.user_id) {
+        if (json.user_id || json.admin_id) {
           setUserId(json.user_id); // Store user_id in state variable
           console.log("User authenticated successfully:", json);
           alert(`${type} logged in successfully`);
           // navigation.navigate(`${UserHome}`);
+          if(json.role=='User'){
+              // navigation.navigate(`${}`);
+              //add navigation of userHome
+              navigation.navigate("Home");
+              fetchUserData(json.user_id);
+
+
+          }
+          else{
+            // navigate to admin screen here
+            // navigation.navigate("Dashboard");
+          }
 
           // Call the next API to fetch user data using the user_id
-          fetchUserData(json.user_id);
 
           //Just for checking purpose
           //addUser(newuserdta);
@@ -125,11 +139,12 @@ const Login = () => {
       })
       .then((userData) => {
         console.log("User data:", userData);
-        setUserData(userData);
+        // setUserData(userData);
         if (type === "user") {
           fetchUserSeva(userId);
-          navigation.navigate("UserHome");
+          navigation.navigate("Home");
         } else if (type === "admin") {
+         
           // fetchAdminSeva(userId);
         } else {
           throw new Error("Invalid user type");
@@ -154,7 +169,7 @@ const Login = () => {
       })
       .then((data) => {
         console.log("User seva data:", data);
-        updateSevaData(data);
+        // updateSevaData(data);
       })
       .catch((error) => {
         console.error("Error fetching admin service data:", error);

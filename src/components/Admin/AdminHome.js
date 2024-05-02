@@ -47,7 +47,7 @@ import EditDepartment from "./EditDepartment";
 import MultipleUserSelect from "./MultipleUserSelect";
 const Drawer = createDrawerNavigator();
 
-const HomeScreen = ({ navigation }) => {
+const  HomeScreen = ({ navigation }) => {
   const goToProfilePage = () => {
     navigation.navigate("AdminProfile");
   };

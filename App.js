@@ -23,7 +23,7 @@ import MultipleUserSelect from "./src/components/Admin/MultipleUserSelect";
 
 export default function App() {
   return (
-    // <UserHome/>
+    <UserHome/>
     // <AdminSevaDetails></AdminSevaDetails>
 
     // <Addseva></Addseva>
@@ -32,9 +32,11 @@ export default function App() {
     // <NavigationContainer>
     //   <MultipleUserSelect></MultipleUserSelect>
     // </NavigationContainer>
+
+    // <Login/>
     // <AdminHomeScreenTest></AdminHomeScreenTest>
 
-   <AdminHome></AdminHome>
+  //  <AdminHome></AdminHome>
   //  <Page1></Page1>  
    
     // <DisplayMultiple></DisplayMultiple>
