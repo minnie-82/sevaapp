@@ -19,6 +19,11 @@ const UserProfile = () => {
   };
   const goToLoginPage = () => {
     navigation.navigate("Login");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+
   };
 
   return (
