@@ -115,24 +115,24 @@ const DepartmentCard = () => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.cardContainerC} onPress={sevaDetailsPage}>
-      <TouchableOpacity style={styles.logoContainer}>
-        <Image
-          source={require("../../../assets/nilkanth-pic.jpeg")}
-          style={styles.logImage}
-        ></Image>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
 
-      <View style={styles.textContainer}>
-        <Text style={styles.jobName} numberOfLines={1}>
-          Nilkanth Mandapam
-        </Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Cleanliness Department
+          </Text>
 
-        <Text style={styles.jobType}>
-          <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
-          Febuary, 2024
-        </Text>
-      </View>
-      <TouchableOpacity
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
           style={{
             height: 20,
             // backgroundColor: "#003e6d",
@@ -162,27 +162,27 @@ const DepartmentCard = () => {
             Edit
           </Text>
         </TouchableOpacity>
-    </TouchableOpacity>
-
-    <TouchableOpacity style={styles.cardContainerM} onPress={sevaDetailsPage}>
-      <TouchableOpacity style={styles.logoContainer}>
-        <Image
-          source={require("../../../assets/nilkanth-pic.jpeg")}
-          style={styles.logImage}
-        ></Image>
       </TouchableOpacity>
 
-      <View style={styles.textContainer}>
-        <Text style={styles.jobName} numberOfLines={1}>
-          Nilkanth Mandapam
-        </Text>
+      <TouchableOpacity style={styles.cardContainerM} onPress={sevaDetailsPage}>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
 
-        <Text style={styles.jobType}>
-          <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
-          Febuary, 2024
-        </Text>
-      </View>
-      <TouchableOpacity
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Medical Department
+          </Text>
+
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
           style={{
             height: 20,
             // backgroundColor: "#003e6d",
@@ -212,7 +212,7 @@ const DepartmentCard = () => {
             Edit
           </Text>
         </TouchableOpacity>
-    </TouchableOpacity>
+      </TouchableOpacity>
     </>
   );
 };
@@ -237,6 +237,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     backgroundColor: "#F8D1C8",
+    width:"90%"
   },
   cardContainerC: {
     flex: 0,
@@ -257,6 +258,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     backgroundColor: "#dbef84",
+    width:"90%"
   },
   cardContainerM: {
     flex: 0,
@@ -278,6 +280,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 5,
     backgroundColor: "#87ceeb",
+    width:"90%"
   },
   logoContainer: {
     width: 50,

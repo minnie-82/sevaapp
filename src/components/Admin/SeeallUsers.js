@@ -60,7 +60,7 @@ const ContactDiaryPage = ({ route }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F8E9C8" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFF" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <View
@@ -127,12 +127,21 @@ const ContactDiaryPage = ({ route }) => {
             {/* Display users */}
             {users.map((user) => (
               <View key={user.id} style={styles.userCard}>
-                <Text
-                  style={styles.userName}
-                  onPress={() => handleUserSelection(user)}
-                >
-                  {user.name}
-                </Text>
+                <TouchableOpacity style={styles.logoContainer}>
+                  <Image
+                    source={require("../../../assets/profile-pic.jpeg")}
+                    style={styles.logImage}
+                  ></Image>
+                </TouchableOpacity>
+                <View style={styles.textContainer}>
+                  <Text
+                    style={styles.jobName}
+                    onPress={() => handleUserSelection(user)}
+                  >
+                    {user.name}
+                  </Text>
+                </View>
+
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <TouchableOpacity
                     onPress={() => handleCallUser(user.phoneNumber)}
@@ -169,11 +178,47 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#F8E9C8",
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 12,
     marginBottom: 10,
-    width: "80%",
+    width:"90%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5.84,
+    elevation: 5,
+  },
+  logoContainer: {
+    width: 50,
+    height: 50,
+    backgroundColor: "#F3F4F8",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 100,
+  },
+  textContainer: {
+    flex: 1,
+    marginHorizontal: 16,
+  },
+  jobName: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#312651",
+  },
+  jobType: {
+    fontSize: 12 + 2,
+    color: "#83829A",
+    marginTop: 3,
+    textTransform: "capitalize",
   },
   userName: {
     fontSize: 18,
