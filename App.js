@@ -32,6 +32,7 @@ export default function App() {
     <NavigationContainer>
     <UserHome/>    
     {/* // <AdminSevaDetails></AdminSevaDetails> */}
+    {/* <AdminHome></AdminHome> */}
 
     </NavigationContainer>
 
