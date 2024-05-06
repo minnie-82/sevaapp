@@ -1,36 +1,460 @@
-import { View, Text ,Image,StyleSheet} from 'react-native'
-import React from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
-
+import { useNavigation } from "@react-navigation/native";
+// import AdminSevaDetails from "./AdminSevaDetails";
 const SevaCard = () => {
-  return (
-    <View style={{width:"90%",height:400,backgroundColor:"#F8E9C8",borderRadius:30,marginTop:10,marginBottom:20,flex:0,alignItems:"center",justifyContent:"statrt",flexDiretion:"column",padding:10}}>
-      <View style={{width:"100%",height:"30%",flex:0,flexDirection:"row",alignItems:"center",justifyContent:"space-between",padding:10}}>
-      <Image source={require("../../../assets/nilkanth-pic.jpeg")} 
-                style={{height:100,width:100,borderRadius:100,marginRight:20}}>
-        </Image>
-        <View style={{width:45,height:45,backgroundColor:"transparent",flex:0,alignItems:"center",justifyContent:"center",borderRadius:100,backgroundColor:"transparent",borderColor:"#070606",borderWidth:0.7,transform: [{ rotateZ: '45deg' }],marginRight:20}}>
-            <FontAwesome name='long-arrow-up' size={25} color={"#070606"}/>
-        </View>
-      </View>
-      <View style={{width:"100%",height:"70%",padding:10,backgroundColor:"transparent",flex:0,flexDirection:"column",justifyContent:"space-evenly"}}>
-        <Text style={{fontSize:30,fontWeight:'bold'}}>Nilkanth Varni</Text>
-        <View style={{flex:0,flexDirection:"row",gap:10,alignItems:"center",justifyContent:"start"}}>
-        <FontAwesome name='calendar' size={15} color={"#808080"}/>
-        <Text style={{color:"#808080"}}>25 Febuary, 2024</Text>
-        </View>
-        <Text>
-        Seva details which is mentioned.
-        </Text>
-        <Text>
-        The seva work what to be done.
-        </Text>
-        <View style={{flex:0,alignItems:"start",justifyContent:"center",width:"100%",height:50,backgroundColor:"white",borderRadius:10}}>
-            <Text style={{marginLeft:20,fontSize:15}}>Status : Upcoming</Text>
-        </View>
-      </View>
-    </View>
-  )
-}
+  const navigation = useNavigation();
 
-export default SevaCard
+  const handleEdit = (department, datecome, timecome, details, instruction) => {
+    navigation.navigate("EditSevaDetails", {
+      department,
+      datecome,
+      timecome,
+      details,
+      instruction,
+    });
+  };
+  const sevaDetailsPage = () => {
+    navigation.navigate("UserSevaDetails");
+  };
+
+  const EditSelection = (
+    department,
+    datecome,
+    timecome,
+    details,
+    instruction
+  ) => {
+    handleEdit(department, datecome, timecome, details, instruction);
+  };
+
+  // Function to handle "Edit" button press for the first card
+  const handleEditFirstCard = () => {
+    EditSelection(
+      "Nilkanth Mandapam",
+      "25 Febuary, 2024",
+      "12.00PM",
+      "Come on time",
+      "Come before 4pm"
+    );
+  };
+
+  // Function to handle "Edit" button press for the second card
+  const handleEditSecondCard = () => {
+    EditSelection(
+      "Cleanliness",
+      "20 April, 2024",
+      "11.00PM",
+      "Near Sabha hall",
+      "Come on time"
+    );
+  };
+
+  // Function to handle "Edit" button press for the third card
+  const handleEditThirdCard = () => {
+    EditSelection(
+      "Medical Department",
+      "12 March, 2024",
+      "2.00PM",
+      "Medical Kit",
+      "Doctor and nurse"
+    );
+  };
+  return (
+    <>
+      <TouchableOpacity style={styles.cardContainerN} onPress={sevaDetailsPage}>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
+
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Nilkanth Mandapam
+          </Text>
+
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{
+            height: 20,
+            // backgroundColor: "#003e6d",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 5,
+            flexDirection: "row",
+            borderRadius: 30,
+          }}
+          onPress={handleEditFirstCard}
+        >
+          <FontAwesome
+            name="arrow-right"
+            size={14}
+            color={"#83829A"}
+            style={{ paddingLeft: 0 }}
+            onPress={sevaDetailsPage}
+          />
+          {/* <Text
+            style={{
+              fontSize: 14,
+              color: "white",
+              flex: 0,
+              color: "#83829A",
+              justifyContent: "space-evenly",
+            }}
+          >
+            
+          </Text> */}
+        </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.cardContainerC} onPress={sevaDetailsPage}>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
+
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Cleanliness Department
+          </Text>
+
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{
+            height: 20,
+            // backgroundColor: "#003e6d",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 5,
+            flexDirection: "row",
+            borderRadius: 30,
+          }}
+          onPress={handleEditSecondCard}
+        >
+          <FontAwesome
+            name="arrow-right"
+            size={14}
+            color={"#83829A"}
+            style={{ paddingLeft: 0 }}
+          />
+          {/* <Text
+            style={{
+              fontSize: 14,
+              color: "white",
+              flex: 0,
+              color: "#83829A",
+              justifyContent: "space-evenly",
+            }}
+          >
+            Edit
+          </Text> */}
+        </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.cardContainerM} onPress={sevaDetailsPage}>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
+
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Medical Department
+          </Text>
+
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{
+            height: 20,
+            // backgroundColor: "#003e6d",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 5,
+            flexDirection: "row",
+            borderRadius: 30,
+          }}
+          onPress={handleEditThirdCard}
+        >
+          <FontAwesome
+            name="arrow-right"
+            size={14}
+            color={"#83829A"}
+            style={{ paddingLeft: 0 }}
+          />
+          {/* <Text
+            style={{
+              fontSize: 14,
+              color: "white",
+              flex: 0,
+              color: "#83829A",
+              justifyContent: "space-evenly",
+            }}
+          >
+            Edit
+          </Text> */}
+        </TouchableOpacity>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.cardContainerN} onPress={sevaDetailsPage}>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
+
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Nilkanth Mandapam
+          </Text>
+
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{
+            height: 20,
+            // backgroundColor: "#003e6d",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 5,
+            flexDirection: "row",
+            borderRadius: 30,
+          }}
+          onPress={handleEditFirstCard}
+        >
+          <FontAwesome
+            name="arrow-right"
+            size={14}
+            color={"#83829A"}
+            style={{ paddingLeft: 0 }}
+          />
+          {/* <Text
+            style={{
+              fontSize: 14,
+              color: "white",
+              flex: 0,
+              color: "#83829A",
+              justifyContent: "space-evenly",
+            }}
+          >
+            Edit
+          </Text> */}
+        </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.cardContainerC} onPress={sevaDetailsPage}>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
+
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Cleanliness Department
+          </Text>
+
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{
+            height: 20,
+            // backgroundColor: "#003e6d",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 5,
+            flexDirection: "row",
+            borderRadius: 30,
+          }}
+          onPress={handleEditSecondCard}
+        >
+          <FontAwesome
+            name="arrow-right"
+            size={14}
+            color={"#83829A"}
+            style={{ paddingLeft: 0 }}
+          />
+         
+        </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.cardContainerM} onPress={sevaDetailsPage}>
+        <TouchableOpacity style={styles.logoContainer}>
+          <Image
+            source={require("../../../assets/nilkanth-pic.jpeg")}
+            style={styles.logImage}
+          ></Image>
+        </TouchableOpacity>
+
+        <View style={styles.textContainer}>
+          <Text style={styles.jobName} numberOfLines={1}>
+            Medical Department
+          </Text>
+
+          <Text style={styles.jobType}>
+            <FontAwesome name="calendar" size={14} color={"#83829A"} /> 25
+            Febuary, 2024
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={{
+            height: 20,
+            // backgroundColor: "#003e6d",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 5,
+            flexDirection: "row",
+            borderRadius: 30,
+          }}
+          onPress={handleEditThirdCard}
+        >
+          <FontAwesome
+            name="arrow-right"
+            size={14}
+            color={"#83829A"}
+            style={{ paddingLeft: 0 }}
+            
+          />
+         
+        </TouchableOpacity>
+      </TouchableOpacity>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  cardContainerN: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 16,
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5.84,
+    elevation: 5,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: "#F8D1C8",
+  },
+  cardContainerC: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 16,
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5.84,
+    elevation: 5,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: "#dbef84",
+  },
+  cardContainerM: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 16,
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5.84,
+    elevation: 5,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 5,
+    backgroundColor: "#87ceeb",
+  },
+  titleContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  title: {
+    fontSize: 30,
+    color: "#000", // Set your desired text color
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+  },
+  iconTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    gap: 10,
+  },
+  dateText: {
+    color: "#808080",
+  },
+  logoContainer: {
+    width: 50,
+    height: 50,
+    backgroundColor: "#F3F4F8",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 100,
+  },
+  textContainer: {
+    flex: 1,
+    marginHorizontal: 16,
+  },
+  jobName: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#312651",
+  },
+  jobType: {
+    fontSize: 12 + 2,
+    color: "#83829A",
+    marginTop: 3,
+    textTransform: "capitalize",
+  },
+});
+
+export default SevaCard;

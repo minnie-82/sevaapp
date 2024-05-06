@@ -235,7 +235,7 @@ const  HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white" }}>
+    <SafeAreaView style={{ flex:1,backgroundColor: "white" }}>
       <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor:"white"}}>
         <View>
           <View

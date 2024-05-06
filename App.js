@@ -27,10 +27,11 @@ import { Stack } from "expo-router";
 
 export default function App() {
   return (
-    // <UserHome/>
+    
     // <AdminSevaDetails></AdminSevaDetails>
     <NavigationContainer>
-     <AdminHome></AdminHome>   
+     {/* <AdminHome></AdminHome>  */}
+     <UserHome/>  
 
 
     </NavigationContainer>
