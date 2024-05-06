@@ -120,36 +120,8 @@ const Addseva = () => {
                 Total Department:<Text style={{ fontWeight: "bold" }}> 50</Text>
               </Text>
             </View>
-            <View>
-              <View style={styles.tabContainer}>
-                {/* <FlatList
-                  data={tabs}
-                  renderItem={({ item }) => (
-                    <TabButton
-                      name={item}
-                      activeTab={activeSevaTab}
-                      onHandleSearchType={() => setActiveSevaTab(item)}
-                    ></TabButton>
-                  )}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={(item) => item}
-                  contentContainerStyle={{ columnGap: 12 / 2 }}
-                ></FlatList> */}
-              </View>
-              {/* {displaySevaTab()} */}
-              <DepartmentCard></DepartmentCard>
-
-            </View>
-            <View
-              style={{
-                width: "100%",
-                height: "100%",
-                flex: 0,
-                alignItems: "center",
-                justifyContent: "start",
-              }}
-            ></View>
+            <DepartmentCard></DepartmentCard>
+            
           </View>
         </View>
       </ScrollView>
