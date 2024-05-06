@@ -120,7 +120,7 @@ const  HomeScreen = ({ navigation }) => {
                   size={20}
                   color="#003e6d"
                 />
-                <Text>NA</Text>
+                <Text>Active</Text>
               </View>
             </View>
           </View>
@@ -172,7 +172,7 @@ const  HomeScreen = ({ navigation }) => {
                   size={20}
                   color="#003e6d"
                 />
-                <Text>NA</Text>
+                <Text>Active</Text>
               </View>
             </View>
           </View>
@@ -191,7 +191,7 @@ const  HomeScreen = ({ navigation }) => {
             }}
           >
             <Text style={{ fontSize: 20 }}>
-              Total Departments: <Text style={{ fontWeight: "bold" }}>50</Text>{" "}
+              Total Departments: <Text style={{ fontWeight: "bold" }}>50</Text>
             </Text>
             <View
               style={{
@@ -224,7 +224,7 @@ const  HomeScreen = ({ navigation }) => {
                   size={20}
                   color="#003e6d"
                 />
-                <Text>NA</Text>
+                <Text>Active</Text>
               </View>
             </View>
           </View>
@@ -236,7 +236,7 @@ const  HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: "white" }}>
-      <ScrollView keyboardShouldPersistTaps="handled">
+      <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor:"white"}}>
         <View>
           <View
             style={{
@@ -263,8 +263,8 @@ const  HomeScreen = ({ navigation }) => {
             >
               <View
                 style={{
-                  width: 45,
-                  height: 45,
+                  width: 40,
+                  height: 40,
                   backgroundColor: "transparent",
                   flex: 0,
                   alignItems: "center",
@@ -561,14 +561,14 @@ const AdminHome = () => {
 
 const styles = StyleSheet.create({
   profileImage: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
     borderRadius: 50,
     marginRight: 15,
   },
   notificationBadge: {
-    width: 15,
-    height: 15,
+    width: 10,
+    height: 10,
     position: "absolute",
     top: 0,
     right: 15,
@@ -582,7 +582,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#003e6d",
     marginLeft: 20,
-    marginTop: 5,
+    marginTop: 20,
   },
   welcomeMessage: {
     fontSize: 24,
