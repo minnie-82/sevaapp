@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import AdminSevaDetails from "./AdminSevaDetails";
+// import AdminSevaDetails from "./AdminSevaDetails";
 const AllSevaCard = () => {
   const navigation = useNavigation();
 

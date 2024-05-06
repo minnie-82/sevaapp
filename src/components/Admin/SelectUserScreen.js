@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import SaveInfoAdd from "./SevaInfoAdd";
+// import SaveInfoAdd from "./SevaInfoAdd";
 const SelectUserScreen = ({ navigation, route }) => {
   const [selectedUser, setSelectedUser] = useState(null);
 

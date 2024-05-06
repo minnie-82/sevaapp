@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import SevaDetails from './SevaDetails';
+// import SevaDetails from './SevaDetails';
 
 const SevaCardCompleted =()=>{
     const navigation = useNavigation();

@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import { addUser, updateUser } from "./User/user_api";
 import { addAdmin } from "./Admin/admin_api";
 import { getAllSeva } from "./seva_api";
-import AdminHome from "./Admin/AdminHome";
+// import AdminHome from "./Admin/AdminHome";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -80,11 +80,11 @@ const Login = () => {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then((reponse) => {
-        if (reponse.status === 200) {
-          return reponse.json();
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
         }
-        throw new Error("Authentication error");
+        throw new Error(response);
       })
       .then((json) => {
         setLoading(false);
@@ -100,12 +100,10 @@ const Login = () => {
               //add navigation of userHome
               navigation.navigate("Home");
               fetchUserData(json.user_id);
-
-
           }
           else{
             // navigate to admin screen here
-            // navigation.navigate("Dashboard");
+            navigation.navigate("Admin");
           }
 
           // Call the next API to fetch user data using the user_id

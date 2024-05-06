@@ -14,7 +14,7 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
-import AllSevaCard from "./AllSevaCard";
+// import AllSevaCard from "./AllSevaCard";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import SeeallUsers from "./SeeallUsers";
 import SearchAndFilter from "./SearchAndFilter";

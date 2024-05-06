@@ -1,9 +1,11 @@
 import React, { createContext, useState, useContext } from "react";
 
-export const API_ENDPOINT = "https://779c-150-107-98-205.ngrok-free.app/";
+export const API_ENDPOINT = "https://78fd-110-226-176-187.ngrok-free.app/";
 
 
 // const UserContext = createContext();
+
+// const userdata=useState(null);
 
 // export const UserProvider = ({ children }) => {
 //   const [userData, setUserData] = useState(null);

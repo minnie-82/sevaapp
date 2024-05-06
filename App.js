@@ -19,12 +19,21 @@ import Dashboard from "./src/components/Admin/Dashboard";
 import AdminSevaDetails from "./src/components/Admin/AdminSevaDetails";
 import LiveButton from "./src/components/Admin/LiveButton";
 import MultipleUserSelect from "./src/components/Admin/MultipleUserSelect";
+import { Stack } from "expo-router";
+
+
+
 
 
 export default function App() {
   return (
     // <UserHome/>
     // <AdminSevaDetails></AdminSevaDetails>
+    <NavigationContainer>
+    <UserHome/>    
+    {/* // <AdminSevaDetails></AdminSevaDetails> */}
+
+    </NavigationContainer>
 
     // <Addseva></Addseva>
     // <SevaNotificationCard></SevaNotificationCard>
@@ -36,7 +45,7 @@ export default function App() {
     // <Login/>
     // <AdminHomeScreenTest></AdminHomeScreenTest>
 
-   <AdminHome></AdminHome>
+  //  <AdminHome></AdminHome>
   //  <Page1></Page1>  
    
     // <DisplayMultiple></DisplayMultiple>

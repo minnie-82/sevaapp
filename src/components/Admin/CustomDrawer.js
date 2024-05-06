@@ -23,7 +23,13 @@ const CustomDrawer = (props)=>{
  
         </DrawerContentScrollView>
         <View style={{padding:20,borderTopWidth:0.5,borderTopColor:"#   "}}>
-            <TouchableOpacity onPress={()=>{}}>
+            <TouchableOpacity onPress={()=>{
+                navigation.navigate('Login')
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                  });          
+            }}>
                 <View style={{flex:0,flexDirection:"row",gap:6}}>
                 <FontAwesome name="sign-out" size={22} color={"#F8E9C8"}/>
                 <Text style={{color:"#181414"}}>
