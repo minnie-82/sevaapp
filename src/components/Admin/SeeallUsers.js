@@ -11,12 +11,14 @@ import {
   Animated,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation  } from "@react-navigation/native";
 import { Linking } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import EditDepartment from "./EditDepartment";
 
 const ContactDiaryPage = ({ route }) => {
   const navigation = useNavigation();
+  const pageName = route.params?.page
 
   const goToHomePage = () => {
     navigation.navigate("Dashboard");
@@ -25,9 +27,27 @@ const ContactDiaryPage = ({ route }) => {
     navigation.navigate("UserInfoAdd");
   };
   const handleUserSelection = (user) => {
-    // Pass the selected user back to the parent screen
-    route.params.handleLeader(user);
-    navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
+    if(route.params.handleLeader){
+      route.params.handleLeader(user);
+    }
+    if(route.params.handleKaryakar){
+      route.params.handleKaryakar(user)
+    }
+    navigation.navigate(pageName)
+
+    // if(pageName==='EditDepartment'){
+    //   navigation.navigate(EditDepartment,
+    //     // 'department':route.params.department,
+    //     // 'datecome':route.params.datecome,
+    //     // 'timecome':route.params.timecome,
+    //     // 'details':route.params.details,
+    //     // 'instruction':route.params.instruction
+    //   ); // Navigate back to the parent screen
+    // }
+    // else{
+    // }
+
+    // navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
   };
 
   // Sample data for users

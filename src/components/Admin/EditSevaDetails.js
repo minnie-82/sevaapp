@@ -30,15 +30,15 @@ const EditSevaDetails = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { department, datecome, timecome, details, instruction } = route.params;
+  const { department, datecome, timecome, details, instruction } = route.params || {};
 
   // const route = useRoute();
   const [formData, setFormData] = useState({
-    department: department,
-    datecome: datecome,
-    timecome: timecome,
-    details: details,
-    instruction: instruction,
+    department: department || '',
+    datecome: datecome || '',
+    timecome: timecome || '',
+    details: details || '',
+    instruction: instruction || '',
   });
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
@@ -46,7 +46,7 @@ const EditSevaDetails = () => {
 
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const handleAddUser = (user) => {
+  const handleLeader = (user) => {
     setSelectedUser(user);
   };
   const data = [
@@ -292,7 +292,7 @@ const EditSevaDetails = () => {
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
-                  onPress={() => navigation.navigate("View Users")}
+                  onPress={() => navigation.navigate("View Users",{handleLeader,page:'EditSevaDetails',department, datecome, timecome, details, instruction})}
                 >
                   <Text style={styles.buttonText}>Edit</Text>
                 </TouchableOpacity>

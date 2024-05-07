@@ -288,7 +288,7 @@ const SevaInfoAdd = () => {
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("View Users", { handleLeader })
+                    navigation.navigate("View Users", { handleLeader ,page:"SaveInfoAdd"})
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>

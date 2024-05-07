@@ -29,26 +29,30 @@ import { useRoute } from "@react-navigation/native";
 const EditDepartment = () => {
   const navigation = useNavigation();
   const route = useRoute();
-
-  const { department, datecome, timecome, details, instruction } = route.params;
-
+  
+  const { department, datecome, timecome, details, instruction } = route.params || {};
   // const route = useRoute();
   const [formData, setFormData] = useState({
-    department: department,
-    datecome: datecome,
-    timecome: timecome,
-    details: details,
-    instruction: instruction,
+    department: department || '',
+    datecome: datecome || '',
+    timecome: timecome || '',
+    details: details || '',
+    instruction: instruction || '',
   });
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
   };
 
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedKaryakar, setSelectedKaryakar] = useState(null);
 
-  const handleAddUser = (user) => {
+
+  const handleLeader = (user) => {
     setSelectedUser(user);
   };
+  const handleKaryakar=(user)=>{
+    setSelectedKaryakar(user)
+  }
   const data = [
     { label: "Nilkanth Mandapam", value: "1" },
     { label: "Cleanliness", value: "2" },
@@ -293,18 +297,18 @@ const EditDepartment = () => {
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
-                  onPress={() => navigation.navigate("View Users")}
+                  onPress={() => navigation.navigate("View Users",{ handleLeader ,page:'EditDepartment'})}
                 >
-                  <Text style={styles.buttonText}>Edit</Text>
+                  <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.leaderContainer}>
                 <Text style={styles.leadertextInput}>
-                  Selected Karyakar : {selectedUser ? selectedUser.name : "None"}
+                  Selected Karyakar : {selectedKaryakar ? selectedKaryakar.name : "None"}
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
-                  onPress={() => navigation.navigate("View Users")}
+                  onPress={() => navigation.navigate("View Users",{handleKaryakar,page:'EditDepartment'})}
                 >
                   <Text style={styles.buttonText}>Edit</Text>
                 </TouchableOpacity>

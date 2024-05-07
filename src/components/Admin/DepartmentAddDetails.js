@@ -33,10 +33,15 @@ const DepartmentAddDetails = () => {
     instruction: "",
   });
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedKaryakar, setSelectedKaryakar] = useState(null);
 
-  const handleAddUser = (user) => {
+  const handleLeader = (user) => {
     setSelectedUser(user);
   };
+  
+  const handleKaryakar = (user)=>{
+    setSelectedKaryakar(user)
+  }
 
   const data = [
     { label: "Nilkanth Mandapam", value: "1" },
@@ -277,7 +282,7 @@ const DepartmentAddDetails = () => {
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("View Users", { handleAddUser })
+                    navigation.navigate("View Users", { handleLeader ,page:'DepartmentAddDetails'})
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
@@ -285,12 +290,12 @@ const DepartmentAddDetails = () => {
               </View>
               <View style={styles.leaderContainer}>
                 <Text style={styles.leadertextInput}>
-                  Selected Karyakar : {selectedUser ? selectedUser.name : "None"}
+                  Selected Karyakar : {selectedKaryakar ? selectedKaryakar.name : "None"}
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("View Users", { handleAddUser })
+                    navigation.navigate("View Users", { handleKaryakar ,page:'DepartmentAddDetails'})
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
