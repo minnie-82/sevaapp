@@ -9,8 +9,10 @@ import {
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useUser } from "../global";
 const UserProfile = () => {
   const navigation = useNavigation();
+  const { userData } = useUser();
 
   const goToHomePage = () => {
     // Navigate to the profile page here
@@ -21,9 +23,8 @@ const UserProfile = () => {
     navigation.navigate("Login");
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Login' }],
+      routes: [{ name: "Login" }],
     });
-
   };
 
   return (
@@ -74,10 +75,11 @@ const UserProfile = () => {
             style={{ height: 130, width: 130, borderRadius: 100 }}
           ></Image>
           <Text style={{ fontSize: 25, fontWeight: "bold", marginTop: 10 }}>
-            Manthan Jadav
+            {userData.first_name ? userData.first_name : "-"}{" "}
+            {userData.last_name ? userData.last_name : "-"}
           </Text>
           <Text style={{ fontSize: 18, fontWeight: "light", marginTop: 2 }}>
-            +91 8657258965
+            +91 {userData.phone_no ? userData.phone_no : "-"}
           </Text>
         </View>
 
@@ -164,7 +166,7 @@ const UserProfile = () => {
                   gap: 12,
                 }}
               >
-                <Text>Manthan</Text>
+                <Text>{userData.first_name ? userData.first_name : "-"}</Text>
               </View>
             </View>
             <View
@@ -207,7 +209,7 @@ const UserProfile = () => {
                   gap: 12,
                 }}
               >
-                <Text>Jadav</Text>
+                <Text>{userData.last_name ? userData.last_name : "-"}</Text>
               </View>
             </View>
             <View
@@ -250,7 +252,7 @@ const UserProfile = () => {
                   gap: 12,
                 }}
               >
-                <Text>Kshetra 5</Text>
+                <Text>{userData.keshatra ? userData.keshatra : "-"}</Text>
               </View>
             </View>
             <View
@@ -293,7 +295,7 @@ const UserProfile = () => {
                   gap: 12,
                 }}
               >
-                <Text>01-08-2002</Text>
+                <Text>{userData.dob ? userData.dob : "-"}</Text>
               </View>
             </View>
             <View
@@ -336,7 +338,7 @@ const UserProfile = () => {
                   gap: 12,
                 }}
               >
-                <Text>Service</Text>
+                <Text>{userData.occupation ? userData.occupation : "-"}</Text>
               </View>
             </View>
             <View
@@ -379,7 +381,7 @@ const UserProfile = () => {
                   gap: 12,
                 }}
               >
-                <Text>Manthan@gmail.com</Text>
+                <Text>{userData.email ? userData.email : "-"}</Text>
               </View>
             </View>
             <View
@@ -422,7 +424,7 @@ const UserProfile = () => {
                   gap: 12,
                 }}
               >
-                <Text>+91 9078563412</Text>
+                <Text>+91 {userData.phone_no ? userData.phone_no : "-"}</Text>
               </View>
             </View>
           </View>

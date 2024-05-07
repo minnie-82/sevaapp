@@ -11,13 +11,13 @@ import {
   Button,
 } from "react-native";
 import { API_ENDPOINT } from "./global";
-import { useUser, updateSevaData } from "./global";
 import { useNavigation } from "@react-navigation/native";
 // import UserHome from "./User/UserHome";
 // import HomeScreen from './User/UserHome'
 import { addUser, updateUser } from "./User/user_api";
 import { addAdmin } from "./Admin/admin_api";
 import { getAllSeva } from "./seva_api";
+import { useUser } from "./global";
 // import AdminHome from "./Admin/AdminHome";
 
 const Login = () => {
@@ -28,6 +28,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState("user");
   const [userId, setUserId] = useState("");
+  const { setUserData } = useUser();
   // const { userData, setUserData } = useUser();
   // const newuserdta = {
   //   fname: "dummy",
@@ -88,20 +89,19 @@ const Login = () => {
       })
       .then((json) => {
         setLoading(false);
-        console.log(json)
+        console.log(json);
         // Check if user_id is available in the response
         if (json.user_id || json.admin_id) {
           setUserId(json.user_id); // Store user_id in state variable
           console.log("User authenticated successfully:", json);
           alert(`${type} logged in successfully`);
           // navigation.navigate(`${UserHome}`);
-          if(json.role=='User'){
-              // navigation.navigate(`${}`);
-              //add navigation of userHome
-              navigation.navigate("Home");
-              fetchUserData(json.user_id);
-          }
-          else{
+          if (json.role == "User") {
+            // navigation.navigate(`${}`);
+            //add navigation of userHome
+            navigation.navigate("Home");
+            fetchUserData(json.user_id);
+          } else {
             // navigate to admin screen here
             navigation.navigate("Admin");
           }
@@ -137,18 +137,16 @@ const Login = () => {
       })
       .then((userData) => {
         console.log("User data:", userData);
-        // setUserData(userData);
+        setUserData(userData);
         if (type === "user") {
           fetchUserSeva(userId);
           navigation.navigate("Home");
         } else if (type === "admin") {
-         
           // fetchAdminSeva(userId);
         } else {
           throw new Error("Invalid user type");
         }
 
-        
         // Now you can do something with the user data, e.g., store it in state
       })
       .catch((err) => {
