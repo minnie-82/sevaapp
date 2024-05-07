@@ -1,3 +1,4 @@
+
 {
   "expo": {
     "name": "sevaapp1",
@@ -22,18 +23,22 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yash1234v.sevaapp1"
+      "package": "com.yashvi12345.sevaapp1"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "9dc7236b-fe92-4836-be55-8cddf3c7ca8e"
-      }
-    },
+
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ea7735e5-605a-4eb1-89dc-f58ce030de23"
+      }
+    }
   }
 }

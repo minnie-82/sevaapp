@@ -31,7 +31,7 @@ export default function App() {
     // <AdminSevaDetails></AdminSevaDetails>
     <NavigationContainer>
      {/* <AdminHome></AdminHome>  */}
-     <AdminHome/>
+     <Login/>
 
 
     </NavigationContainer>
