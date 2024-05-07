@@ -27,7 +27,7 @@ export default function App() {
     <UserProvider>
       <NavigationContainer>
         {/* <AdminHome></AdminHome>  */}
-        <Login />
+        <AdminHome/>
       </NavigationContainer>
     </UserProvider>
 

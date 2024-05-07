@@ -182,17 +182,17 @@ const HomeScreen = ({ navigation }) => {
   const displayActiveSevaTab = () => {
     switch (activeTab) {
       case "Upcoming":
-        return <SevaCard></SevaCard>;
+        return <SevaCard></SevaCard>
       case "Ongoing":
-        return <SevaCard></SevaCard>;
+        return <SevaCard></SevaCard>
       case "Completed":
-        return <SevaCard></SevaCard>;
+        return <SevaCard></SevaCard>
       default:
         break;
     }
   };
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView style={{ flex:1,backgroundColor: "white" }}>
       <ScrollView keyboardShouldPersistTaps="handled">
         <View>
           <View
@@ -270,6 +270,7 @@ const HomeScreen = ({ navigation }) => {
             ></FlatList>
           </View>
           {displayActiveSevaTab()}
+         
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -330,6 +331,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 5.84,
+    
   }),
   btnText: (name, activeTab) => ({
     fontSize: 12,
