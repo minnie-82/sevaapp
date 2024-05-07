@@ -26,7 +26,7 @@ const ContactDiaryPage = ({ route }) => {
   };
   const handleUserSelection = (user) => {
     // Pass the selected user back to the parent screen
-    route.params.handleAddUser(user);
+    route.params.handleLeader(user);
     navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
   };
 

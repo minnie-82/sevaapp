@@ -14,10 +14,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Linking } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import { useRoute } from '@react-navigation/native';
 
-const MultipleUserSelect = ({ route }) => {
+const MultipleUserSelect = () => {
   const navigation = useNavigation();
-
+  const route = useRoute();
+  const { functiontoadd } = route.params
   const goToHomePage = () => {
     navigation.navigate("SaveInfoAdd");
   };
@@ -26,9 +28,10 @@ const MultipleUserSelect = ({ route }) => {
   };
   const handleMultipleSelection = (user) => {
     // route.params.handleMultipleSelection(user);
-    navigation.navigate("SaveInfoAdd", { selectedUsers: updatedUsers });
-
-    // navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
+    console.log("from handle selection : ",updatedUsers)
+    // navigation.navigate("SaveInfoAdd", { selectedUsers: updatedUsers });
+    functiontoadd(updatedUsers)
+    navigation.navigate("SaveInfoAdd"); // Navigate back to the parent screen
   };
 
   // Sample data for users
@@ -169,14 +172,18 @@ const MultipleUserSelect = ({ route }) => {
               <View key={user.id} style={styles.userCard}>
                 <TouchableOpacity
                   style={[styles.checkbox, user.isChecked && styles.checked]}
-                  onPress={() => toggleSelection(user.id)}
+                  onPress={() => {
+                    toggleSelection(user.id)
+                  }
+                  }
                 >
                   {user.isChecked && (
                     <FontAwesome
                       name="check"
                       size={15}
                       color="white"
-                      onPress={handleMultipleSelection}
+                      
+                      // onPress={handleMultipleSelection}
                     />
                   )}
                 </TouchableOpacity>
@@ -197,6 +204,9 @@ const MultipleUserSelect = ({ route }) => {
                 </View>
               </View>
             ))}
+          <TouchableOpacity style={styles.addButton} onPress={handleMultipleSelection}>
+            <Text style={styles.buttonText}>Add Selected Sevaks</Text>
+        </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -210,6 +220,17 @@ const MultipleUserSelect = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+  addButton: {
+    backgroundColor: "#003e6d",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 5,
+    borderRadius: 5,
+    elevation: 10,
+  },
+  buttonText: {
+    color: "white",
+  },
   container: {
     flex: 1,
     alignItems: "center",

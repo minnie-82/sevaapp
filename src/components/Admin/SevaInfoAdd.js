@@ -25,7 +25,12 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import MultipleUserSelect from "./MultipleUserSelect";
+import { useRoute } from '@react-navigation/native';
+
 const SevaInfoAdd = () => {
+  const route = useRoute();
+  // const { selectedUsers } = route.params;
+
   const navigation = useNavigation();
 
   const [formData, setFormData] = useState({
@@ -33,9 +38,15 @@ const SevaInfoAdd = () => {
     instruction: "",
   });
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedLeader,setSelectedLeader] = useState(null)
+
+  const handleLeader = (user)=>{
+    setSelectedLeader(user)
+  }
 
   const handleAddUser = (user) => {
     setSelectedUser(user);
+    console.log("from sevainfoscreen : ",user)
   };
 
   const data = [
@@ -272,12 +283,12 @@ const SevaInfoAdd = () => {
 
               <View style={styles.leaderContainer}>
                 <Text style={styles.leadertextInput}>
-                  Selected Leader : {selectedUser ? selectedUser.name : "None"}
+                  Selected Leader : {selectedLeader ? selectedLeader.name : "None"}
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("View Users", { handleAddUser })
+                    navigation.navigate("View Users", { handleLeader })
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
@@ -286,12 +297,18 @@ const SevaInfoAdd = () => {
 {/* multiple */}
               <View style={styles.multipleUserContainer}>
                 <Text style={styles.multipletextInput}>
-                  Selected SwayamSevak : {selectedUser ? selectedUser.name : "None"}
+                  Selected SwayamSevak : 
+
+                  {
+                   selectedUser ? Object.keys(selectedUser).map((key,index)=>{
+                    return <Text key={index}>{selectedUser[key].name+"\n"}</Text>
+                    }) :"None"
+                  }
                 </Text>
                 <TouchableOpacity
                   style={styles.multipleaddButton}
                   onPress={() =>
-                    navigation.navigate("MultipleUserSelect", { handleAddUser })
+                    navigation.navigate("MultipleUserSelect", { functiontoadd:handleAddUser })
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
@@ -522,6 +539,7 @@ const styles = StyleSheet.create({
     marginRight: 10, // Add margin between TextInput and icon
     backgroundColor: "white",
     elevation: 10,
+    overflow:'scroll'
   },
 
   button: {
