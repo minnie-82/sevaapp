@@ -1,26 +1,21 @@
 import React, { createContext, useState, useContext } from "react";
 
-export const API_ENDPOINT = "https://78fd-110-226-176-187.ngrok-free.app/";
+export const API_ENDPOINT = "https://73e2-1-38-140-11.ngrok-free.app/";
 
+const UserContext = createContext();
 
-// const UserContext = createContext();
+// Create a provider component to manage user data
+export const UserProvider = ({ children }) => {
+  // State to store user data
+  const [userData, setUserData] = useState(null);
 
-// const userdata=useState(null);
+  // Provide user data and setter function to child components
+  return (
+    <UserContext.Provider value={{ userData, setUserData }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
 
-// export const UserProvider = ({ children }) => {
-//   const [userData, setUserData] = useState(null);
-//   const [sevaData, setSevaData] = useState(null);
-//   const updateSevaData = (newSevaData) => {
-//     setSevaData(newSevaData);
-//   };
-
-//   return (
-//     <UserContext.Provider
-//       value={{ userData, setUserData, sevaData, updateSevaData }}
-//     >
-//       {children}
-//     </UserContext.Provider>
-//   );
-// };
-
+// Custom hook to access user data and setter function
 export const useUser = () => useContext(UserContext);
