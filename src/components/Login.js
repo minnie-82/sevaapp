@@ -17,7 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 import { addUser, updateUser } from "./User/user_api";
 import { addAdmin } from "./Admin/admin_api";
 import { getAllSeva } from "./seva_api";
-import { useUser } from "./global";
+import { useUser} from "./global";
+
 // import AdminHome from "./Admin/AdminHome";
 
 const Login = () => {
@@ -28,8 +29,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState("user");
   const [userId, setUserId] = useState("");
-  const { setUserData } = useUser();
-  // const { userData, setUserData } = useUser();
+  const { userData, setUserData } = useUser();
   // const newuserdta = {
   //   fname: "dummy",
   //   lname: "data",
@@ -53,6 +53,7 @@ const Login = () => {
   // };
 
   var saveData = () => {
+
     if (!email) {
       alert("Kindle enter Email");
       return false;
@@ -121,7 +122,7 @@ const Login = () => {
       })
       .catch((err) => {
         setLoading(false);
-        alert(err);
+        console.log(JSON.stringify(err)); // Stringify the error object for inspection
       });
   };
 

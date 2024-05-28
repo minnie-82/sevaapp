@@ -19,39 +19,17 @@ import Dashboard from "./src/components/Admin/Dashboard";
 import AdminSevaDetails from "./src/components/Admin/AdminSevaDetails";
 import LiveButton from "./src/components/Admin/LiveButton";
 import MultipleUserSelect from "./src/components/Admin/MultipleUserSelect";
-import { Stack } from "expo-router";
-
-export default function App() {
+function App() {
   return (
-    // <AdminSevaDetails></AdminSevaDetails>
     <UserProvider>
       <NavigationContainer>
-        {/* <AdminHome></AdminHome>  */}
-        <AdminHome/>
+        <UserHome/>
       </NavigationContainer>
     </UserProvider>
-
-    // <Addseva></Addseva>
-    // <SevaNotificationCard></SevaNotificationCard>
-    // <SevaNotifications></SevaNotifications>
-    // <NavigationContainer>
-    //   <MultipleUserSelect></MultipleUserSelect>
-    // </NavigationContainer>
-
-    // <Login/>
-    // <AdminHomeScreenTest></AdminHomeScreenTest>
-
-    //  <AdminHome></AdminHome>
-    //  <Page1></Page1>
-
-    // <DisplayMultiple></DisplayMultiple>
-
-    // <SelectMultipleUsers></SelectMultipleUsers>
-    // <Dashboard></Dashboard>
-    // <SevaInfoAdd></SevaInfoAdd>
-    // <AddButton></AddButton>
+      
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -61,3 +39,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+export default App;
+

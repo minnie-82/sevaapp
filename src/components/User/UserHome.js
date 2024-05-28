@@ -29,6 +29,7 @@ import Myseva from "./MySeva";
 import AdminHome from "../Admin/AdminHome";
 import SevaCard from "./SevaCard";
 import UserSevaDetails from "./UserSevaDetails";
+import { UserProvider } from "../global";
 const Drawer = createDrawerNavigator();
 const RootStack = createStackNavigator();
 
@@ -80,6 +81,7 @@ const CustomDrawerContent = (props) => {
 };
 
 const UserHome = () => {
+
   return (
     // <NavigationContainer>
     <Drawer.Navigator
