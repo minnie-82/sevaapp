@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 
-export const API_ENDPOINT = "https://dccd-1-38-141-205.ngrok-free.app/";
+export const API_ENDPOINT = "https://34d6-59-152-53-130.ngrok-free.app";
 
 const UserContext = createContext();
 
