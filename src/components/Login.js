@@ -74,8 +74,7 @@ const Login = () => {
     // alert("API CALL HERE")
     //add api logic here
     setLoading(true);
-    console.log(`${API_ENDPOINT}authenticate/${type}`);
-    fetch(`${API_ENDPOINT}authenticate/${type}`, {
+    fetch(`${API_ENDPOINT}/authenticate/${type}`, {
       method: "POST",
       body: JSON.stringify({ email: email, password: password }),
       headers: {
@@ -90,7 +89,7 @@ const Login = () => {
       })
       .then((json) => {
         setLoading(false);
-        console.log(json);
+        console.log("response : ",json);
         // Check if user_id is available in the response
         if (json.user_id || json.admin_id) {
           setUserId(json.user_id); // Store user_id in state variable
@@ -127,7 +126,7 @@ const Login = () => {
   };
 
   const fetchUserData = (userId) => {
-    const apiUrl = `${API_ENDPOINT}getuser/${userId}`;
+    const apiUrl = `${API_ENDPOINT}/getuser/${userId}`;
 
     fetch(apiUrl)
       .then((response) => {
@@ -157,7 +156,7 @@ const Login = () => {
 
   const fetchUserSeva = (userId) => {
     // API call to fetch user service data
-    fetch(`${API_ENDPOINT}user_specific_data/${userId}`)
+    fetch(`${API_ENDPOINT}/user_specific_data/${userId}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
