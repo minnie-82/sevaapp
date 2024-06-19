@@ -24,12 +24,45 @@ import SelectUserScreen from "./SelectUserScreen";
 // import AddButton from "./AddButton";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { API_ENDPOINT } from "../global";
 
 const DepartmentAddDetails = () => {
   const navigation = useNavigation();
+  const addDepartment = async (departmentData) => {
+    try {
+      console.log("Adding department...");
+      const selectedItem = data.find((item) => item.value === value);
 
+      const apiUrl = `${API_ENDPOINT}/addDept`;
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: value,
+          dep_name: selectedItem ? selectedItem.label : "",
+          description: formData.description,
+          // doa: "1",
+          // type_of_seva: "Internal",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add department");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData); // Log the response message
+      return responseData; // Return the response data if needed
+    } catch (error) {
+      console.error("Error adding department:", error.message);
+      throw error;
+    }
+  };
   const [formData, setFormData] = useState({
-    department: "",
+    description: "",
     instruction: "",
   });
   const [selectedUser, setSelectedUser] = useState(null);
@@ -38,10 +71,10 @@ const DepartmentAddDetails = () => {
   const handleLeader = (user) => {
     setSelectedUser(user);
   };
-  
-  const handleKaryakar = (user)=>{
-    setSelectedKaryakar(user)
-  }
+
+  const handleKaryakar = (user) => {
+    setSelectedKaryakar(user);
+  };
 
   const data = [
     { label: "Nilkanth Mandapam", value: "1" },
@@ -257,10 +290,10 @@ const DepartmentAddDetails = () => {
               <View>
                 <TextInput
                   style={styles.textDetails}
-                  placeholder="Details"
+                  placeholder="Description"
                   placeholderTextColor="#000000"
-                  value={formData.details}
-                  onChangeText={(text) => handleInputChange("detail", text)}
+                  value={formData.description}
+                  onChangeText={(text) => handleInputChange("description", text)}
                 />
               </View>
               <View>
@@ -282,7 +315,10 @@ const DepartmentAddDetails = () => {
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("View Users", { handleLeader ,page:'DepartmentAddDetails'})
+                    navigation.navigate("View Users", {
+                      handleLeader,
+                      page: "DepartmentAddDetails",
+                    })
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
@@ -290,25 +326,29 @@ const DepartmentAddDetails = () => {
               </View>
               <View style={styles.leaderContainer}>
                 <Text style={styles.leadertextInput}>
-                  Selected Karyakar : {selectedKaryakar ? selectedKaryakar.name : "None"}
+                  Selected Karyakar :{" "}
+                  {selectedKaryakar ? selectedKaryakar.name : "None"}
                 </Text>
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("View Users", { handleKaryakar ,page:'DepartmentAddDetails'})
+                    navigation.navigate("View Users", {
+                      handleKaryakar,
+                      page: "DepartmentAddDetails",
+                    })
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
               </View>
 
-
-              
-
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.addButton}>
-                  <Text style={styles.buttonText}>Add</Text>
+                  <Text style={styles.buttonText} onPress={addDepartment}>
+                    Add
+                  </Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={handleCloseModal}
@@ -317,8 +357,6 @@ const DepartmentAddDetails = () => {
                 </TouchableOpacity>
               </View>
             </View>
-
-
 
             <View
               style={{
@@ -435,7 +473,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     paddingVertical: 10,
     backgroundColor: "#F8E9C8",
-    elevation:10
+    elevation: 10,
   },
   textDetails: {
     height: 200,
@@ -447,7 +485,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     paddingVertical: 10,
     backgroundColor: "#F8E9C8",
-    elevation:10
+    elevation: 10,
   },
   addButton: {
     backgroundColor: "#003e6d",
@@ -455,7 +493,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
-    elevation:10
+    elevation: 10,
   },
   closeButton: {
     backgroundColor: "red",
@@ -463,14 +501,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 5,
-    elevation:10
+    elevation: 10,
   },
   buttonText: {
     color: "white",
   },
   buttonContainer: {
     flexDirection: "row",
-    elevation:10 // Align buttons horizontally
+    elevation: 10, // Align buttons horizontally
   },
   leaderContainer: {
     flexDirection: "row",
@@ -483,7 +521,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderRadius: 5,
     height: 36,
-    elevation:10
+    elevation: 10,
   },
   leadertextInput: {
     height: 35,
@@ -500,7 +538,7 @@ const styles = StyleSheet.create({
     flex: 1, // Take remaining space
     marginRight: 10, // Add margin between TextInput and icon
     backgroundColor: "#F8E9C8",
-    elevation:10
+    elevation: 10,
   },
 
   button: {
@@ -522,7 +560,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginBottom: 10,
     backgroundColor: "#F8E9C8",
-    elevation:10
+    elevation: 10,
   },
   icon: {
     marginRight: 5,
@@ -564,7 +602,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderColor: "gray",
     backgroundColor: "#F8E9C8",
-    elevation:10
+    elevation: 10,
   },
 });
 

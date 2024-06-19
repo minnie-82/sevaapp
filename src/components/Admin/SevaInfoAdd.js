@@ -26,19 +26,51 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import MultipleUserSelect from "./MultipleUserSelect";
 import { useRoute } from "@react-navigation/native";
+import { API_ENDPOINT } from "../global";
 
 const SevaInfoAdd = () => {
   const route = useRoute();
   // const { selectedUsers } = route.params;
 
   const navigation = useNavigation();
-  
-  
 
   const [formData, setFormData] = useState({
-    department: "",
-    instruction: "",
+    banner: "",
+    description: "",
   });
+
+  const saveData = async () => {
+    try {
+      console.log("Adding seva...");
+      const selectedItem = data.find(item => item.value === value);
+
+      const response = await fetch(`${API_ENDPOINT}addseva`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: selectedItem ? selectedItem.label : "",
+          dep_id:value,
+          description: formData.description,
+          date: dateData,
+          start_time: timeData,
+          banner: formData.banner,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add seva");
+      }
+
+      const responseData = await response.json();
+      console.log("Seva added successfully:", responseData);
+      return responseData;
+    } catch (error) {
+      console.error("Error adding seva:", error.message);
+      throw error;
+    }
+  };
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedLeader, setSelectedLeader] = useState(null);
 
@@ -58,25 +90,46 @@ const SevaInfoAdd = () => {
     { label: "Prasad Vitran", value: "4" },
     { label: "Sabha Vaivastha", value: "5" },
   ];
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(null); //state
   const [isFocus, setIsFocus] = useState(false);
 
   //datetimepiker
   const [dateData, setDateData] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date()); //state
   const [showPicker, setShowPicker] = useState(false);
   const toggleDatePicker = () => {
     setShowPicker(!showPicker);
   };
 
+  // const onChange = ({ type }, selectedDate) => {
+  //   if (type == "set") {
+  //     const currentDate = selectedDate;
+  //     setDate(currentDate);
+  //     if (Platform.OS === "android") {
+  //       toggleDatePicker();
+  //       setDateData(currentDate.toDateString());
+  //     }
+  //   } else {
+  //     toggleDatePicker();
+  //   }
+  // };
   const onChange = ({ type }, selectedDate) => {
-    if (type == "set") {
+    if (type === "set") {
       const currentDate = selectedDate;
       setDate(currentDate);
+
+      // Extract and format date in 'DD-MM-YYYY' format
+      const day = String(currentDate.getDate()).padStart(2, "0");
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+      const year = currentDate.getFullYear();
+      const formattedDate = `${day}-${month}-${year}`;
+
       if (Platform.OS === "android") {
         toggleDatePicker();
-        setDateData(currentDate.toDateString());
       }
+      setDateData(formattedDate);
+
+      console.log(formattedDate); // For debugging
     } else {
       toggleDatePicker();
     }
@@ -91,14 +144,26 @@ const SevaInfoAdd = () => {
   };
   const onChangeTime = ({ type }, selectedTime) => {
     if (type == "set") {
-      const currentTime = selectedTime;
+      const currentTime = selectedTime || new Date();
       console.log(currentTime);
       setTime(currentTime);
+      // Format the time to 'HH:MM:SS' or 'HH:MM AM/PM'
+      const formattedTime = currentTime.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true, // Set to true for 'HH:MM AM/PM' format
+      });
+      console.log(formattedTime);
+
+
       if (Platform.OS === "android") {
         toggleTimePicker();
-        setTimeData(currentTime.toLocaleTimeString());
-        console.log(setTimeData);
+        // setTimeData(currentTime.toLocaleTimeString());
+        // console.log(setTimeData);
       }
+      setTimeData(formattedTime);
+     
     } else {
       toggleTimePicker();
     }
@@ -265,20 +330,20 @@ const SevaInfoAdd = () => {
               <View>
                 <TextInput
                   style={styles.textDetails}
-                  placeholder="Details"
+                  placeholder="Banner"
                   placeholderTextColor="#000000"
-                  value={formData.details}
-                  onChangeText={(text) => handleInputChange("detail", text)}
+                  value={formData.banner}
+                  onChangeText={(text) => handleInputChange("banner", text)}
                 />
               </View>
               <View>
                 <TextInput
                   style={styles.textInstruction}
-                  placeholder="Instruction"
+                  placeholder="Description"
                   placeholderTextColor="#000000"
-                  value={formData.instruction}
+                  value={formData.description}
                   onChangeText={(text) =>
-                    handleInputChange("instruction", text)
+                    handleInputChange("description", text)
                   }
                 />
               </View>
@@ -291,7 +356,10 @@ const SevaInfoAdd = () => {
                 <TouchableOpacity
                   style={styles.leaderaddButton}
                   onPress={() =>
-                    navigation.navigate("View Users", { handleLeader ,page:"SaveInfoAdd"})
+                    navigation.navigate("View Users", {
+                      handleLeader,
+                      page: "SaveInfoAdd",
+                    })
                   }
                 >
                   <Text style={styles.buttonText}>Add</Text>
@@ -325,8 +393,11 @@ const SevaInfoAdd = () => {
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.addButton}>
-                  <Text style={styles.buttonText}>Add</Text>
+                  <Text style={styles.buttonText} onPress={saveData}>
+                    Add
+                  </Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   style={styles.closeButton}
                   onPress={handleCloseModal}
