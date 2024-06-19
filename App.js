@@ -23,7 +23,7 @@ function App() {
   return (
     <UserProvider>
       <NavigationContainer>
-        <AdminHome/>
+        <UserHome/>
       </NavigationContainer>
     </UserProvider>
       
