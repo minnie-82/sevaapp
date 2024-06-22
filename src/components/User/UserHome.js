@@ -30,6 +30,7 @@ import AdminHome from "../Admin/AdminHome";
 import SevaCard from "./SevaCard";
 import UserSevaDetails from "./UserSevaDetails";
 import { UserProvider } from "../global";
+import EditProfileUser from "./EditProfileUser";
 const Drawer = createDrawerNavigator();
 const RootStack = createStackNavigator();
 
@@ -130,6 +131,14 @@ const UserHome = () => {
       <Drawer.Screen
         name="UserProfile"
         component={UserProfile}
+        options={{
+          headerShown: false,
+          drawerLabel: () => null,
+        }}
+      />
+      <Drawer.Screen
+        name="EditProfileUser"
+        component={EditProfileUser}
         options={{
           headerShown: false,
           drawerLabel: () => null,

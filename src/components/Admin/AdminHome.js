@@ -42,10 +42,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AdminSevaDisplayCard from "./AdminSevaDisplayCard";
 import DepartmentAddDetails from "./DepartmentAddDetails";
 import EditDepartment from "./EditDepartment";
+
 // import Adddepartment from "./Adddepartment";
 // import UserMultipleOption from "./UserMultipleOption";
 import MultipleUserSelect from "./MultipleUserSelect";
 import { useNavigation } from '@react-navigation/native';
+import EditProfileAdmin from "./EditProfileAdmin";
 const Drawer = createDrawerNavigator();
 
 const  HomeScreen = ({ navigation }) => {
@@ -461,6 +463,14 @@ const AdminHome = () => {
         <Drawer.Screen
           name="AdminProfile"
           component={AdminProfile}
+          options={{
+            headerShown: false,
+            drawerLabel: () => null,
+          }}
+        />
+        <Drawer.Screen
+          name="EditProfileAdmin"
+          component={EditProfileAdmin}
           options={{
             headerShown: false,
             drawerLabel: () => null,

@@ -10,6 +10,9 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../global";
+import EditProfileUser from "./EditProfileUser";
+
+
 const UserProfile = () => {
   const navigation = useNavigation();
   const { userData } = useUser();
@@ -18,6 +21,11 @@ const UserProfile = () => {
     // Navigate to the profile page here
     // You need to have a "Profile" screen defined in your navigation stack
     navigation.navigate("Home");
+  };
+  const goToEditProfileUser = () => {
+    // Navigate to the profile page here
+    // You need to have a "Profile" screen defined in your navigation stack
+    navigation.navigate("EditProfileUser");
   };
   const goToLoginPage = () => {
     navigation.navigate("Login");
@@ -105,7 +113,11 @@ const UserProfile = () => {
               gap: 5,
               flexDirection: "row",
               borderRadius: 30,
+              marginTop:40,
+              marginBottom:30
+
             }}
+            onPress={goToEditProfileUser}
           >
             <FontAwesome
               name="edit"
