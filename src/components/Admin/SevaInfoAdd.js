@@ -27,6 +27,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import MultipleUserSelect from "./MultipleUserSelect";
 import { useRoute } from "@react-navigation/native";
 import { API_ENDPOINT } from "../global";
+import { addSeva } from "../seva_api";
 
 const SevaInfoAdd = () => {
   const route = useRoute();
@@ -39,36 +40,51 @@ const SevaInfoAdd = () => {
     description: "",
   });
 
-  const saveData = async () => {
+  // const saveData = async () => {
+  //   try {
+  //     console.log("Adding seva...");
+  //     const selectedItem = data.find(item => item.value === value);
+
+  //     const response = await fetch(`${API_ENDPOINT}addseva`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         name: selectedItem ? selectedItem.label : "",
+  //         dep_id:value,
+  //         description: formData.description,
+  //         date: dateData,
+  //         start_time: timeData,
+  //         banner: formData.banner,
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to add seva");
+  //     }
+
+  //     const responseData = await response.json();
+  //     console.log("Seva added successfully:", responseData);
+  //     return responseData;
+  //   } catch (error) {
+  //     console.error("Error adding seva:", error.message);
+  //     throw error;
+  //   }
+  // };
+  const addSevaHandler = async () => {
     try {
-      console.log("Adding seva...");
-      const selectedItem = data.find(item => item.value === value);
-
-      const response = await fetch(`${API_ENDPOINT}addseva`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: selectedItem ? selectedItem.label : "",
-          dep_id:value,
-          description: formData.description,
-          date: dateData,
-          start_time: timeData,
-          banner: formData.banner,
-        }),
+      const selectedItem = data.find((item) => item.value === value);
+      await addSeva({
+        name: selectedItem ? selectedItem.label : "",
+        dep_id: value,
+        description: formData.description,
+        date: dateData,
+        start_time: timeData,
+        banner: formData.banner,
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to add seva");
-      }
-
-      const responseData = await response.json();
-      console.log("Seva added successfully:", responseData);
-      return responseData;
     } catch (error) {
       console.error("Error adding seva:", error.message);
-      throw error;
     }
   };
   const [selectedUser, setSelectedUser] = useState(null);
@@ -156,14 +172,12 @@ const SevaInfoAdd = () => {
       });
       console.log(formattedTime);
 
-
       if (Platform.OS === "android") {
         toggleTimePicker();
         // setTimeData(currentTime.toLocaleTimeString());
         // console.log(setTimeData);
       }
       setTimeData(formattedTime);
-     
     } else {
       toggleTimePicker();
     }
@@ -393,7 +407,7 @@ const SevaInfoAdd = () => {
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.addButton}>
-                  <Text style={styles.buttonText} onPress={saveData}>
+                  <Text style={styles.buttonText} onPress={addSevaHandler}>
                     Add
                   </Text>
                 </TouchableOpacity>
