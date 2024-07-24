@@ -10,14 +10,14 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-import { API_ENDPOINT } from "./global";
+import { API_ENDPOINT, user_id } from "./global";
 import { useNavigation } from "@react-navigation/native";
 // import UserHome from "./User/UserHome";
 // import HomeScreen from './User/UserHome'
 import { addUser, updateUser } from "./User/user_api";
 import { addAdmin } from "./Admin/admin_api";
 import { getAllSeva } from "./seva_api";
-import { useUser} from "./global";
+import { useUser } from "./global";
 
 // import AdminHome from "./Admin/AdminHome";
 
@@ -28,8 +28,8 @@ const Login = () => {
   const [error, SetError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState("user");
-  const [userId, setUserId] = useState("");
-  const { userData, setUserData } = useUser();
+  // const [userId, setUserId] = useState("");
+  const { userData, setUserData, userId, setUserId } = useUser();
   // const newuserdta = {
   //   fname: "dummy",
   //   lname: "data",
@@ -53,7 +53,6 @@ const Login = () => {
   // };
 
   var saveData = () => {
-
     if (!email) {
       alert("Kindle enter Email");
       return false;
@@ -89,10 +88,10 @@ const Login = () => {
       })
       .then((json) => {
         setLoading(false);
-        console.log("response : ",json);
+        console.log("response : ", json);
         // Check if user_id is available in the response
         if (json.user_id || json.admin_id) {
-          setUserId(json.user_id); // Store user_id in state variable
+          setUserId(json.user_id || json.admin_id); // Store user_id in state variable
           console.log("User authenticated successfully:", json);
           alert(`${type} logged in successfully`);
           // navigation.navigate(`${UserHome}`);

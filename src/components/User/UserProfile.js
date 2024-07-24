@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -6,27 +6,56 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useUser } from "../global";
-import EditProfileUser from "./EditProfileUser";
-
+import { API_ENDPOINT } from "../global"; // Add this line
 
 const UserProfile = () => {
   const navigation = useNavigation();
-  const { userData } = useUser();
+  const { userId, userData, setUserData } = useUser();
+  const [loading, setLoading] = useState(true);
+
+  // const userId = userData.id; // Assuming userId is stored in userData
+
+  const fetchUserData = (userId) => {
+    const apiUrl = `${API_ENDPOINT}/getuser/${userId}`;
+
+    fetch(apiUrl)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error("Failed to fetch user data");
+      })
+      .then((userData) => {
+        console.log("User data:", userData);
+        setUserData(userData);
+        setLoading(false); // Hide loader once data is fetched
+      })
+      .catch((err) => {
+        console.error("Error fetching user data:", err);
+        setLoading(false); // Hide loader if there's an error
+      });
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true);
+      fetchUserData(userId);
+    }, [userId])
+  );
 
   const goToHomePage = () => {
-    // Navigate to the profile page here
-    // You need to have a "Profile" screen defined in your navigation stack
     navigation.navigate("Home");
   };
+
   const goToEditProfileUser = () => {
-    // Navigate to the profile page here
-    // You need to have a "Profile" screen defined in your navigation stack
     navigation.navigate("EditProfileUser");
   };
+
   const goToLoginPage = () => {
     navigation.navigate("Login");
     navigation.reset({
@@ -34,6 +63,14 @@ const UserProfile = () => {
       routes: [{ name: "Login" }],
     });
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#003e6d" />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView>
@@ -113,9 +150,8 @@ const UserProfile = () => {
               gap: 5,
               flexDirection: "row",
               borderRadius: 30,
-              marginTop:40,
-              marginBottom:30
-
+              marginTop: 40,
+              marginBottom: 30,
             }}
             onPress={goToEditProfileUser}
           >
@@ -458,7 +494,13 @@ const UserProfile = () => {
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   signOutBtn: {
     width: "80%",
     borderRadius: 25,
@@ -466,11 +508,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    backgroundColor: "#003e6d", // Orange color
+    backgroundColor: "#003e6d",
   },
   signOutText: {
     color: "#ffffff",
     fontSize: 18,
   },
 });
+
 export default UserProfile;

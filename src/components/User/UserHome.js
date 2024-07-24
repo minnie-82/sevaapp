@@ -29,7 +29,7 @@ import Myseva from "./MySeva";
 import AdminHome from "../Admin/AdminHome";
 import SevaCard from "./SevaCard";
 import UserSevaDetails from "./UserSevaDetails";
-import { UserProvider } from "../global";
+import { UserProvider, useUser } from "../global";
 import EditProfileUser from "./EditProfileUser";
 const Drawer = createDrawerNavigator();
 const RootStack = createStackNavigator();
@@ -82,7 +82,6 @@ const CustomDrawerContent = (props) => {
 };
 
 const UserHome = () => {
-
   return (
     // <NavigationContainer>
     <Drawer.Navigator
@@ -175,6 +174,7 @@ const UserHome = () => {
 };
 
 const HomeScreen = ({ navigation }) => {
+  const { userData } = useUser();
   const goToProfilePage = () => {
     navigation.navigate("UserProfile");
   };
@@ -193,17 +193,17 @@ const HomeScreen = ({ navigation }) => {
   const displayActiveSevaTab = () => {
     switch (activeTab) {
       case "Upcoming":
-        return <SevaCard></SevaCard>
+        return <SevaCard></SevaCard>;
       case "Ongoing":
-        return <SevaCard></SevaCard>
+        return <SevaCard></SevaCard>;
       case "Completed":
-        return <SevaCard></SevaCard>
+        return <SevaCard></SevaCard>;
       default:
         break;
     }
   };
   return (
-    <SafeAreaView style={{ flex:1,backgroundColor: "white" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView keyboardShouldPersistTaps="handled">
         <View>
           <View
@@ -261,7 +261,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ width: "100%" }}>
             <Text style={styles.userName}>Jai Swaminarayan</Text>
-            <Text style={styles.welcomeMessage}>Manthanbhai</Text>
+            <Text style={styles.welcomeMessage}>{userData?.first_name}</Text>
           </View>
 
           <View style={styles.tabContainer}>
@@ -281,7 +281,6 @@ const HomeScreen = ({ navigation }) => {
             ></FlatList>
           </View>
           {displayActiveSevaTab()}
-         
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -342,7 +341,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 5.84,
-    
   }),
   btnText: (name, activeTab) => ({
     fontSize: 12,
